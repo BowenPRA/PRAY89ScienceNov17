@@ -1,0 +1,528 @@
+<!DOCTYPE html><html lang="en"><head><meta name="x-poe-datastore-behavior" content="local_only"><meta http-equiv="Content-Security-Policy" content="default-src 'self' 'unsafe-inline' 'unsafe-eval' data: blob: https://cdnjs.cloudflare.com https://cdn.jsdelivr.net https://code.jquery.com https://unpkg.com https://d3js.org https://threejs.org https://cdn.plot.ly https://stackpath.bootstrapcdn.com https://maps.googleapis.com https://cdn.tailwindcss.com https://ajax.googleapis.com https://kit.fontawesome.com https://cdn.datatables.net https://maxcdn.bootstrapcdn.com https://code.highcharts.com https://tako-static-assets-production.s3.amazonaws.com https://www.youtube.com https://fonts.googleapis.com https://fonts.gstatic.com https://pfst.cf2.poecdn.net https://puc.poecdn.net https://i.imgur.com https://wikimedia.org https://*.icons8.com https://*.giphy.com https://picsum.photos https://images.unsplash.com; frame-src 'self' https://www.youtube.com https://trytako.com; child-src 'self'; manifest-src 'self'; worker-src 'self'; upgrade-insecure-requests; block-all-mixed-content;">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BowenPRA's Lesson Plans</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&amp;display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary: #6366F1;
+      --purple: #8B5CF6;
+      --orange: #F97316;
+      --success: #10B981;
+      --warning: #F59E0B;
+      --danger: #EF4444;
+      --gray-50: #F9FAFB;
+      --gray-100: #F3F4F6;
+      --gray-200: #E5E7EB;
+      --gray-300: #D1D5DB;
+      --gray-600: #4B5563;
+      --gray-700: #374151;
+      --gray-800: #1F2937;
+      --gray-900: #111827;
+      --gradient-purple: linear-gradient(135deg, #8B5CF6 0%, #6D28D9 100%);
+      --gradient-orange: linear-gradient(135deg, #F97316 0%, #EA580C 100%);
+      --gradient-primary: linear-gradient(135deg, #667EEA 0%, #764BA2 100%);
+      --shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.1);
+      --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--gradient-primary);
+      color: var(--gray-900);
+      min-height: 100vh;
+      padding: 2rem;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .header {
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(10px);
+      padding: 3rem;
+      border-radius: 1.5rem;
+      box-shadow: var(--shadow-xl);
+      margin-bottom: 3rem;
+      text-align: center;
+    }
+
+    .site-title {
+      font-size: 4rem;
+      font-weight: 900;
+      background: var(--gradient-primary);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      margin-bottom: 1rem;
+      line-height: 1.1;
+    }
+
+    .site-subtitle {
+      font-size: 1.8rem;
+      font-weight: 600;
+      color: var(--gray-600);
+      margin-bottom: 0.5rem;
+    }
+
+    .site-description {
+      font-size: 1.3rem;
+      color: var(--gray-700);
+      font-weight: 500;
+      max-width: 700px;
+      margin: 0 auto;
+    }
+
+    .stats-container {
+      display: flex;
+      gap: 1.5rem;
+      justify-content: center;
+      margin-top: 2rem;
+    }
+
+    .stat-box {
+      background: white;
+      padding: 1.5rem 2.5rem;
+      border-radius: 1rem;
+      box-shadow: var(--shadow-lg);
+      border-top: 4px solid var(--primary);
+    }
+
+    .stat-number {
+      font-size: 3rem;
+      font-weight: 900;
+      background: var(--gradient-primary);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      line-height: 1;
+      margin-bottom: 0.5rem;
+    }
+
+    .stat-label {
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: var(--gray-600);
+    }
+
+    .search-container {
+      background: white;
+      padding: 2rem;
+      border-radius: 1rem;
+      box-shadow: var(--shadow-lg);
+      margin-bottom: 2rem;
+    }
+
+    .search-input {
+      width: 100%;
+      padding: 1rem 1.5rem;
+      font-size: 1.2rem;
+      border: 2px solid var(--gray-300);
+      border-radius: 0.75rem;
+      font-family: 'Inter', sans-serif;
+      transition: all 0.3s ease;
+    }
+
+    .search-input:focus {
+      outline: none;
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
+    }
+
+    .lessons-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+      gap: 2rem;
+      margin-bottom: 3rem;
+    }
+
+    .lesson-card {
+      background: white;
+      border-radius: 1rem;
+      box-shadow: var(--shadow-lg);
+      overflow: hidden;
+      transition: all 0.3s ease;
+      cursor: pointer;
+      text-decoration: none;
+      color: inherit;
+      display: block;
+    }
+
+    .lesson-card:hover {
+      transform: translateY(-8px);
+      box-shadow: var(--shadow-xl);
+    }
+
+    .lesson-header {
+      padding: 2rem;
+      background: var(--gradient-primary);
+      color: white;
+    }
+
+    .lesson-title {
+      font-size: 1.6rem;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+      line-height: 1.3;
+    }
+
+    .lesson-meta {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+      font-size: 0.95rem;
+      opacity: 0.95;
+      font-weight: 500;
+    }
+
+    .lesson-body {
+      padding: 1.5rem 2rem 2rem;
+    }
+
+    .lesson-description {
+      font-size: 1.1rem;
+      color: var(--gray-700);
+      font-weight: 500;
+      line-height: 1.6;
+      margin-bottom: 1.5rem;
+    }
+
+    .lesson-tags {
+      display: flex;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+    }
+
+    .tag {
+      padding: 0.5rem 1rem;
+      background: var(--gray-100);
+      color: var(--gray-700);
+      border-radius: 9999px;
+      font-size: 0.9rem;
+      font-weight: 600;
+    }
+
+    .no-results {
+      text-align: center;
+      padding: 4rem 2rem;
+      background: white;
+      border-radius: 1rem;
+      box-shadow: var(--shadow-lg);
+    }
+
+    .no-results-title {
+      font-size: 2rem;
+      font-weight: 700;
+      color: var(--gray-700);
+      margin-bottom: 1rem;
+    }
+
+    .no-results-text {
+      font-size: 1.2rem;
+      color: var(--gray-600);
+      font-weight: 500;
+    }
+
+    .loading {
+      text-align: center;
+      padding: 4rem 2rem;
+      background: white;
+      border-radius: 1rem;
+      box-shadow: var(--shadow-lg);
+    }
+
+    .loading-spinner {
+      width: 60px;
+      height: 60px;
+      border: 4px solid var(--gray-200);
+      border-top-color: var(--primary);
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+      margin: 0 auto 1.5rem;
+    }
+
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+
+    .loading-text {
+      font-size: 1.3rem;
+      font-weight: 600;
+      color: var(--gray-700);
+    }
+
+    .footer {
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(10px);
+      padding: 2rem;
+      border-radius: 1rem;
+      box-shadow: var(--shadow-lg);
+      text-align: center;
+    }
+
+    .footer-text {
+      font-size: 1.1rem;
+      color: var(--gray-700);
+      font-weight: 500;
+    }
+
+    .footer-link {
+      color: var(--primary);
+      text-decoration: none;
+      font-weight: 700;
+      transition: opacity 0.3s ease;
+    }
+
+    .footer-link:hover {
+      opacity: 0.8;
+    }
+
+    @media (max-width: 768px) {
+      body {
+        padding: 1rem;
+      }
+
+      .site-title {
+        font-size: 2.5rem;
+      }
+
+      .site-subtitle {
+        font-size: 1.4rem;
+      }
+
+      .site-description {
+        font-size: 1.1rem;
+      }
+
+      .stats-container {
+        flex-direction: column;
+        gap: 1rem;
+      }
+
+      .lessons-grid {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+      }
+
+      .lesson-title {
+        font-size: 1.4rem;
+      }
+    }
+  </style>
+<script src="https://puc.poecdn.net/authenticated_preview_page/syncedState.3f7572448765332f3047.js"></script></head>
+<body>
+
+<div class="container">
+  <div class="header">
+    <h1 class="site-title">BowenPRA's Lesson Plans</h1>
+    <p class="site-subtitle">Palm River Academy</p>
+    <p class="site-description">Interactive science and math lesson plans designed for engaging, inquiry-based learning</p>
+    
+    <div class="stats-container">
+      <div class="stat-box">
+        <div class="stat-number" id="lesson-count">0</div>
+        <div class="stat-label">Lessons</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="search-container">
+    <input type="text" class="search-input" id="search-input" placeholder="Search lessons by title, subject, or topic...">
+  </div>
+
+  <div id="lessons-container">
+    <div class="loading">
+      <div class="loading-spinner"></div>
+      <p class="loading-text">Loading lessons...</p>
+    </div>
+  </div>
+
+  <div class="footer">
+    <p class="footer-text">
+      View this repository on <a href="https://github.com/BowenPRA/Lessons" class="footer-link" target="_blank">GitHub</a>
+    </p>
+  </div>
+</div>
+
+<script>
+  const GITHUB_API = 'https://api.github.com/repos/BowenPRA/Lessons/contents';
+  const GITHUB_PAGES_BASE = 'https://bowenpra.github.io/Lessons/';
+  
+  let allLessons = [];
+
+  async function fetchLessons() {
+    try {
+      const response = await fetch(GITHUB_API);
+      if (!response.ok) throw new Error('Failed to fetch lessons');
+      
+      const files = await response.json();
+      const htmlFiles = files.filter(file => 
+        file.name.endsWith('.html') && file.name.toLowerCase() !== 'index.html'
+      );
+
+      allLessons = await Promise.all(htmlFiles.map(async file => {
+        try {
+          const contentResponse = await fetch(file.download_url);
+          const htmlContent = await contentResponse.text();
+          
+          const parser = new DOMParser();
+          const doc = parser.parseFromString(htmlContent, 'text/html');
+          
+          const title = doc.querySelector('title')?.textContent || 
+                       doc.querySelector('h1')?.textContent || 
+                       file.name.replace('.html', '').replace(/-/g, ' ');
+          
+          const metaDescription = doc.querySelector('meta[name="description"]')?.content || '';
+          
+          const lessonDate = doc.querySelector('.lesson-date')?.textContent || '';
+          const classInfo = doc.querySelector('.class-info')?.textContent || '';
+          
+          let description = metaDescription;
+          if (!description) {
+            const objective = doc.querySelector('.objective-box .box-content')?.textContent || 
+                            doc.querySelector('.box-content')?.textContent || '';
+            description = objective;
+          }
+          
+          const tags = [];
+          if (title.toLowerCase().includes('science')) tags.push('Science');
+          if (title.toLowerCase().includes('math')) tags.push('Math');
+          if (title.toLowerCase().includes('year') || title.toLowerCase().includes('y8') || title.toLowerCase().includes('y9')) {
+            const yearMatch = title.match(/Y(\d+)|Year (\d+)/i);
+            if (yearMatch) tags.push(`Year ${yearMatch[1] || yearMatch[2]}`);
+          }
+          if (title.toLowerCase().includes('hypothesis') || title.toLowerCase().includes('hypotheses')) tags.push('Scientific Method');
+          if (title.toLowerCase().includes('bullying')) tags.push('Social Studies');
+          
+          return {
+            filename: file.name,
+            url: GITHUB_PAGES_BASE + file.name,
+            title: title,
+            description: description,
+            date: lessonDate,
+            classInfo: classInfo,
+            tags: tags
+          };
+        } catch (error) {
+          console.error(`Error parsing ${file.name}:`, error);
+          return {
+            filename: file.name,
+            url: GITHUB_PAGES_BASE + file.name,
+            title: file.name.replace('.html', '').replace(/-/g, ' '),
+            description: '',
+            date: '',
+            classInfo: '',
+            tags: []
+          };
+        }
+      }));
+
+      allLessons.sort((a, b) => {
+        if (a.date && b.date) return b.date.localeCompare(a.date);
+        return a.title.localeCompare(b.title);
+      });
+
+      displayLessons(allLessons);
+      updateStats(allLessons.length);
+    } catch (error) {
+      console.error('Error fetching lessons:', error);
+      document.getElementById('lessons-container').innerHTML = `
+        <div class="no-results">
+          <h2 class="no-results-title">Unable to load lessons</h2>
+          <p class="no-results-text">Please check your connection and try again</p>
+        </div>
+      `;
+    }
+  }
+
+  function displayLessons(lessons) {
+    const container = document.getElementById('lessons-container');
+    
+    if (lessons.length === 0) {
+      container.innerHTML = `
+        <div class="no-results">
+          <h2 class="no-results-title">No lessons found</h2>
+          <p class="no-results-text">Try adjusting your search terms</p>
+        </div>
+      `;
+      return;
+    }
+
+    const grid = document.createElement('div');
+    grid.className = 'lessons-grid';
+
+    lessons.forEach(lesson => {
+      const card = document.createElement('a');
+      card.className = 'lesson-card';
+      card.href = lesson.url;
+
+      const headerGradients = [
+        'var(--gradient-primary)',
+        'var(--gradient-purple)',
+        'var(--gradient-orange)'
+      ];
+      const gradient = headerGradients[Math.floor(Math.random() * headerGradients.length)];
+
+      const metaParts = [];
+      if (lesson.classInfo) metaParts.push(lesson.classInfo);
+      if (lesson.date) metaParts.push(lesson.date);
+      const metaText = metaParts.join(' • ');
+
+      card.innerHTML = `
+        <div class="lesson-header" style="background: ${gradient}">
+          <h2 class="lesson-title">${lesson.title}</h2>
+          ${metaText ? `<div class="lesson-meta">${metaText}</div>` : ''}
+        </div>
+        <div class="lesson-body">
+          ${lesson.description ? `<p class="lesson-description">${lesson.description}</p>` : ''}
+          ${lesson.tags.length > 0 ? `
+            <div class="lesson-tags">
+              ${lesson.tags.map(tag => `<span class="tag">${tag}</span>`).join('')}
+            </div>
+          ` : ''}
+        </div>
+      `;
+
+      grid.appendChild(card);
+    });
+
+    container.innerHTML = '';
+    container.appendChild(grid);
+  }
+
+  function updateStats(count) {
+    document.getElementById('lesson-count').textContent = count;
+  }
+
+  function handleSearch(event) {
+    const searchTerm = event.target.value.toLowerCase();
+    
+    if (!searchTerm) {
+      displayLessons(allLessons);
+      return;
+    }
+
+    const filtered = allLessons.filter(lesson => 
+      lesson.title.toLowerCase().includes(searchTerm) ||
+      lesson.description.toLowerCase().includes(searchTerm) ||
+      lesson.tags.some(tag => tag.toLowerCase().includes(searchTerm)) ||
+      lesson.classInfo.toLowerCase().includes(searchTerm)
+    );
+
+    displayLessons(filtered);
+  }
+
+  document.getElementById('search-input').addEventListener('input', handleSearch);
+
+  fetchLessons();
+</script>
+
+
+
+</body></html>
