@@ -1,0 +1,1398 @@
+<!DOCTYPE html><html lang="en"><head><meta name="x-poe-datastore-behavior" content="local_only"><meta http-equiv="Content-Security-Policy" content="default-src 'self' 'unsafe-inline' 'unsafe-eval' data: blob: https://cdnjs.cloudflare.com https://cdn.jsdelivr.net https://code.jquery.com https://unpkg.com https://d3js.org https://threejs.org https://cdn.plot.ly https://stackpath.bootstrapcdn.com https://maps.googleapis.com https://cdn.tailwindcss.com https://ajax.googleapis.com https://kit.fontawesome.com https://cdn.datatables.net https://maxcdn.bootstrapcdn.com https://code.highcharts.com https://tako-static-assets-production.s3.amazonaws.com https://www.youtube.com https://fonts.googleapis.com https://fonts.gstatic.com https://pfst.cf2.poecdn.net https://puc.poecdn.net https://i.imgur.com https://wikimedia.org https://*.icons8.com https://*.giphy.com https://picsum.photos https://images.unsplash.com; frame-src 'self' https://www.youtube.com https://trytako.com; child-src 'self'; manifest-src 'self'; worker-src 'self'; upgrade-insecure-requests; block-all-mixed-content;">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fraction Addition Master - Year 8 Mathematics</title>
+    <meta name="description" content="Interactive game for mastering fraction addition with LCD">
+    <meta name="subject" content="Mathematics">
+    <meta name="year" content="Year 8">
+    <meta name="unit" content="Fractions">
+    <meta name="type" content="game">
+    <meta name="date" content="November 11, 2025">
+    <meta name="tags" content="Fractions, Addition, LCD, Simplification, Game">
+    
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&amp;display=swap" rel="stylesheet">
+    
+  <style>
+    :root {
+      --primary: #6366F1;
+      --purple: #8B5CF6;
+      --orange: #F97316;
+      --success: #10B981;
+      --warning: #F59E0B;
+      --danger: #EF4444;
+      --gray-50: #F9FAFB;
+      --gray-100: #F3F4F6;
+      --gray-200: #E5E7EB;
+      --gray-400: #9CA3AF;
+      --gray-600: #4B5563;
+      --gray-700: #374151;
+      --gray-800: #1F2937;
+      --gray-900: #111827;
+      --gradient-purple: linear-gradient(135deg, #8B5CF6 0%, #6D28D9 100%);
+      --gradient-orange: linear-gradient(135deg, #F97316 0%, #EA580C 100%);
+      --gradient-primary: linear-gradient(135deg, #667EEA 0%, #764BA2 100%);
+      --gradient-success: linear-gradient(135deg, #10B981 0%, #059669 100%);
+      --shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.1);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--gradient-primary);
+      color: var(--gray-900);
+      overflow-x: hidden;
+      min-height: 100vh;
+    }
+
+    .app-container {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* Header */
+    .header {
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(10px);
+      padding: 1rem 2rem;
+      box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1);
+    }
+
+    .header-content {
+      max-width: 1400px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .header-left {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .game-badge {
+      background: var(--gradient-success);
+      color: white;
+      padding: 0.5rem 1rem;
+      border-radius: 9999px;
+      font-weight: 700;
+      font-size: 1rem;
+      white-space: nowrap;
+    }
+
+    .game-title {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--gray-800);
+    }
+
+    .home-btn {
+      padding: 0.6rem 1.2rem;
+      background: var(--gray-700);
+      color: white;
+      border: none;
+      border-radius: 0.5rem;
+      font-weight: 700;
+      font-size: 0.9rem;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      white-space: nowrap;
+    }
+
+    .home-btn:hover {
+      background: var(--gray-800);
+      transform: translateY(-2px);
+    }
+
+    .score-display {
+      display: flex;
+      gap: 2rem;
+      align-items: center;
+    }
+
+    .score-item {
+      text-align: center;
+    }
+
+    .score-label {
+      font-size: 0.9rem;
+      color: var(--gray-700);
+      font-weight: 600;
+    }
+
+    .score-value {
+      font-size: 1.8rem;
+      font-weight: 800;
+      color: var(--primary);
+    }
+
+    .streak-value {
+      font-size: 1.8rem;
+      font-weight: 800;
+      color: var(--orange);
+    }
+
+    /* Main Content */
+    .content-wrapper {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 2rem;
+    }
+
+    .game-container {
+      background: white;
+      border-radius: 1.5rem;
+      box-shadow: var(--shadow-xl);
+      width: 100%;
+      max-width: 1000px;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* Menu Screen */
+    .menu-screen {
+      padding: 3rem;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .menu-title {
+      font-size: 3.5rem;
+      font-weight: 900;
+      background: var(--gradient-primary);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      margin-bottom: 1rem;
+    }
+
+    .menu-subtitle {
+      font-size: 1.6rem;
+      color: var(--gray-700);
+      margin-bottom: 3rem;
+    }
+
+    .difficulty-buttons {
+      display: flex;
+      gap: 2rem;
+      justify-content: center;
+      margin-bottom: 3rem;
+      flex-wrap: wrap;
+    }
+
+    .difficulty-btn {
+      padding: 2rem 3rem;
+      border: none;
+      border-radius: 1rem;
+      font-size: 1.8rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      box-shadow: var(--shadow-xl);
+      color: white;
+      min-width: 180px;
+    }
+
+    .difficulty-btn:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 25px 30px -5px rgb(0 0 0 / 0.2);
+    }
+
+    .easy-btn {
+      background: var(--gradient-success);
+    }
+
+    .medium-btn {
+      background: var(--gradient-orange);
+    }
+
+    .hard-btn {
+      background: var(--gradient-purple);
+    }
+
+    .difficulty-info {
+      max-width: 900px;
+      text-align: left;
+      margin-top: 2rem;
+    }
+
+    .info-item {
+      background: var(--gray-50);
+      padding: 1rem 1.5rem;
+      border-radius: 0.5rem;
+      margin-bottom: 1rem;
+      border-left: 4px solid var(--primary);
+    }
+
+    .info-title {
+      font-size: 1.3rem;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+    }
+
+    .info-desc {
+      font-size: 1.1rem;
+      color: var(--gray-700);
+    }
+
+    /* Game Screen */
+    .game-screen {
+      padding: 2rem 3rem;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .difficulty-badge {
+      display: inline-block;
+      padding: 0.5rem 1.5rem;
+      border-radius: 9999px;
+      font-weight: 700;
+      font-size: 1.2rem;
+      margin-bottom: 1.5rem;
+      color: white;
+    }
+
+    .problem-display {
+      background: linear-gradient(135deg, #F0F9FF 0%, #E0F2FE 100%);
+      border: 3px solid var(--primary);
+      padding: 2rem;
+      border-radius: 1.5rem;
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+
+    .fraction-problem {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 2rem;
+      margin: 1rem 0;
+      flex-wrap: wrap;
+    }
+
+    .fraction {
+      display: inline-flex;
+      flex-direction: column;
+      align-items: center;
+      font-size: 2.5rem;
+      font-weight: 700;
+      color: var(--primary);
+    }
+
+    .numerator {
+      padding-bottom: 0.3rem;
+    }
+
+    .fraction-line {
+      width: 100%;
+      height: 3px;
+      background: var(--gray-800);
+      margin: 0.2rem 0;
+    }
+
+    .denominator {
+      padding-top: 0.3rem;
+    }
+
+    .operator {
+      font-size: 3rem;
+      font-weight: 700;
+      color: var(--gray-700);
+    }
+
+    /* Streamlined Step Container */
+    .current-step-container {
+      background: white;
+      border-radius: 1rem;
+      padding: 2rem;
+      margin-bottom: 2rem;
+      min-height: 280px;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .step-header {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      margin-bottom: 1.5rem;
+      padding-bottom: 1rem;
+      border-bottom: 2px solid var(--gray-200);
+    }
+
+    .step-number {
+      background: var(--primary);
+      color: white;
+      width: 3rem;
+      height: 3rem;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 1.5rem;
+      flex-shrink: 0;
+    }
+
+    .step-number.completed {
+      background: var(--success);
+    }
+
+    .step-title {
+      font-size: 1.6rem;
+      font-weight: 700;
+      color: var(--gray-800);
+    }
+
+    .step-content {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .step-question {
+      font-size: 1.3rem;
+      color: var(--gray-700);
+      margin-bottom: 1.5rem;
+      font-weight: 600;
+    }
+
+    .input-section {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 1.5rem;
+      margin: 1.5rem 0;
+      flex-wrap: wrap;
+    }
+
+    .step-input {
+      font-size: 2rem;
+      padding: 1rem 1.5rem;
+      border: 3px solid var(--primary);
+      border-radius: 0.75rem;
+      text-align: center;
+      width: 120px;
+      font-weight: 700;
+      font-family: 'Inter', sans-serif;
+    }
+
+    .step-input:focus {
+      outline: none;
+      border-color: var(--purple);
+      box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.2);
+    }
+
+    .step-input.correct {
+      border-color: var(--success);
+      background: #D1FAE5;
+    }
+
+    .step-input.incorrect {
+      border-color: var(--danger);
+      background: #FEE2E2;
+    }
+
+    .step-input:read-only {
+      background: var(--gray-100);
+      border-color: var(--gray-400);
+      color: var(--gray-600);
+    }
+
+    .input-label {
+      font-size: 1.5rem;
+      font-weight: 600;
+      color: var(--gray-700);
+    }
+
+    .fraction-input-display {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .fraction-visual {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .action-buttons {
+      display: flex;
+      gap: 1rem;
+      justify-content: center;
+      margin-top: 1.5rem;
+      flex-wrap: wrap;
+    }
+
+    .check-btn {
+      padding: 1rem 3rem;
+      background: var(--gradient-primary);
+      color: white;
+      border: none;
+      border-radius: 0.75rem;
+      font-size: 1.3rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1);
+    }
+
+    .check-btn:hover:not(:disabled) {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1);
+    }
+
+    .check-btn:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+
+    .no-simplify-btn {
+      padding: 1rem 2rem;
+      background: var(--gradient-orange);
+      color: white;
+      border: none;
+      border-radius: 0.75rem;
+      font-size: 1.2rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1);
+    }
+
+    .no-simplify-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1);
+    }
+
+    .step-feedback {
+      margin-top: 1.5rem;
+      padding: 1.2rem;
+      border-radius: 0.75rem;
+      font-weight: 600;
+      font-size: 1.1rem;
+      text-align: center;
+    }
+
+    .step-feedback.correct {
+      background: #D1FAE5;
+      color: #065F46;
+      border: 2px solid var(--success);
+    }
+
+    .step-feedback.incorrect {
+      background: #FEE2E2;
+      color: #991B1B;
+      border: 2px solid var(--danger);
+    }
+
+    .hint-box {
+      background: #FEF3C7;
+      border-left: 4px solid var(--warning);
+      padding: 1rem 1.2rem;
+      margin-top: 1rem;
+      border-radius: 0.5rem;
+    }
+
+    .hint-title {
+      font-weight: 700;
+      color: var(--gray-800);
+      margin-bottom: 0.5rem;
+      font-size: 1.1rem;
+    }
+
+    .hint-text {
+      color: var(--gray-700);
+      font-size: 1rem;
+    }
+
+    /* Progress Indicators */
+    .progress-bar {
+      display: flex;
+      gap: 0.5rem;
+      justify-content: center;
+      margin-bottom: 2rem;
+    }
+
+    .progress-dot {
+      width: 50px;
+      height: 8px;
+      background: var(--gray-300);
+      border-radius: 10px;
+      transition: all 0.3s ease;
+    }
+
+    .progress-dot.completed {
+      background: var(--success);
+    }
+
+    .progress-dot.active {
+      background: var(--primary);
+      width: 70px;
+    }
+
+    .next-question-btn {
+      padding: 1.2rem 3rem;
+      background: var(--gradient-success);
+      color: white;
+      border: none;
+      border-radius: 1rem;
+      font-size: 1.5rem;
+      font-weight: 700;
+      cursor: pointer;
+      margin-top: 1rem;
+      transition: all 0.3s ease;
+      box-shadow: var(--shadow-xl);
+      align-self: center;
+    }
+
+    .next-question-btn:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 25px 30px -5px rgb(0 0 0 / 0.2);
+    }
+
+    .completion-message {
+      background: var(--gradient-success);
+      color: white;
+      padding: 2rem;
+      border-radius: 1rem;
+      text-align: center;
+      margin-top: 1rem;
+    }
+
+    .completion-title {
+      font-size: 2.5rem;
+      font-weight: 800;
+      margin-bottom: 1rem;
+    }
+
+    .completion-text {
+      font-size: 1.4rem;
+      font-weight: 600;
+    }
+
+    /* Help Modal */
+    .help-toggle {
+      position: fixed;
+      bottom: 2rem;
+      right: 2rem;
+      padding: 1rem 2rem;
+      background: var(--gradient-purple);
+      color: white;
+      border: none;
+      border-radius: 9999px;
+      font-size: 1.2rem;
+      font-weight: 700;
+      cursor: pointer;
+      box-shadow: var(--shadow-xl);
+      z-index: 1000;
+      transition: all 0.3s ease;
+    }
+
+    .help-toggle:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 25px 30px -5px rgb(0 0 0 / 0.2);
+    }
+
+    .help-modal {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.8);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 2000;
+      padding: 2rem;
+    }
+
+    .help-modal.active {
+      display: flex;
+    }
+
+    .help-content {
+      background: white;
+      padding: 2rem;
+      border-radius: 1rem;
+      max-width: 800px;
+      max-height: 90vh;
+      overflow-y: auto;
+      width: 100%;
+    }
+
+    .help-content h2 {
+      text-align: center;
+      margin-bottom: 1.5rem;
+      font-size: 2rem;
+    }
+
+    .help-section {
+      margin-bottom: 1.5rem;
+    }
+
+    .help-section h3 {
+      font-size: 1.4rem;
+      margin-bottom: 0.5rem;
+      color: var(--primary);
+    }
+
+    .help-section p {
+      font-size: 1.1rem;
+      line-height: 1.6;
+      color: var(--gray-700);
+    }
+
+    .example {
+      background: var(--gray-50);
+      padding: 1rem;
+      border-radius: 0.5rem;
+      margin: 1rem 0;
+      font-family: monospace;
+      font-size: 1.1rem;
+    }
+
+    .close-modal {
+      padding: 0.8rem 2rem;
+      background: var(--gray-800);
+      color: white;
+      border: none;
+      border-radius: 0.5rem;
+      font-weight: 700;
+      cursor: pointer;
+      margin-top: 1rem;
+      width: 100%;
+      font-size: 1.1rem;
+    }
+
+    .close-modal:hover {
+      background: var(--gray-700);
+    }
+
+    /* Animations */
+    .fade-in {
+      animation: fadeIn 0.5s ease-in-out;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .pulse {
+      animation: pulse 0.5s ease-in-out;
+    }
+
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.05); }
+    }
+
+    .shake {
+      animation: shake 0.5s ease-in-out;
+    }
+
+    @keyframes shake {
+      0%, 100% { transform: translateX(0); }
+      25% { transform: translateX(-10px); }
+      75% { transform: translateX(10px); }
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .menu-title { font-size: 2.5rem; }
+      .difficulty-buttons { 
+        flex-direction: column;
+        align-items: center;
+      }
+      .difficulty-btn {
+        width: 100%;
+        max-width: 300px;
+      }
+      .fraction-problem {
+        flex-direction: column;
+        gap: 1rem;
+      }
+      .fraction {
+        font-size: 2rem;
+      }
+      .game-title {
+        font-size: 1.2rem;
+      }
+      .score-display {
+        gap: 1rem;
+      }
+      .step-input {
+        width: 100px;
+        font-size: 1.5rem;
+      }
+      .input-section {
+        flex-direction: column;
+      }
+      .game-screen {
+        padding: 1.5rem;
+      }
+      .current-step-container {
+        padding: 1.5rem;
+        min-height: auto;
+      }
+      .header-content {
+        justify-content: center;
+      }
+      .header-left {
+        order: 2;
+        width: 100%;
+        justify-content: center;
+      }
+      .home-btn {
+        order: 1;
+      }
+      .score-display {
+        order: 3;
+        width: 100%;
+        justify-content: center;
+      }
+    }
+  </style>
+<script src="https://puc.poecdn.net/authenticated_preview_page/syncedState.3f7572448765332f3047.js"></script></head>
+<body>
+
+<div class="app-container">
+  <!-- Header -->
+  <div class="header">
+    <div class="header-content">
+      <div class="header-left">
+        <span class="game-badge">Year 8 Game</span>
+        <div class="game-title">Fraction Addition Master</div>
+      </div>
+      <button class="home-btn" id="home-btn" onclick="goHome()" style="display: none;">
+        🏠 Back to Menu
+      </button>
+      <div class="score-display">
+        <div class="score-item">
+          <div class="score-label">Total Score</div>
+          <div class="score-value" id="total-score">0</div>
+        </div>
+        <div class="score-item">
+          <div class="score-label">🔥 Streak</div>
+          <div class="streak-value" id="streak">0</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Main Content -->
+  <div class="content-wrapper">
+    <div class="game-container">
+      <!-- Menu Screen -->
+      <div class="menu-screen" id="menu-screen">
+        <h1 class="menu-title">Fraction Addition Master</h1>
+        <p class="menu-subtitle">Master adding fractions step by step!</p>
+        
+        <div class="difficulty-buttons">
+          <button class="difficulty-btn easy-btn" onclick="startGame('easy')">
+            🌱 Easy
+          </button>
+          <button class="difficulty-btn medium-btn" onclick="startGame('medium')">
+            🔥 Medium
+          </button>
+          <button class="difficulty-btn hard-btn" onclick="startGame('hard')">
+            ⚡ Hard
+          </button>
+        </div>
+
+        <div class="difficulty-info">
+          <div class="info-item">
+            <div class="info-title">🌱 Easy Mode</div>
+            <div class="info-desc">Simple denominators (2-12) with common factors. Starts with fractions already in simplest form. Example: 1/4 + 1/2</div>
+          </div>
+          <div class="info-item">
+            <div class="info-title">🔥 Medium Mode</div>
+            <div class="info-desc">Larger denominators (2-20) that may require more work. Example: 2/5 + 3/8</div>
+          </div>
+          <div class="info-item">
+            <div class="info-title">⚡ Hard Mode</div>
+            <div class="info-desc">Complex denominators (2-30) and larger numerators. Example: 5/12 + 7/18</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Game Screen -->
+      <div class="game-screen" id="game-screen" style="display: none;">
+        <div style="text-align: center;">
+          <span class="difficulty-badge" id="difficulty-display"></span>
+        </div>
+
+        <div class="problem-display">
+          <div class="fraction-problem" id="fraction-problem"></div>
+        </div>
+
+        <!-- Progress Bar -->
+        <div class="progress-bar">
+          <div class="progress-dot" id="progress-1"></div>
+          <div class="progress-dot" id="progress-2"></div>
+          <div class="progress-dot" id="progress-3"></div>
+          <div class="progress-dot" id="progress-4"></div>
+        </div>
+
+        <!-- Current Step Display -->
+        <div class="current-step-container fade-in" id="step-container"></div>
+
+        <button class="next-question-btn" id="next-btn" style="display: none;" onclick="generateQuestion()">
+          Next Question ➡️
+        </button>
+
+        <div id="completion-area"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Help Button -->
+  <button class="help-toggle" onclick="toggleHelp()">📚 How to Add Fractions</button>
+
+  <!-- Help Modal -->
+  <div class="help-modal" id="help-modal" onclick="toggleHelp()">
+    <div class="help-content" onclick="event.stopPropagation()">
+      <h2>How to Add Fractions</h2>
+      
+      <div class="help-section">
+        <h3>Step 1: Find the LCD (Lowest Common Denominator)</h3>
+        <p>Find the smallest number that both denominators can divide into evenly.</p>
+        <div class="example">Example: For 1/4 + 1/6<br>Multiples of 4: 4, 8, 12, 16...<br>Multiples of 6: 6, 12, 18...<br>LCD = 12</div>
+      </div>
+
+      <div class="help-section">
+        <h3>Step 2: Rewrite Each Fraction</h3>
+        <p>Convert each fraction to an equivalent fraction with the LCD as the denominator.</p>
+        <div class="example">1/4 = ?/12 → Multiply top and bottom by 3 → 3/12<br>1/6 = ?/12 → Multiply top and bottom by 2 → 2/12</div>
+      </div>
+
+      <div class="help-section">
+        <h3>Step 3: Add the Numerators</h3>
+        <p>Add the numerators together, keeping the same denominator.</p>
+        <div class="example">3/12 + 2/12 = 5/12</div>
+      </div>
+
+      <div class="help-section">
+        <h3>Step 4: Simplify (if needed)</h3>
+        <p>Reduce the fraction to its simplest form by dividing both numerator and denominator by their GCD.</p>
+        <div class="example">6/12 = 1/2 (divide both by 6)</div>
+      </div>
+
+      <button class="close-modal" onclick="toggleHelp()">Close</button>
+    </div>
+  </div>
+</div>
+
+<script>
+  // Game state
+  let currentDifficulty = '';
+  let totalScore = 0;
+  let currentStreak = 0;
+  let currentQuestion = null;
+  let currentStep = 1;
+  let stepAttempts = [0, 0, 0, 0];
+  let questionsCompleted = 0;
+
+  // GCD function
+  function gcd(a, b) {
+    a = Math.abs(a);
+    b = Math.abs(b);
+    while (b !== 0) {
+      let temp = b;
+      b = a % b;
+      a = temp;
+    }
+    return a;
+  }
+
+  // LCM function
+  function lcm(a, b) {
+    return Math.abs(a * b) / gcd(a, b);
+  }
+
+  // Simplify fraction
+  function simplifyFraction(num, den) {
+    const divisor = gcd(num, den);
+    return {
+      numerator: num / divisor,
+      denominator: den / divisor
+    };
+  }
+
+  // Check if fraction is already simplified
+  function isSimplified(num, den) {
+    return gcd(num, den) === 1;
+  }
+
+  function goHome() {
+    if (confirm('Are you sure you want to return to the menu? Your current progress will be saved.')) {
+      document.getElementById('game-screen').style.display = 'none';
+      document.getElementById('menu-screen').style.display = 'flex';
+      document.getElementById('home-btn').style.display = 'none';
+    }
+  }
+
+  function startGame(difficulty) {
+    currentDifficulty = difficulty;
+    questionsCompleted = 0;
+    document.getElementById('menu-screen').style.display = 'none';
+    document.getElementById('game-screen').style.display = 'flex';
+    document.getElementById('home-btn').style.display = 'block';
+    
+    const badge = document.getElementById('difficulty-display');
+    if (difficulty === 'easy') {
+      badge.textContent = '🌱 Easy Mode';
+      badge.style.background = 'var(--gradient-success)';
+    } else if (difficulty === 'medium') {
+      badge.textContent = '🔥 Medium Mode';
+      badge.style.background = 'var(--gradient-orange)';
+    } else {
+      badge.textContent = '⚡ Hard Mode';
+      badge.style.background = 'var(--gradient-purple)';
+    }
+    
+    generateQuestion();
+  }
+
+  function generateQuestion() {
+    currentStep = 1;
+    stepAttempts = [0, 0, 0, 0];
+    document.getElementById('next-btn').style.display = 'none';
+    document.getElementById('completion-area').innerHTML = '';
+    
+    let num1, den1, num2, den2;
+    
+    // For the first 3 questions in any mode, generate fractions already in simplest form
+    const forceSimplified = questionsCompleted < 3;
+    
+    if (currentDifficulty === 'easy') {
+      do {
+        den1 = Math.floor(Math.random() * 11) + 2;
+        den2 = Math.floor(Math.random() * 11) + 2;
+        if (Math.random() > 0.5 && den1 === den2) {
+          den2 = den1 === 12 ? den1 - 1 : den1 + 1;
+        }
+        num1 = Math.floor(Math.random() * (den1 - 1)) + 1;
+        num2 = Math.floor(Math.random() * (den2 - 1)) + 1;
+      } while (forceSimplified && (!isSimplified(num1, den1) || !isSimplified(num2, den2)));
+      
+    } else if (currentDifficulty === 'medium') {
+      do {
+        den1 = Math.floor(Math.random() * 19) + 2;
+        den2 = Math.floor(Math.random() * 19) + 2;
+        num1 = Math.floor(Math.random() * (den1 - 1)) + 1;
+        num2 = Math.floor(Math.random() * (den2 - 1)) + 1;
+      } while (forceSimplified && (!isSimplified(num1, den1) || !isSimplified(num2, den2)));
+      
+    } else {
+      do {
+        den1 = Math.floor(Math.random() * 29) + 2;
+        den2 = Math.floor(Math.random() * 29) + 2;
+        num1 = Math.floor(Math.random() * Math.max(den1 - 1, 1)) + 1;
+        num2 = Math.floor(Math.random() * Math.max(den2 - 1, 1)) + 1;
+      } while (forceSimplified && (!isSimplified(num1, den1) || !isSimplified(num2, den2)));
+    }
+    
+    const lcd = lcm(den1, den2);
+    const newNum1 = num1 * (lcd / den1);
+    const newNum2 = num2 * (lcd / den2);
+    const sumNum = newNum1 + newNum2;
+    const simplified = simplifyFraction(sumNum, lcd);
+    
+    currentQuestion = {
+      num1, den1,
+      num2, den2,
+      lcd,
+      newNum1, newDen1: lcd,
+      newNum2, newDen2: lcd,
+      sumNum, sumDen: lcd,
+      finalNum: simplified.numerator,
+      finalDen: simplified.denominator,
+      needsSimplification: (sumNum !== simplified.numerator)
+    };
+    
+    displayQuestion();
+    updateProgressBar();
+    displayCurrentStep();
+  }
+
+  function displayQuestion() {
+    const display = document.getElementById('fraction-problem');
+    display.innerHTML = `
+      <div class="fraction">
+        <div class="numerator">${currentQuestion.num1}</div>
+        <div class="fraction-line"></div>
+        <div class="denominator">${currentQuestion.den1}</div>
+      </div>
+      <div class="operator">+</div>
+      <div class="fraction">
+        <div class="numerator">${currentQuestion.num2}</div>
+        <div class="fraction-line"></div>
+        <div class="denominator">${currentQuestion.den2}</div>
+      </div>
+      <div class="operator">=</div>
+      <div class="operator">?</div>
+    `;
+  }
+
+  function updateProgressBar() {
+    for (let i = 1; i <= 4; i++) {
+      const dot = document.getElementById(`progress-${i}`);
+      dot.classList.remove('active', 'completed');
+      if (i < currentStep) {
+        dot.classList.add('completed');
+      } else if (i === currentStep) {
+        dot.classList.add('active');
+      }
+    }
+  }
+
+  function displayCurrentStep() {
+    const container = document.getElementById('step-container');
+    
+    if (currentStep === 1) {
+      container.innerHTML = `
+        <div class="step-header">
+          <div class="step-number">1</div>
+          <div class="step-title">Find the LCD (Lowest Common Denominator)</div>
+        </div>
+        <div class="step-content">
+          <div class="step-question">What is the LCD of ${currentQuestion.den1} and ${currentQuestion.den2}?</div>
+          <div class="input-section">
+            <span class="input-label">LCD =</span>
+            <input type="number" class="step-input" id="lcd-input" min="1">
+          </div>
+          <div class="action-buttons">
+            <button class="check-btn" onclick="checkStep1()">Check Answer</button>
+          </div>
+          <div id="step-feedback"></div>
+        </div>
+      `;
+      setTimeout(() => document.getElementById('lcd-input')?.focus(), 100);
+      document.getElementById('lcd-input')?.addEventListener('keypress', (e) => {
+        if (e.key === 'Enter') checkStep1();
+      });
+      
+    } else if (currentStep === 2) {
+      container.innerHTML = `
+        <div class="step-header">
+          <div class="step-number completed">2</div>
+          <div class="step-title">Rewrite Each Fraction with LCD = ${currentQuestion.lcd}</div>
+        </div>
+        <div class="step-content">
+          <div class="step-question">Convert both fractions to have denominator ${currentQuestion.lcd}:</div>
+          
+          <div class="input-section">
+            <span class="input-label">${currentQuestion.num1}/${currentQuestion.den1} =</span>
+            <div class="fraction-input-display">
+              <input type="number" class="step-input" id="new-num1" min="0">
+              <div style="height: 3px; width: 100px; background: var(--gray-800);"></div>
+              <input type="number" class="step-input" value="${currentQuestion.lcd}" readonly>
+            </div>
+          </div>
+
+          <div class="input-section">
+            <span class="input-label">${currentQuestion.num2}/${currentQuestion.den2} =</span>
+            <div class="fraction-input-display">
+              <input type="number" class="step-input" id="new-num2" min="0">
+              <div style="height: 3px; width: 100px; background: var(--gray-800);"></div>
+              <input type="number" class="step-input" value="${currentQuestion.lcd}" readonly>
+            </div>
+          </div>
+
+          <div class="action-buttons">
+            <button class="check-btn" onclick="checkStep2()">Check Answers</button>
+          </div>
+          <div id="step-feedback"></div>
+        </div>
+      `;
+      setTimeout(() => document.getElementById('new-num1')?.focus(), 100);
+      document.getElementById('new-num1')?.addEventListener('keypress', (e) => {
+        if (e.key === 'Enter') document.getElementById('new-num2')?.focus();
+      });
+      document.getElementById('new-num2')?.addEventListener('keypress', (e) => {
+        if (e.key === 'Enter') checkStep2();
+      });
+      
+    } else if (currentStep === 3) {
+      container.innerHTML = `
+        <div class="step-header">
+          <div class="step-number completed">3</div>
+          <div class="step-title">Add the Numerators</div>
+        </div>
+        <div class="step-content">
+          <div class="step-question">Add: ${currentQuestion.newNum1}/${currentQuestion.lcd} + ${currentQuestion.newNum2}/${currentQuestion.lcd} = ?</div>
+          <div class="input-section">
+            <div class="fraction-input-display">
+              <input type="number" class="step-input" id="sum-num" min="0">
+              <div style="height: 3px; width: 100px; background: var(--gray-800);"></div>
+              <input type="number" class="step-input" value="${currentQuestion.lcd}" readonly>
+            </div>
+          </div>
+          <div class="action-buttons">
+            <button class="check-btn" onclick="checkStep3()">Check Answer</button>
+          </div>
+          <div id="step-feedback"></div>
+        </div>
+      `;
+      setTimeout(() => document.getElementById('sum-num')?.focus(), 100);
+      document.getElementById('sum-num')?.addEventListener('keypress', (e) => {
+        if (e.key === 'Enter') checkStep3();
+      });
+      
+    } else if (currentStep === 4) {
+      container.innerHTML = `
+        <div class="step-header">
+          <div class="step-number completed">4</div>
+          <div class="step-title">Simplify (if needed)</div>
+        </div>
+        <div class="step-content">
+          <div class="step-question">Simplify ${currentQuestion.sumNum}/${currentQuestion.sumDen} to lowest terms:</div>
+          <div class="input-section">
+            <div class="fraction-input-display">
+              <input type="number" class="step-input" id="final-num" min="0">
+              <div style="height: 3px; width: 100px; background: var(--gray-800);"></div>
+              <input type="number" class="step-input" id="final-den" min="1">
+            </div>
+          </div>
+          <div class="action-buttons">
+            <button class="check-btn" onclick="checkStep4()">Check Answer</button>
+            <button class="no-simplify-btn" onclick="noSimplificationNeeded()">Already Simplified ✓</button>
+          </div>
+          <div id="step-feedback"></div>
+        </div>
+      `;
+      setTimeout(() => document.getElementById('final-num')?.focus(), 100);
+      document.getElementById('final-num')?.addEventListener('keypress', (e) => {
+        if (e.key === 'Enter') document.getElementById('final-den')?.focus();
+      });
+      document.getElementById('final-den')?.addEventListener('keypress', (e) => {
+        if (e.key === 'Enter') checkStep4();
+      });
+    }
+  }
+
+  function checkStep1() {
+    stepAttempts[0]++;
+    const input = parseInt(document.getElementById('lcd-input').value);
+    const feedback = document.getElementById('step-feedback');
+    
+    if (input === currentQuestion.lcd) {
+      feedback.innerHTML = `<div class="step-feedback correct">✅ Correct! The LCD is ${currentQuestion.lcd}</div>`;
+      document.getElementById('lcd-input').classList.add('correct');
+      
+      const points = stepAttempts[0] === 1 ? 5 : 2;
+      totalScore += points;
+      updateScore();
+      
+      setTimeout(() => {
+        currentStep = 2;
+        updateProgressBar();
+        displayCurrentStep();
+      }, 1000);
+    } else {
+      feedback.innerHTML = `
+        <div class="step-feedback incorrect">❌ Not quite. Try again!</div>
+        <div class="hint-box">
+          <div class="hint-title">💡 Hint:</div>
+          <div class="hint-text">Find the smallest number that both ${currentQuestion.den1} and ${currentQuestion.den2} divide into evenly. Try listing multiples of each number!</div>
+        </div>
+      `;
+      document.getElementById('lcd-input').classList.add('incorrect');
+      setTimeout(() => {
+        document.getElementById('lcd-input').classList.remove('incorrect');
+        document.getElementById('lcd-input').value = '';
+        document.getElementById('lcd-input').focus();
+      }, 2000);
+    }
+  }
+
+  function checkStep2() {
+    stepAttempts[1]++;
+    const num1 = parseInt(document.getElementById('new-num1').value);
+    const num2 = parseInt(document.getElementById('new-num2').value);
+    const feedback = document.getElementById('step-feedback');
+    
+    if (num1 === currentQuestion.newNum1 && num2 === currentQuestion.newNum2) {
+      feedback.innerHTML = `<div class="step-feedback correct">✅ Perfect! Both fractions are now equivalent with denominator ${currentQuestion.lcd}</div>`;
+      document.getElementById('new-num1').classList.add('correct');
+      document.getElementById('new-num2').classList.add('correct');
+      
+      const points = stepAttempts[1] === 1 ? 5 : 2;
+      totalScore += points;
+      updateScore();
+      
+      setTimeout(() => {
+        currentStep = 3;
+        updateProgressBar();
+        displayCurrentStep();
+      }, 1000);
+    } else {
+      let hint = '';
+      if (num1 !== currentQuestion.newNum1) {
+        const multiplier = currentQuestion.lcd / currentQuestion.den1;
+        hint += `For ${currentQuestion.num1}/${currentQuestion.den1}: multiply both top and bottom by ${multiplier}. `;
+      }
+      if (num2 !== currentQuestion.newNum2) {
+        const multiplier = currentQuestion.lcd / currentQuestion.den2;
+        hint += `For ${currentQuestion.num2}/${currentQuestion.den2}: multiply both top and bottom by ${multiplier}.`;
+      }
+      
+      feedback.innerHTML = `
+        <div class="step-feedback incorrect">❌ Not quite right. Check your work!</div>
+        <div class="hint-box">
+          <div class="hint-title">💡 Hint:</div>
+          <div class="hint-text">${hint}</div>
+        </div>
+      `;
+    }
+  }
+
+  function checkStep3() {
+    stepAttempts[2]++;
+    const sumNum = parseInt(document.getElementById('sum-num').value);
+    const feedback = document.getElementById('step-feedback');
+    
+    if (sumNum === currentQuestion.sumNum) {
+      feedback.innerHTML = `<div class="step-feedback correct">✅ Excellent! ${currentQuestion.newNum1} + ${currentQuestion.newNum2} = ${currentQuestion.sumNum}</div>`;
+      document.getElementById('sum-num').classList.add('correct');
+      
+      const points = stepAttempts[2] === 1 ? 5 : 2;
+      totalScore += points;
+      updateScore();
+      
+      setTimeout(() => {
+        currentStep = 4;
+        updateProgressBar();
+        displayCurrentStep();
+      }, 1000);
+    } else {
+      feedback.innerHTML = `
+        <div class="step-feedback incorrect">❌ Try again!</div>
+        <div class="hint-box">
+          <div class="hint-title">💡 Hint:</div>
+          <div class="hint-text">Add the numerators: ${currentQuestion.newNum1} + ${currentQuestion.newNum2} = ?</div>
+        </div>
+      `;
+    }
+  }
+
+  function noSimplificationNeeded() {
+    if (!currentQuestion.needsSimplification) {
+      checkStep4FromButton(currentQuestion.sumNum, currentQuestion.sumDen);
+    } else {
+      const feedback = document.getElementById('step-feedback');
+      const divisor = gcd(currentQuestion.sumNum, currentQuestion.sumDen);
+      feedback.innerHTML = `
+        <div class="step-feedback incorrect">❌ This fraction can be simplified!</div>
+        <div class="hint-box">
+          <div class="hint-title">💡 Hint:</div>
+          <div class="hint-text">The GCD of ${currentQuestion.sumNum} and ${currentQuestion.sumDen} is ${divisor}. Divide both by ${divisor}.</div>
+        </div>
+      `;
+    }
+  }
+
+  function checkStep4() {
+    stepAttempts[3]++;
+    const finalNum = parseInt(document.getElementById('final-num').value);
+    const finalDen = parseInt(document.getElementById('final-den').value);
+    checkStep4FromButton(finalNum, finalDen);
+  }
+
+  function checkStep4FromButton(finalNum, finalDen) {
+    const feedback = document.getElementById('step-feedback');
+    
+    if (finalNum === currentQuestion.finalNum && finalDen === currentQuestion.finalDen) {
+      const wasSimplified = currentQuestion.needsSimplification;
+      const message = wasSimplified 
+        ? `✅ Perfect! You correctly simplified ${currentQuestion.sumNum}/${currentQuestion.sumDen} to ${currentQuestion.finalNum}/${currentQuestion.finalDen}`
+        : `✅ Correct! This fraction is already in simplest form.`;
+      
+      feedback.innerHTML = `<div class="step-feedback correct">${message}</div>`;
+      if (document.getElementById('final-num')) {
+        document.getElementById('final-num').classList.add('correct');
+        document.getElementById('final-den').classList.add('correct');
+      }
+      
+      const points = stepAttempts[3] === 1 ? 10 : 5;
+      totalScore += points;
+      currentStreak++;
+      updateScore();
+      
+      questionsCompleted++;
+      
+      setTimeout(() => showCompletion(), 800);
+    } else {
+      const divisor = gcd(currentQuestion.sumNum, currentQuestion.sumDen);
+      let hint = '';
+      if (divisor > 1) {
+        hint = `The GCD of ${currentQuestion.sumNum} and ${currentQuestion.sumDen} is ${divisor}. Divide both by ${divisor}.`;
+      } else {
+        hint = `This fraction is already in simplest form. The answer is ${currentQuestion.sumNum}/${currentQuestion.sumDen}`;
+      }
+      
+      feedback.innerHTML = `
+        <div class="step-feedback incorrect">❌ Not quite right!</div>
+        <div class="hint-box">
+          <div class="hint-title">💡 Hint:</div>
+          <div class="hint-text">${hint}</div>
+        </div>
+      `;
+    }
+  }
+
+  function showCompletion() {
+    const totalPoints = stepAttempts.reduce((sum, attempts, i) => {
+      const stepPoints = [5, 5, 5, 10];
+      return sum + (attempts === 1 ? stepPoints[i] : (attempts > 0 ? Math.floor(stepPoints[i] / 2) : 0));
+    }, 0);
+    
+    document.getElementById('completion-area').innerHTML = `
+      <div class="completion-message pulse">
+        <div class="completion-title">🎉 Problem Complete!</div>
+        <div class="completion-text">You earned ${totalPoints} points this round!</div>
+        <div class="completion-text" style="margin-top: 1rem;">
+          ${currentQuestion.num1}/${currentQuestion.den1} + ${currentQuestion.num2}/${currentQuestion.den2} = ${currentQuestion.finalNum}/${currentQuestion.finalDen}
+        </div>
+      </div>
+    `;
+    
+    document.getElementById('next-btn').style.display = 'block';
+  }
+
+  function updateScore() {
+    document.getElementById('total-score').textContent = totalScore;
+    document.getElementById('streak').textContent = currentStreak;
+    document.getElementById('total-score').classList.add('pulse');
+    setTimeout(() => document.getElementById('total-score').classList.remove('pulse'), 500);
+  }
+
+  function toggleHelp() {
+    const modal = document.getElementById('help-modal');
+    modal.classList.toggle('active');
+  }
+</script>
+
+
+
+</body></html>
