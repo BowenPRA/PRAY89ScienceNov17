@@ -26,9 +26,9 @@ jobs:
         
         // Read all HTML files in the root directory
         const files = fs.readdirSync('.')
-          .filter(file => file.endsWith('.html') && file !== 'index.html');
+          .filter(file => file.endsWith('.html') && file !== 'index.html' && file !== 'lessons.html');
         
-        const lessons = [];
+        const resources = [];
         
         // Parse each HTML file to extract lesson information
         files.forEach(filename => {
@@ -38,15 +38,44 @@ jobs:
           const titleMatch = content.match(/<title>(.*?)<\/title>/);
           const title = titleMatch ? titleMatch[1] : filename.replace('.html', '');
           
-          // Try to extract metadata from meta tags or data attributes
+          // Try to extract metadata from meta tags
           const descMatch = content.match(/<meta name="description" content="(.*?)"/);
           const description = descMatch ? descMatch[1] : '';
           
-          // Extract class info from title or content
-          let classInfo = '';
-          const classMatch = title.match(/Y(\d+)\s*(\w+)/i);
-          if (classMatch) {
-            classInfo = `Y${classMatch[1]} ${classMatch[2]}`;
+          // Extract subject from meta tag or filename
+          let subject = 'Other';
+          const subjectMatch = content.match(/<meta name="subject" content="(.*?)"/);
+          if (subjectMatch) {
+            subject = subjectMatch[1];
+          } else if (filename.toLowerCase().includes('science')) {
+            subject = 'Science';
+          } else if (filename.toLowerCase().includes('math')) {
+            subject = 'Math';
+          } else if (filename.toLowerCase().includes('tech') || filename.toLowerCase().includes('computing')) {
+            subject = 'Technology';
+          }
+          
+          // Extract year from meta tag or filename
+          let year = '';
+          const yearMetaMatch = content.match(/<meta name="year" content="(.*?)"/);
+          if (yearMetaMatch) {
+            year = yearMetaMatch[1];
+          } else {
+            const yearMatch = filename.match(/Y(\d+)/i);
+            if (yearMatch) {
+              year = `Year ${yearMatch[1]}`;
+            }
+          }
+          
+          // Extract type from meta tag or default to lesson
+          let type = 'lesson';
+          const typeMatch = content.match(/<meta name="type" content="(.*?)"/);
+          if (typeMatch) {
+            type = typeMatch[1].toLowerCase();
+          } else if (filename.toLowerCase().includes('game')) {
+            type = 'game';
+          } else if (filename.toLowerCase().includes('resource') || filename.toLowerCase().includes('handout')) {
+            type = 'resource';
           }
           
           // Extract date from filename (assuming format like Y8ScienceNov17)
@@ -64,47 +93,53 @@ jobs:
             date = `${month} ${day}, 2025`;
           }
           
+          // Also check for date meta tag
+          const dateMetaMatch = content.match(/<meta name="date" content="(.*?)"/);
+          if (dateMetaMatch) {
+            date = dateMetaMatch[1];
+          }
+          
           // Extract tags
           const tags = [];
           
-          // Add year tag
-          const yearMatch = filename.match(/Y(\d+)/);
-          if (yearMatch) tags.push(`Year ${yearMatch[1]}`);
-          
-          // Add subject tag
-          if (filename.toLowerCase().includes('science')) tags.push('Science');
-          if (filename.toLowerCase().includes('math')) tags.push('Math');
-          if (filename.toLowerCase().includes('english')) tags.push('English');
-          
-          // Extract additional tags from content
-          const tagMatch = content.match(/data-tags="(.*?)"/);
-          if (tagMatch) {
-            const additionalTags = tagMatch[1].split(',').map(t => t.trim());
-            tags.push(...additionalTags);
+          // Check for tags meta tag
+          const tagsMatch = content.match(/<meta name="tags" content="(.*?)"/);
+          if (tagsMatch) {
+            const metaTags = tagsMatch[1].split(',').map(t => t.trim());
+            tags.push(...metaTags);
           }
           
-          lessons.push({
+          // Also check for data-tags attribute
+          const dataTagsMatch = content.match(/data-tags="(.*?)"/);
+          if (dataTagsMatch) {
+            const dataTags = dataTagsMatch[1].split(',').map(t => t.trim());
+            tags.push(...dataTags);
+          }
+          
+          resources.push({
             filename,
             title,
             description,
             date,
-            classInfo,
+            subject,
+            year,
+            type,
             tags
           });
         });
         
-        // Sort lessons by date (newest first)
-        lessons.sort((a, b) => {
+        // Sort resources by date (newest first)
+        resources.sort((a, b) => {
           const dateA = new Date(a.date);
           const dateB = new Date(b.date);
           return dateB - dateA;
         });
         
-        // Write lessons to a JSON file
-        fs.writeFileSync('lessons.json', JSON.stringify(lessons, null, 2));
+        // Write resources to a JSON file
+        fs.writeFileSync('resources.json', JSON.stringify(resources, null, 2));
         
-        console.log(`Generated lessons.json with ${lessons.length} lessons`);
-        console.log(JSON.stringify(lessons, null, 2));
+        console.log(`Generated resources.json with ${resources.length} resources`);
+        console.log(JSON.stringify(resources, null, 2));
         EOF
     
     - name: Update index.html
@@ -112,33 +147,33 @@ jobs:
         node << 'EOF'
         const fs = require('fs');
         
-        // Read the lessons data
-        const lessons = JSON.parse(fs.readFileSync('lessons.json', 'utf8'));
+        // Read the resources data
+        const resources = JSON.parse(fs.readFileSync('resources.json', 'utf8'));
         
         // Read the index.html file
         let indexContent = fs.readFileSync('index.html', 'utf8');
         
-        // Replace the lessons array in index.html
-        const lessonsJson = JSON.stringify(lessons, null, 4)
+        // Replace the resources array in index.html
+        const resourcesJson = JSON.stringify(resources, null, 12)
           .split('\n')
-          .map((line, i) => i === 0 ? line : '  ' + line)
+          .map((line, i) => i === 0 ? line : '            ' + line)
           .join('\n');
         
-        const regex = /const lessons = \[[\s\S]*?\];/;
-        indexContent = indexContent.replace(regex, `const lessons = ${lessonsJson};`);
+        const regex = /const resources = \[[\s\S]*?\];/;
+        indexContent = indexContent.replace(regex, `const resources = ${resourcesJson};`);
         
         // Write the updated index.html
         fs.writeFileSync('index.html', indexContent);
         
-        console.log('Updated index.html with lesson data');
+        console.log('Updated index.html with resource data');
         EOF
     
     - name: Commit changes
       run: |
         git config --local user.email "github-actions[bot]@users.noreply.github.com"
         git config --local user.name "github-actions[bot]"
-        git add lessons.json index.html
-        git diff --staged --quiet || git commit -m "Auto-update lesson list"
+        git add resources.json index.html
+        git diff --staged --quiet || git commit -m "Auto-update resource list"
         git push
 
 permissions:
