@@ -1,0 +1,1118 @@
+<!DOCTYPE html><html lang="en"><head><meta name="x-poe-datastore-behavior" content="local_only"><meta http-equiv="Content-Security-Policy" content="default-src 'self' 'unsafe-inline' 'unsafe-eval' data: blob: https://cdnjs.cloudflare.com https://cdn.jsdelivr.net https://code.jquery.com https://unpkg.com https://d3js.org https://threejs.org https://cdn.plot.ly https://stackpath.bootstrapcdn.com https://maps.googleapis.com https://cdn.tailwindcss.com https://ajax.googleapis.com https://kit.fontawesome.com https://cdn.datatables.net https://maxcdn.bootstrapcdn.com https://code.highcharts.com https://tako-static-assets-production.s3.amazonaws.com https://www.youtube.com https://fonts.googleapis.com https://fonts.gstatic.com https://pfst.cf2.poecdn.net https://puc.poecdn.net https://i.imgur.com https://wikimedia.org https://*.icons8.com https://*.giphy.com https://picsum.photos https://images.unsplash.com; frame-src 'self' https://www.youtube.com https://trytako.com; child-src 'self'; manifest-src 'self'; worker-src 'self'; upgrade-insecure-requests; block-all-mixed-content;">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="description" content="Understand properties of quadrilaterals and regular polygons">
+  <meta name="subject" content="Mathematics">
+  <meta name="year" content="Year 8">
+  <meta name="type" content="lesson">
+  <meta name="date" content="November 11, 2025">
+  <meta name="tags" content="Quadrilaterals, Polygons, Symmetry, Regular Polygons, Geometry, Shapes">
+  <title>Quadrilaterals and Polygons - Year 8 Mathematics</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&amp;display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary: #6366F1;
+      --purple: #8B5CF6;
+      --orange: #F97316;
+      --success: #10B981;
+      --warning: #F59E0B;
+      --danger: #EF4444;
+      --gray-50: #F9FAFB;
+      --gray-100: #F3F4F6;
+      --gray-700: #374151;
+      --gray-800: #1F2937;
+      --gray-900: #111827;
+      --gradient-purple: linear-gradient(135deg, #8B5CF6 0%, #6D28D9 100%);
+      --gradient-orange: linear-gradient(135deg, #F97316 0%, #EA580C 100%);
+      --gradient-primary: linear-gradient(135deg, #667EEA 0%, #764BA2 100%);
+      --shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.1);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--gradient-primary);
+      color: var(--gray-900);
+      overflow: hidden;
+      width: 100vw;
+      height: 100vh;
+      position: fixed;
+    }
+
+    .app-container {
+      width: 100vw;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      position: fixed;
+      top: 0;
+      left: 0;
+    }
+
+    /* Header */
+    .header {
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(10px);
+      padding: 1rem 2rem;
+      box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1);
+      flex-shrink: 0;
+    }
+
+    .header-content {
+      max-width: 1400px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .lesson-badge {
+      background: var(--gradient-primary);
+      color: white;
+      padding: 0.5rem 1rem;
+      border-radius: 9999px;
+      font-weight: 700;
+      font-size: 1rem;
+    }
+
+    .lesson-title {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--gray-800);
+    }
+
+    /* Main Content */
+    .content-wrapper {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 1.5rem;
+      min-height: 0;
+      overflow: hidden;
+    }
+
+    .slide-container {
+      background: white;
+      border-radius: 1.5rem;
+      box-shadow: var(--shadow-xl);
+      width: 100%;
+      max-width: 1200px;
+      height: 100%;
+      max-height: 100%;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .slide {
+      flex: 1;
+      overflow-y: auto;
+      padding: 2.5rem;
+      scroll-behavior: smooth;
+    }
+
+    /* Typography - TV OPTIMIZED */
+    h1 {
+      font-size: 3.5rem;
+      font-weight: 900;
+      background: var(--gradient-primary);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 2rem;
+      line-height: 1.1;
+      text-align: center;
+    }
+
+    h2 {
+      font-size: 2.5rem;
+      font-weight: 800;
+      color: var(--gray-800);
+      margin-bottom: 1.5rem;
+      text-align: center;
+    }
+
+    h3 {
+      font-size: 2rem;
+      font-weight: 700;
+      color: var(--primary);
+      margin-bottom: 1.5rem;
+    }
+
+    p, li {
+      font-size: 1.5rem;
+      line-height: 1.8;
+      color: var(--gray-700);
+      margin-bottom: 1rem;
+      font-weight: 500;
+    }
+
+    .large-text {
+      font-size: 2rem;
+      font-weight: 700;
+      margin: 2rem 0;
+      text-align: center;
+    }
+
+    /* Title Slide */
+    .title-slide {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      height: 100%;
+      text-align: center;
+      padding: 2rem;
+    }
+
+    .title-header {
+      margin-bottom: 3rem;
+    }
+
+    .school-name {
+      font-size: 2.5rem;
+      font-weight: 800;
+      color: var(--gray-800);
+      margin-bottom: 1rem;
+    }
+
+    .class-info {
+      font-size: 2rem;
+      font-weight: 600;
+      color: var(--gray-600);
+      margin-bottom: 0.5rem;
+    }
+
+    .lesson-date {
+      font-size: 1.5rem;
+      color: var(--gray-500);
+      margin-bottom: 2rem;
+    }
+
+    .unit-topic {
+      font-size: 3rem;
+      font-weight: 900;
+      background: var(--gradient-primary);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 3rem;
+    }
+
+    .title-boxes {
+      display: flex;
+      gap: 2rem;
+      width: 100%;
+      max-width: 1000px;
+    }
+
+    .objective-box {
+      background: var(--gradient-purple);
+      color: white;
+      padding: 2rem;
+      border-radius: 1rem;
+      flex: 1;
+    }
+
+    .warmup-box {
+      background: var(--gradient-orange);
+      color: white;
+      padding: 2rem;
+      border-radius: 1rem;
+      flex: 1;
+    }
+
+    .box-title {
+      font-size: 1.8rem;
+      font-weight: 700;
+      margin-bottom: 1rem;
+    }
+
+    .box-content {
+      font-size: 1.4rem;
+      font-weight: 600;
+      line-height: 1.6;
+    }
+
+    /* Content Cards */
+    .vocab-card {
+      background: linear-gradient(135deg, var(--gray-50) 0%, white 100%);
+      border: 3px solid var(--primary);
+      padding: 2rem;
+      border-radius: 1rem;
+      margin: 2rem 0;
+      text-align: center;
+    }
+
+    .vocab-term {
+      font-size: 2.5rem;
+      font-weight: 800;
+      color: var(--primary);
+      margin-bottom: 1rem;
+    }
+
+    .vocab-definition {
+      font-size: 1.8rem;
+      font-weight: 600;
+      color: var(--gray-700);
+      line-height: 1.6;
+    }
+
+    .concept-card {
+      background: white;
+      border-radius: 1rem;
+      padding: 2rem;
+      box-shadow: var(--shadow-xl);
+      margin: 2rem 0;
+      border-top: 6px solid var(--success);
+    }
+
+    .example-box {
+      background: var(--warning);
+      color: white;
+      padding: 2rem;
+      border-radius: 1rem;
+      margin: 2rem 0;
+      text-align: center;
+    }
+
+    .question-box {
+      background: var(--danger);
+      color: white;
+      padding: 2rem;
+      border-radius: 1rem;
+      margin: 2rem 0;
+      text-align: center;
+    }
+
+    /* Shape Display Grid */
+    .shape-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 2rem;
+      margin: 2rem 0;
+    }
+
+    .shape-item {
+      text-align: center;
+      padding: 1.5rem;
+      background: var(--gray-50);
+      border-radius: 1rem;
+      border: 2px solid var(--primary);
+    }
+
+    .shape-label {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--primary);
+      margin-top: 1rem;
+    }
+
+    .shape-info {
+      font-size: 1.2rem;
+      color: var(--gray-700);
+      margin-top: 0.5rem;
+    }
+
+    /* SVG Shapes */
+    .shape-svg {
+      width: 100%;
+      max-width: 180px;
+      height: 180px;
+      margin: 0 auto;
+      display: block;
+    }
+
+    /* Property Box */
+    .property-box {
+      background: var(--gray-50);
+      border-left: 6px solid var(--success);
+      padding: 1.5rem;
+      margin: 1.5rem 0;
+      border-radius: 0.5rem;
+    }
+
+    .property-box p {
+      margin-bottom: 0.5rem;
+    }
+
+    /* Prefix Box */
+    .prefix-card {
+      background: linear-gradient(135deg, #667EEA 0%, #764BA2 100%);
+      color: white;
+      padding: 2rem;
+      border-radius: 1rem;
+      margin: 1.5rem 0;
+      display: flex;
+      align-items: center;
+      gap: 2rem;
+    }
+
+    .prefix-term {
+      font-size: 3rem;
+      font-weight: 900;
+      min-width: 150px;
+    }
+
+    .prefix-meaning {
+      font-size: 1.8rem;
+      font-weight: 600;
+    }
+
+    /* Two Column Layout */
+    .two-column {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2rem;
+      margin: 2rem 0;
+    }
+
+    /* Navigation */
+    .navigation {
+      background: white;
+      border-top: 1px solid #E5E7EB;
+      padding: 1rem 2rem;
+      box-shadow: 0 -4px 6px -1px rgb(0 0 0 / 0.1);
+      flex-shrink: 0;
+    }
+
+    .navigation-content {
+      max-width: 1400px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .progress-container {
+      flex: 1;
+      max-width: 500px;
+    }
+
+    .progress-info {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 0.5rem;
+      font-size: 1rem;
+      color: var(--gray-700);
+      font-weight: 600;
+    }
+
+    .progress-bar {
+      height: 8px;
+      background: #E5E7EB;
+      border-radius: 9999px;
+      overflow: hidden;
+    }
+
+    .progress-fill {
+      height: 100%;
+      background: var(--gradient-primary);
+      border-radius: 9999px;
+      transition: width 0.5s ease;
+    }
+
+    .nav-buttons {
+      display: flex;
+      gap: 1rem;
+    }
+
+    .nav-btn {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 1rem 1.5rem;
+      background: white;
+      border: 2px solid #D1D5DB;
+      border-radius: 0.75rem;
+      font-weight: 600;
+      font-size: 1.1rem;
+      color: var(--gray-700);
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .nav-btn:hover:not(:disabled) {
+      background: var(--primary);
+      color: white;
+      border-color: var(--primary);
+      transform: translateY(-2px);
+    }
+
+    .nav-btn:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+
+    /* Animations */
+    .fade-in {
+      animation: fadeIn 0.5s ease-in-out;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Symmetry Lines */
+    .symmetry-demo {
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      margin: 2rem 0;
+      flex-wrap: wrap;
+      gap: 2rem;
+    }
+
+    /* Responsive */
+    @media (max-width: 1024px) {
+      h1 { font-size: 3rem; }
+      h2 { font-size: 2rem; }
+      h3 { font-size: 1.8rem; }
+      p, li { font-size: 1.3rem; }
+      .school-name { font-size: 2rem; }
+      .unit-topic { font-size: 2.5rem; }
+    }
+
+    @media (max-width: 768px) {
+      .title-boxes { flex-direction: column; }
+      .two-column { grid-template-columns: 1fr; }
+      h1 { font-size: 2.5rem; }
+      h2 { font-size: 1.8rem; }
+      .school-name { font-size: 1.8rem; }
+      .unit-topic { font-size: 2rem; }
+    }
+
+    @media (max-height: 700px) {
+      .slide { padding: 1.5rem; }
+      h1 { font-size: 2.5rem; margin-bottom: 1rem; }
+      h2 { font-size: 2rem; margin-bottom: 1rem; }
+      .vocab-card, .concept-card { margin: 1rem 0; padding: 1.5rem; }
+    }
+  </style>
+<script src="https://puc.poecdn.net/authenticated_preview_page/syncedState.3f7572448765332f3047.js"></script></head>
+<body>
+
+<div class="app-container">
+  <!-- Header -->
+  <div class="header">
+    <div class="header-content">
+      <span class="lesson-badge">Year 8</span>
+      <div class="lesson-title">Unit 8: Shapes and Symmetry</div>
+      <div>📅 11 November 2025</div>
+    </div>
+  </div>
+
+  <!-- Main Content -->
+  <div class="content-wrapper">
+    <div class="slide-container">
+      <div class="slide" id="slide-content">
+        <!-- Dynamic content -->
+      </div>
+    </div>
+  </div>
+
+  <!-- Navigation -->
+  <div class="navigation">
+    <div class="navigation-content">
+      <div class="progress-container">
+        <div class="progress-info">
+          <span id="current-slide">Slide 1</span>
+          <span id="total-slides">of X</span>
+        </div>
+        <div class="progress-bar">
+          <div class="progress-fill" id="progress-fill" style="width: 0%"></div>
+        </div>
+      </div>
+      <div class="nav-buttons">
+        <button class="nav-btn" id="prev-btn" onclick="changeSlide(-1)" disabled="">⬅ Previous</button>
+        <button class="nav-btn" id="next-btn" onclick="changeSlide(1)">Next ➡</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  const slides = [
+    // SLIDE 1: Title Slide
+    {
+      title: "Welcome",
+      content: `
+        <div class="title-slide">
+          <div class="title-header">
+            <div class="school-name">Palm River Academy</div>
+            <div class="class-info">Year 8 Mathematics</div>
+            <div class="lesson-date">11 November 2025</div>
+            <div class="unit-topic">Unit 8.1: Quadrilaterals and Polygons</div>
+          </div>
+          
+          <div class="title-boxes">
+            <div class="objective-box">
+              <div class="box-title">🎯 Objective</div>
+              <div class="box-content">Identify and describe the properties of regular polygons and quadrilaterals using mathematical language.</div>
+            </div>
+            
+            <div class="warmup-box">
+              <div class="box-title">🤔 Warm Up Question</div>
+              <div class="box-content">What shapes can you see in the classroom right now? Can you name their properties?</div>
+            </div>
+          </div>
+        </div>
+      `
+    },
+
+    // SLIDE 2: Key Vocabulary - Regular Polygon
+    {
+      title: "Vocabulary",
+      content: `
+        <h2>📚 Key Vocabulary</h2>
+        
+        <div class="vocab-card">
+          <div class="vocab-term">Regular Polygon</div>
+          <div class="vocab-definition">A polygon where all sides are the same length and all angles are equal.</div>
+        </div>
+
+        <div class="vocab-card">
+          <div class="vocab-term">Quadrilateral</div>
+          <div class="vocab-definition">A polygon with exactly four sides and four angles.</div>
+        </div>
+
+        <div class="vocab-card">
+          <div class="vocab-term">Lines of Symmetry</div>
+          <div class="vocab-definition">Lines that divide a shape into two identical halves that are mirror images of each other.</div>
+        </div>
+      `
+    },
+
+    // SLIDE 3: More Vocabulary
+    {
+      title: "More Vocabulary",
+      content: `
+        <h2>📚 Key Vocabulary (continued)</h2>
+        
+        <div class="vocab-card">
+          <div class="vocab-term">Rotational Symmetry</div>
+          <div class="vocab-definition">When a shape can be rotated around a central point and still look the same. The order tells us how many times this happens in one full turn.</div>
+        </div>
+
+        <div class="vocab-card">
+          <div class="vocab-term">Hierarchy</div>
+          <div class="vocab-definition">An organized system that shows how things are ranked or classified, from most general to most specific.</div>
+        </div>
+      `
+    },
+
+    // SLIDE 4: Important Rule About Regular Polygons
+    {
+      title: "Regular Polygon Rules",
+      content: `
+        <h2>⚡ Important Rules to Remember</h2>
+        
+        <div class="concept-card">
+          <h3>Rule 1: Sides and Lines of Symmetry</h3>
+          <p>The number of sides of a regular polygon is equal to the number of lines of symmetry.</p>
+          <div class="property-box">
+            <p><strong>Example:</strong> A regular pentagon has 5 sides and 5 lines of symmetry.</p>
+            <p><strong>Example:</strong> A regular hexagon has 6 sides and 6 lines of symmetry.</p>
+          </div>
+        </div>
+
+        <div class="concept-card">
+          <h3>Rule 2: Sides and Rotational Symmetry</h3>
+          <p>The number of sides of a regular polygon is equal to the order of rotational symmetry.</p>
+          <div class="property-box">
+            <p><strong>Example:</strong> A regular octagon has 8 sides and order of rotation 8.</p>
+            <p><strong>Example:</strong> A regular decagon has 10 sides and order of rotation 10.</p>
+          </div>
+        </div>
+      `
+    },
+
+    // SLIDE 5: Understanding Prefixes
+    {
+      title: "Shape Prefixes",
+      content: `
+        <h2>🔤 Understanding Shape Prefixes</h2>
+        <p style="text-align: center; font-size: 1.6rem; margin-bottom: 2rem;">These prefixes tell us how many sides a polygon has!</p>
+        
+        <div class="prefix-card">
+          <div class="prefix-term">PENTA-</div>
+          <div class="prefix-meaning">Means "5" → Pentagon has 5 sides</div>
+        </div>
+
+        <div class="prefix-card">
+          <div class="prefix-term">HEXA-</div>
+          <div class="prefix-meaning">Means "6" → Hexagon has 6 sides</div>
+        </div>
+
+        <div class="prefix-card">
+          <div class="prefix-term">HEPTA-</div>
+          <div class="prefix-meaning">Means "7" → Heptagon has 7 sides</div>
+        </div>
+      `
+    },
+
+    // SLIDE 6: More Prefixes
+    {
+      title: "More Prefixes",
+      content: `
+        <h2>🔤 More Shape Prefixes</h2>
+        
+        <div class="prefix-card">
+          <div class="prefix-term">OCTA-</div>
+          <div class="prefix-meaning">Means "8" → Octagon has 8 sides</div>
+        </div>
+
+        <div class="prefix-card">
+          <div class="prefix-term">NONA-</div>
+          <div class="prefix-meaning">Means "9" → Nonagon has 9 sides</div>
+        </div>
+
+        <div class="prefix-card">
+          <div class="prefix-term">DECA-</div>
+          <div class="prefix-meaning">Means "10" → Decagon has 10 sides</div>
+        </div>
+      `
+    },
+
+    // SLIDE 7: Regular Polygons Gallery
+    {
+      title: "Regular Polygons",
+      content: `
+        <h2>🔷 Regular Polygons</h2>
+        
+        <div class="shape-grid">
+          <div class="shape-item">
+            <svg class="shape-svg" viewBox="0 0 100 100">
+              <polygon points="50,15 85,35 85,65 50,85 15,65 15,35" fill="#6366F1" stroke="#1F2937" stroke-width="2"/>
+            </svg>
+            <div class="shape-label">Pentagon</div>
+            <div class="shape-info">5 sides</div>
+          </div>
+
+          <div class="shape-item">
+            <svg class="shape-svg" viewBox="0 0 100 100">
+              <polygon points="50,10 75,25 75,50 50,65 25,50 25,25" fill="#8B5CF6" stroke="#1F2937" stroke-width="2"/>
+            </svg>
+            <div class="shape-label">Hexagon</div>
+            <div class="shape-info">6 sides</div>
+          </div>
+
+          <div class="shape-item">
+            <svg class="shape-svg" viewBox="0 0 100 100">
+              <polygon points="50,10 71,21 82,40 82,60 71,79 50,90 29,79 18,60 18,40 29,21" fill="#10B981" stroke="#1F2937" stroke-width="2"/>
+            </svg>
+            <div class="shape-label">Decagon</div>
+            <div class="shape-info">10 sides</div>
+          </div>
+        </div>
+      `
+    },
+
+    // SLIDE 8: Quadrilaterals Introduction
+    {
+      title: "Quadrilaterals",
+      content: `
+        <h2>▭ What is a Quadrilateral?</h2>
+        
+        <div class="large-text" style="color: var(--primary);">
+          A quadrilateral is ANY shape with 4 sides and 4 angles.
+        </div>
+
+        <div class="concept-card">
+          <h3>Different Types of Quadrilaterals</h3>
+          <p>There are many special types of quadrilaterals, each with their own properties:</p>
+          <ul style="margin-left: 2rem; margin-top: 1rem;">
+            <li><strong>Square</strong> - All sides equal, all angles 90°</li>
+            <li><strong>Rectangle</strong> - Opposite sides equal, all angles 90°</li>
+            <li><strong>Rhombus</strong> - All sides equal, opposite angles equal</li>
+            <li><strong>Parallelogram</strong> - Opposite sides parallel and equal</li>
+            <li><strong>Trapezium</strong> - One pair of parallel sides</li>
+            <li><strong>Kite</strong> - Two pairs of adjacent sides equal</li>
+          </ul>
+        </div>
+      `
+    },
+
+    // SLIDE 9: Square Properties
+    {
+      title: "Square",
+      content: `
+        <h2>⬛ Square (ABCD)</h2>
+        
+        <div class="two-column">
+          <div>
+            <svg width="300" height="300" viewBox="0 0 200 200">
+              <rect x="50" y="50" width="100" height="100" fill="#6366F1" stroke="#1F2937" stroke-width="3"/>
+              <text x="40" y="50" fill="#1F2937" font-size="20" font-weight="bold">A</text>
+              <text x="155" y="50" fill="#1F2937" font-size="20" font-weight="bold">B</text>
+              <text x="40" y="160" fill="#1F2937" font-size="20" font-weight="bold">D</text>
+              <text x="155" y="160" fill="#1F2937" font-size="20" font-weight="bold">C</text>
+              <line x1="50" y1="50" x2="150" y2="150" stroke="red" stroke-width="2" stroke-dasharray="5,5"/>
+              <line x1="150" y1="50" x2="50" y2="150" stroke="red" stroke-width="2" stroke-dasharray="5,5"/>
+            </svg>
+          </div>
+          
+          <div class="property-box">
+            <h3>Properties:</h3>
+            <p>✓ All sides are the same length</p>
+            <p>✓ BC length = DC = 90</p>
+            <p>✓ AB is parallel to DC</p>
+            <p>✓ AD is parallel to BC</p>
+            <p>✓ All angles are 90°</p>
+            <p>✓ 4 lines of symmetry</p>
+            <p>✓ Rotational symmetry order 4</p>
+          </div>
+        </div>
+      `
+    },
+
+    // SLIDE 10: Rectangle Properties
+    {
+      title: "Rectangle",
+      content: `
+        <h2>▬ Rectangle (EFGH)</h2>
+        
+        <div class="two-column">
+          <div>
+            <svg width="300" height="250" viewBox="0 0 240 180">
+              <rect x="40" y="40" width="160" height="100" fill="#8B5CF6" stroke="#1F2937" stroke-width="3"/>
+              <text x="30" y="40" fill="#1F2937" font-size="20" font-weight="bold">E</text>
+              <text x="205" y="40" fill="#1F2937" font-size="20" font-weight="bold">F</text>
+              <text x="205" y="150" fill="#1F2937" font-size="20" font-weight="bold">G</text>
+              <text x="30" y="150" fill="#1F2937" font-size="20" font-weight="bold">H</text>
+            </svg>
+          </div>
+          
+          <div class="property-box">
+            <h3>Properties:</h3>
+            <p>✓ Opposite sides are the same length</p>
+            <p>✓ EH is parallel to FG</p>
+            <p>✓ EF is parallel to HG</p>
+            <p>✓ All angles are 90°</p>
+            <p>✓ 2 lines of symmetry</p>
+            <p>✓ Rotational symmetry order 2</p>
+          </div>
+        </div>
+      `
+    },
+
+    // SLIDE 11: Kite Properties
+    {
+      title: "Kite",
+      content: `
+        <h2>🪁 Kite (IJKL)</h2>
+        
+        <div class="two-column">
+          <div>
+            <svg width="300" height="300" viewBox="0 0 200 250">
+              <polygon points="100,30 150,120 100,220 50,120" fill="#10B981" stroke="#1F2937" stroke-width="3"/>
+              <text x="95" y="25" fill="#1F2937" font-size="20" font-weight="bold">I</text>
+              <text x="155" y="125" fill="#1F2937" font-size="20" font-weight="bold">J</text>
+              <text x="95" y="235" fill="#1F2937" font-size="20" font-weight="bold">K</text>
+              <text x="35" y="125" fill="#1F2937" font-size="20" font-weight="bold">L</text>
+              <line x1="100" y1="30" x2="100" y2="220" stroke="red" stroke-width="2" stroke-dasharray="5,5"/>
+            </svg>
+          </div>
+          
+          <div class="property-box">
+            <h3>Properties:</h3>
+            <p>✓ IJ is the same length as IL</p>
+            <p>✓ JK is the same length as LK</p>
+            <p>✓ None of the sides are parallel</p>
+            <p>✓ Angle ILK = angle IJK</p>
+            <p>✓ Angle LIJ = angle LKJ</p>
+            <p>✓ 1 line of symmetry</p>
+            <p>✓ No rotational symmetry</p>
+          </div>
+        </div>
+      `
+    },
+
+    // SLIDE 12: Parallelogram Properties
+    {
+      title: "Parallelogram",
+      content: `
+        <h2>▱ Parallelogram (MNOP)</h2>
+        
+        <div class="two-column">
+          <div>
+            <svg width="300" height="250" viewBox="0 0 240 180">
+              <polygon points="40,130 140,130 200,50 100,50" fill="#F97316" stroke="#1F2937" stroke-width="3"/>
+              <text x="95" y="45" fill="#1F2937" font-size="20" font-weight="bold">M</text>
+              <text x="205" y="45" fill="#1F2937" font-size="20" font-weight="bold">N</text>
+              <text x="145" y="145" fill="#1F2937" font-size="20" font-weight="bold">O</text>
+              <text x="25" y="145" fill="#1F2937" font-size="20" font-weight="bold">P</text>
+            </svg>
+          </div>
+          
+          <div class="property-box">
+            <h3>Properties:</h3>
+            <p>✓ Opposite sides are the same length</p>
+            <p>✓ NO is parallel to MP</p>
+            <p>✓ PO is parallel to MN</p>
+            <p>✓ Angle PMN = angle NOP</p>
+            <p>✓ Angle MNO = angle MPO</p>
+            <p>✓ 0 lines of symmetry</p>
+            <p>✓ Rotational symmetry order 2</p>
+          </div>
+        </div>
+      `
+    },
+
+    // SLIDE 13: Rhombus Properties
+    {
+      title: "Rhombus",
+      content: `
+        <h2>◆ Rhombus (QRST)</h2>
+        
+        <div class="two-column">
+          <div>
+            <svg width="300" height="300" viewBox="0 0 200 220">
+              <polygon points="100,30 170,110 100,190 30,110" fill="#EF4444" stroke="#1F2937" stroke-width="3"/>
+              <text x="95" y="25" fill="#1F2937" font-size="20" font-weight="bold">Q</text>
+              <text x="175" y="115" fill="#1F2937" font-size="20" font-weight="bold">R</text>
+              <text x="95" y="205" fill="#1F2937" font-size="20" font-weight="bold">S</text>
+              <text x="10" y="115" fill="#1F2937" font-size="20" font-weight="bold">T</text>
+              <line x1="100" y1="30" x2="100" y2="190" stroke="blue" stroke-width="2" stroke-dasharray="5,5"/>
+              <line x1="30" y1="110" x2="170" y2="110" stroke="blue" stroke-width="2" stroke-dasharray="5,5"/>
+            </svg>
+          </div>
+          
+          <div class="property-box">
+            <h3>Properties:</h3>
+            <p>✓ All sides are the same length</p>
+            <p>✓ Opposite sides are parallel</p>
+            <p>✓ TSR is parallel to QR</p>
+            <p>✓ QRS is parallel to TS</p>
+            <p>✓ Opposite angles are equal</p>
+            <p>✓ Angle TQR = angle TSR</p>
+            <p>✓ Angle QTS = angle QRS</p>
+            <p>✓ 2 lines of symmetry</p>
+            <p>✓ Rotational symmetry order 2</p>
+          </div>
+        </div>
+      `
+    },
+
+    // SLIDE 14: Understanding Lines of Symmetry
+    {
+      title: "Lines of Symmetry",
+      content: `
+        <h2>🪞 Understanding Lines of Symmetry</h2>
+        
+        <div class="concept-card">
+          <h3>What is a Line of Symmetry?</h3>
+          <p>A line of symmetry divides a shape into two identical halves that are mirror images of each other.</p>
+        </div>
+
+        <div class="symmetry-demo">
+          <div style="text-align: center;">
+            <svg width="200" height="200" viewBox="0 0 100 100">
+              <polygon points="50,15 85,35 85,65 50,85 15,65 15,35" fill="#6366F1" stroke="#1F2937" stroke-width="2"/>
+              <line x1="50" y1="0" x2="50" y2="100" stroke="red" stroke-width="2"/>
+            </svg>
+            <p style="font-size: 1.3rem; margin-top: 1rem;"><strong>Pentagon:</strong> 5 lines</p>
+          </div>
+
+          <div style="text-align: center;">
+            <svg width="200" height="200" viewBox="0 0 100 100">
+              <rect x="25" y="25" width="50" height="50" fill="#8B5CF6" stroke="#1F2937" stroke-width="2"/>
+              <line x1="50" y1="15" x2="50" y2="85" stroke="red" stroke-width="2"/>
+              <line x1="15" y1="50" x2="85" y2="50" stroke="red" stroke-width="2"/>
+            </svg>
+            <p style="font-size: 1.3rem; margin-top: 1rem;"><strong>Square:</strong> 4 lines</p>
+          </div>
+
+          <div style="text-align: center;">
+            <svg width="200" height="200" viewBox="0 0 100 100">
+              <polygon points="50,20 70,50 50,80 30,50" fill="#10B981" stroke="#1F2937" stroke-width="2"/>
+              <line x1="50" y1="10" x2="50" y2="90" stroke="red" stroke-width="2"/>
+            </svg>
+            <p style="font-size: 1.3rem; margin-top: 1rem;"><strong>Kite:</strong> 1 line</p>
+          </div>
+        </div>
+      `
+    },
+
+    // SLIDE 15: Understanding Rotational Symmetry
+    {
+      title: "Rotational Symmetry",
+      content: `
+        <h2>🔄 Understanding Rotational Symmetry</h2>
+        
+        <div class="concept-card">
+          <h3>What is Rotational Symmetry?</h3>
+          <p>A shape has rotational symmetry if it looks the same after being rotated less than 360° around its center point.</p>
+          <p style="margin-top: 1rem;"><strong>Order of Rotational Symmetry:</strong> The number of times the shape looks the same in one complete rotation (360°).</p>
+        </div>
+
+        <div class="example-box">
+          <h3 style="color: white;">Examples</h3>
+          <p style="color: white; margin-top: 1rem;"><strong>Square:</strong> Order 4 (looks the same every 90°)</p>
+          <p style="color: white;"><strong>Rectangle:</strong> Order 2 (looks the same every 180°)</p>
+          <p style="color: white;"><strong>Regular Pentagon:</strong> Order 5 (looks the same every 72°)</p>
+          <p style="color: white;"><strong>Kite:</strong> No rotational symmetry (only looks the same at 360°)</p>
+        </div>
+      `
+    },
+
+    // SLIDE 16: Check Your Understanding
+    {
+      title: "Check Understanding",
+      content: `
+        <h2>✓ Check Your Understanding</h2>
+        
+        <div class="question-box">
+          <h3 style="color: white;">Question 1</h3>
+          <p style="color: white; font-size: 1.6rem;">How many lines of symmetry does a regular hexagon have?</p>
+          <p style="color: white; font-size: 2rem; margin-top: 2rem; font-weight: 800;">Answer: 6 lines</p>
+        </div>
+
+        <div class="question-box" style="background: var(--success);">
+          <h3 style="color: white;">Question 2</h3>
+          <p style="color: white; font-size: 1.6rem;">What is the order of rotational symmetry for a regular octagon?</p>
+          <p style="color: white; font-size: 2rem; margin-top: 2rem; font-weight: 800;">Answer: Order 8</p>
+        </div>
+      `
+    },
+
+    // SLIDE 17: Practice Question
+    {
+      title: "Practice",
+      content: `
+        <h2>📝 Practice Question</h2>
+        
+        <div class="concept-card">
+          <h3>Sofia's Question About a Rectangle</h3>
+          <p>Sofia says: "My quadrilateral has two pairs of parallel sides and two pairs of sides the same length. What is the name of my quadrilateral?"</p>
+          
+          <div class="property-box" style="margin-top: 2rem;">
+            <p><strong>Think:</strong> Has Sofia given Zara enough information?</p>
+            <p style="margin-top: 1rem;"><strong>Answer:</strong> No! This could be a rectangle OR a parallelogram. She needs to tell us if the angles are 90° (rectangle) or not (parallelogram).</p>
+          </div>
+        </div>
+
+        <div class="example-box" style="margin-top: 2rem;">
+          <h3 style="color: white;">💡 Key Learning Point</h3>
+          <p style="color: white; font-size: 1.5rem;">We need enough information to identify a shape uniquely. Some properties are shared by different quadrilaterals!</p>
+        </div>
+      `
+    },
+
+    // SLIDE 18: Another Practice Question
+    {
+      title: "Practice",
+      content: `
+        <h2>📝 Practice Question</h2>
+        
+        <div class="concept-card">
+          <h3>Arun's Question About an Isosceles Trapezium</h3>
+          <p>Arun says: "My quadrilateral has one pair of parallel sides and one pair of sides the same length. What is the name of my quadrilateral?"</p>
+          
+          <div class="property-box" style="margin-top: 2rem;">
+            <p><strong>Think:</strong> Has Arun given Marcus enough information?</p>
+            <p style="margin-top: 1rem;"><strong>Answer:</strong> Yes! This is an isosceles trapezium. It has:</p>
+            <ul style="margin-left: 2rem; margin-top: 0.5rem;">
+              <li>One pair of parallel sides</li>
+              <li>One pair of equal sides (the non-parallel sides)</li>
+              <li>One pair of equal angles</li>
+            </ul>
+          </div>
+        </div>
+      `
+    },
+
+    // SLIDE 19: Summary
+    {
+      title: "Summary",
+      content: `
+        <h2>📌 Today's Summary</h2>
+        
+        <div class="concept-card">
+          <h3>What We Learned:</h3>
+          <ul style="margin-left: 2rem; font-size: 1.5rem; line-height: 2;">
+            <li>Regular polygons have equal sides and equal angles</li>
+            <li>The number of sides = number of lines of symmetry = order of rotation</li>
+            <li>We learned shape prefixes (penta-, hexa-, hepta-, octa-, nona-, deca-)</li>
+            <li>Quadrilaterals are 4-sided shapes with special properties</li>
+            <li>Each quadrilateral has unique properties that identify it</li>
+            <li>Lines of symmetry create mirror images</li>
+            <li>Rotational symmetry means the shape looks the same when rotated</li>
+          </ul>
+        </div>
+      `
+    },
+
+    // SLIDE 20: Exit Ticket
+    {
+      title: "Exit Ticket",
+      content: `
+        <h2>🎫 Exit Ticket</h2>
+        
+        <div class="question-box">
+          <h3 style="color: white;">Question 1</h3>
+          <p style="color: white; font-size: 1.6rem;">Name a quadrilateral that has:</p>
+          <ul style="color: white; font-size: 1.4rem; margin-left: 2rem; margin-top: 1rem; text-align: left;">
+            <li>All sides the same length</li>
+            <li>Two pairs of parallel sides</li>
+            <li>Opposite angles equal</li>
+          </ul>
+          <p style="color: white; font-size: 1.3rem; margin-top: 2rem;">Write your answer in your notebook!</p>
+        </div>
+
+        <div class="question-box" style="background: var(--success); margin-top: 2rem;">
+          <h3 style="color: white;">Question 2</h3>
+          <p style="color: white; font-size: 1.6rem;">How many lines of symmetry does a regular decagon have?</p>
+          <p style="color: white; font-size: 1.3rem; margin-top: 2rem;">Write your answer in your notebook!</p>
+        </div>
+      `
+    }
+  ];
+
+  let currentSlide = 0;
+
+  function updateSlide() {
+    const slideContent = document.getElementById('slide-content');
+    slideContent.innerHTML = slides[currentSlide].content;
+    slideContent.className = 'slide fade-in';
+    
+    const progress = ((currentSlide + 1) / slides.length) * 100;
+    document.getElementById('progress-fill').style.width = `${progress}%`;
+    document.getElementById('current-slide').textContent = `Slide ${currentSlide + 1}`;
+    document.getElementById('total-slides').textContent = `of ${slides.length}`;
+    
+    document.getElementById('prev-btn').disabled = currentSlide === 0;
+    document.getElementById('next-btn').disabled = currentSlide === slides.length - 1;
+    
+    // Scroll to top of slide
+    slideContent.scrollTop = 0;
+  }
+
+  function changeSlide(direction) {
+    const newSlide = currentSlide + direction;
+    if (newSlide >= 0 && newSlide < slides.length) {
+      currentSlide = newSlide;
+      updateSlide();
+    }
+  }
+
+  // Keyboard navigation
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'ArrowLeft') changeSlide(-1);
+    if (e.key === 'ArrowRight') changeSlide(1);
+  });
+
+  // Initialize
+  updateSlide();
+</script>
+
+
+
+</body></html>
