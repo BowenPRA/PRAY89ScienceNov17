@@ -11,23 +11,35 @@
     <meta name="date" content="November 17, 2025">
     <meta name="tags" content="Variables, Data Types, Anti-Bullying Week, Categorical Data, Numerical Data">
     
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     <style>
         :root {
             --primary: #6366F1;
+            --primary-dark: #4F46E5;
             --purple: #8B5CF6;
+            --purple-dark: #7C3AED;
             --orange: #F97316;
+            --orange-dark: #EA580C;
+            --teal: #14B8A6;
+            --teal-dark: #0D9488;
             --success: #10B981;
             --warning: #F59E0B;
             --danger: #EF4444;
             --gray-50: #F9FAFB;
             --gray-100: #F3F4F6;
+            --gray-200: #E5E7EB;
+            --gray-300: #D1D5DB;
+            --gray-600: #4B5563;
             --gray-700: #374151;
             --gray-800: #1F2937;
             --gray-900: #111827;
+            --gradient-primary: linear-gradient(135deg, #667EEA 0%, #764BA2 100%);
             --gradient-purple: linear-gradient(135deg, #8B5CF6 0%, #6D28D9 100%);
             --gradient-orange: linear-gradient(135deg, #F97316 0%, #EA580C 100%);
-            --gradient-primary: linear-gradient(135deg, #667EEA 0%, #764BA2 100%);
+            --gradient-teal: linear-gradient(135deg, #14B8A6 0%, #0D9488 100%);
+            --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+            --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1);
+            --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1);
             --shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.1);
         }
 
@@ -39,7 +51,7 @@
 
         body {
             font-family: 'Inter', sans-serif;
-            background: var(--gradient-primary);
+            background: linear-gradient(135deg, #667EEA 0%, #764BA2 50%, #F093FB 100%);
             color: var(--gray-900);
             overflow: hidden;
             height: 100vh;
@@ -52,10 +64,12 @@
         }
 
         .header {
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(10px);
-            padding: 1rem 2rem;
-            box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1);
+            background: rgba(255, 255, 255, 0.98);
+            backdrop-filter: blur(20px);
+            padding: clamp(0.75rem, 2vmin, 1.25rem) clamp(1rem, 3vmin, 2.5rem);
+            box-shadow: 0 4px 12px rgb(0 0 0 / 0.08);
+            border-bottom: 3px solid transparent;
+            border-image: var(--gradient-primary) 1;
         }
 
         .header-content {
@@ -64,21 +78,35 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
+            gap: clamp(1rem, 2vw, 2rem);
+            flex-wrap: wrap;
         }
 
         .lesson-badge {
             background: var(--gradient-primary);
             color: white;
-            padding: 0.5rem 1rem;
+            padding: clamp(0.5rem, 1vmin, 0.625rem) clamp(0.875rem, 2vmin, 1.25rem);
             border-radius: 9999px;
             font-weight: 700;
-            font-size: 1rem;
+            font-size: clamp(0.9375rem, 1.6vmin, 1.125rem);
+            box-shadow: var(--shadow-md);
+            white-space: nowrap;
         }
 
         .lesson-title {
-            font-size: 1.5rem;
-            font-weight: 700;
+            font-size: clamp(1.0625rem, 2.15vmin, 1.625rem);
+            font-weight: 800;
             color: var(--gray-800);
+            flex: 1;
+            text-align: center;
+            min-width: 200px;
+        }
+
+        .lesson-date {
+            font-size: clamp(0.9375rem, 1.6vmin, 1.125rem);
+            font-weight: 600;
+            color: var(--gray-600);
+            white-space: nowrap;
         }
 
         .content-wrapper {
@@ -86,66 +114,91 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            padding: 2rem;
+            padding: clamp(1rem, 2.5vmin, 2.5rem);
+            min-height: 0;
         }
 
         .slide-container {
             background: white;
-            border-radius: 1.5rem;
-            box-shadow: var(--shadow-xl);
+            border-radius: clamp(1rem, 2vmin, 2rem);
+            box-shadow: 0 25px 50px -12px rgb(0 0 0 / 0.25);
             width: 100%;
-            max-width: 1200px;
-            height: calc(100vh - 200px);
-            max-height: 700px;
+            max-width: 1300px;
+            height: 100%;
+            max-height: 800px;
             overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            display: flex;
+            flex-direction: column;
         }
 
         .slide {
-            height: 100%;
+            flex: 1;
             overflow-y: auto;
-            padding: 3rem;
+            overflow-x: hidden;
+            padding: clamp(1.5rem, 3.5vmin, 3.5rem) clamp(1.5rem, 4vmin, 4rem);
             scroll-behavior: smooth;
         }
 
+        .slide::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        .slide::-webkit-scrollbar-track {
+            background: var(--gray-100);
+            border-radius: 10px;
+        }
+
+        .slide::-webkit-scrollbar-thumb {
+            background: var(--primary);
+            border-radius: 10px;
+        }
+
         h1 {
-            font-size: 4.5rem;
+            font-size: clamp(2.125rem, 6.3vmin, 4.75rem);
             font-weight: 900;
             background: var(--gradient-primary);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            margin-bottom: 2rem;
+            background-clip: text;
+            margin-bottom: clamp(1rem, 2vmin, 2rem);
             line-height: 1.1;
             text-align: center;
+            letter-spacing: -0.02em;
         }
 
         h2 {
-            font-size: 3rem;
+            font-size: clamp(1.875rem, 4.75vmin, 3.5rem);
             font-weight: 800;
             color: var(--gray-800);
-            margin-bottom: 2rem;
+            margin-bottom: clamp(1.25rem, 2.5vmin, 2.5rem);
             text-align: center;
+            line-height: 1.2;
+            letter-spacing: -0.02em;
         }
 
         h3 {
-            font-size: 2rem;
+            font-size: clamp(1.375rem, 3.25vmin, 2.5rem);
             font-weight: 700;
             color: var(--primary);
-            margin-bottom: 1.5rem;
+            margin-bottom: clamp(0.75rem, 1.5vmin, 1.5rem);
+            line-height: 1.3;
         }
 
         p, li {
-            font-size: 1.5rem;
-            line-height: 1.8;
+            font-size: clamp(1.0625rem, 2.15vmin, 1.625rem);
+            line-height: 1.7;
             color: var(--gray-700);
-            margin-bottom: 1rem;
+            margin-bottom: clamp(0.5rem, 1vmin, 1rem);
             font-weight: 500;
         }
 
         .large-text {
-            font-size: 2rem;
+            font-size: clamp(1.375rem, 3.25vmin, 2.5rem);
             font-weight: 700;
-            margin: 2rem 0;
+            margin: clamp(1.25rem, 2.5vmin, 2.5rem) 0;
             text-align: center;
+            line-height: 1.4;
         }
 
         .title-slide {
@@ -155,172 +208,203 @@
             align-items: center;
             height: 100%;
             text-align: center;
-            padding: 2rem;
+            padding: clamp(1rem, 2vmin, 2rem);
         }
 
         .title-header {
-            margin-bottom: 3rem;
+            margin-bottom: clamp(2rem, 4vmin, 4rem);
+            width: 100%;
         }
 
         .school-name {
-            font-size: 2.5rem;
-            font-weight: 800;
+            font-size: clamp(1.625rem, 4.25vmin, 3rem);
+            font-weight: 900;
             color: var(--gray-800);
-            margin-bottom: 1rem;
+            margin-bottom: clamp(0.5rem, 1vmin, 1rem);
+            letter-spacing: -0.01em;
         }
 
         .class-info {
-            font-size: 2rem;
-            font-weight: 600;
-            color: var(--gray-600);
-            margin-bottom: 0.5rem;
+            font-size: clamp(1.375rem, 3.25vmin, 2.25rem);
+            font-weight: 700;
+            background: var(--gradient-primary);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: clamp(0.25rem, 0.5vmin, 0.5rem);
         }
 
-        .lesson-date {
-            font-size: 1.5rem;
-            color: var(--gray-500);
-            margin-bottom: 2rem;
+        .title-date {
+            font-size: clamp(1.0625rem, 2.15vmin, 1.625rem);
+            color: var(--gray-600);
+            font-weight: 600;
+            margin-bottom: clamp(1.5rem, 2.5vmin, 2.5rem);
         }
 
         .unit-topic {
-            font-size: 3.5rem;
+            font-size: clamp(2.125rem, 5.75vmin, 4.75rem);
             font-weight: 900;
             background: var(--gradient-primary);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            margin-bottom: 3rem;
-        }
-
-        .title-boxes {
-            display: flex;
-            gap: 2rem;
-            width: 100%;
-            max-width: 1000px;
+            background-clip: text;
+            margin-bottom: clamp(2rem, 4vmin, 4rem);
+            line-height: 1.15;
+            letter-spacing: -0.02em;
         }
 
         .objective-box {
             background: var(--gradient-purple);
             color: white;
-            padding: 2rem;
-            border-radius: 1rem;
-            flex: 1;
+            padding: clamp(1.5rem, 3vmin, 2.5rem);
+            border-radius: clamp(0.75rem, 1.5vmin, 1.5rem);
+            box-shadow: var(--shadow-xl);
+            transition: transform 0.3s ease;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .objective-box:hover {
+            transform: translateY(-5px);
         }
 
         .warmup-box {
             background: var(--gradient-orange);
             color: white;
-            padding: 2rem;
-            border-radius: 1rem;
-            flex: 1;
+            padding: clamp(1.5rem, 3vmin, 2.5rem);
+            border-radius: clamp(0.75rem, 1.5vmin, 1.5rem);
+            box-shadow: var(--shadow-xl);
+            transition: transform 0.3s ease;
+        }
+
+        .warmup-box:hover {
+            transform: translateY(-5px);
         }
 
         .box-title {
-            font-size: 1.8rem;
-            font-weight: 700;
-            margin-bottom: 1rem;
+            font-size: clamp(1.375rem, 2.75vmin, 2.125rem);
+            font-weight: 800;
+            margin-bottom: clamp(0.75rem, 1.25vmin, 1.25rem);
+            letter-spacing: -0.01em;
         }
 
         .box-content {
-            font-size: 1.4rem;
+            font-size: clamp(1.0625rem, 2.15vmin, 1.625rem);
             font-weight: 600;
             line-height: 1.6;
         }
 
         .vocab-card {
-            background: linear-gradient(135deg, var(--gray-50) 0%, white 100%);
+            background: linear-gradient(135deg, #F0F9FF 0%, #E0F2FE 100%);
             border: 3px solid var(--primary);
-            padding: 2rem;
-            border-radius: 1rem;
-            margin: 2rem 0;
+            padding: clamp(1.5rem, 2.5vmin, 2.5rem);
+            border-radius: clamp(0.75rem, 1.5vmin, 1.5rem);
+            margin: clamp(1.25rem, 2.5vmin, 2.5rem) 0;
             text-align: center;
+            box-shadow: var(--shadow-lg);
         }
 
         .vocab-term {
-            font-size: 2.5rem;
-            font-weight: 800;
+            font-size: clamp(1.625rem, 4.25vmin, 3.25rem);
+            font-weight: 900;
             color: var(--primary);
-            margin-bottom: 1rem;
+            margin-bottom: clamp(0.625rem, 1.25vmin, 1.25rem);
+            letter-spacing: -0.01em;
         }
 
         .vocab-definition {
-            font-size: 1.8rem;
+            font-size: clamp(1.25rem, 2.75vmin, 2.25rem);
             font-weight: 600;
             color: var(--gray-700);
             line-height: 1.6;
         }
 
         .concept-card {
-            background: white;
-            border-radius: 1rem;
-            padding: 2rem;
-            box-shadow: var(--shadow-xl);
-            margin: 2rem 0;
-            border-top: 6px solid var(--success);
+            background: linear-gradient(to bottom, white, var(--gray-50));
+            border-radius: clamp(0.75rem, 1.5vmin, 1.5rem);
+            padding: clamp(1.5rem, 2.5vmin, 2.5rem);
+            box-shadow: var(--shadow-lg);
+            margin: clamp(1.25rem, 2.5vmin, 2.5rem) 0;
+            border-left: clamp(4px, 0.75vmin, 6px) solid var(--success);
         }
 
         .example-box {
-            background: var(--warning);
+            background: var(--gradient-orange);
             color: white;
-            padding: 2rem;
-            border-radius: 1rem;
-            margin: 2rem 0;
+            padding: clamp(1.5rem, 2.5vmin, 2.5rem);
+            border-radius: clamp(0.75rem, 1.5vmin, 1.5rem);
+            margin: clamp(1.25rem, 2.5vmin, 2.5rem) 0;
             text-align: center;
+            box-shadow: var(--shadow-xl);
         }
 
         .question-box {
-            background: var(--danger);
+            background: var(--gradient-teal);
             color: white;
-            padding: 2rem;
-            border-radius: 1rem;
-            margin: 2rem 0;
+            padding: clamp(1.5rem, 2.5vmin, 2.5rem);
+            border-radius: clamp(0.75rem, 1.5vmin, 1.5rem);
+            margin: clamp(1.25rem, 2.5vmin, 2.5rem) 0;
             text-align: center;
+            box-shadow: var(--shadow-xl);
         }
 
         .activity-box {
-            background: var(--success);
+            background: var(--gradient-teal);
             color: white;
-            padding: 2rem;
-            border-radius: 1rem;
-            margin: 2rem 0;
+            padding: clamp(1.5rem, 2.5vmin, 2.5rem);
+            border-radius: clamp(0.75rem, 1.5vmin, 1.5rem);
+            margin: clamp(1.25rem, 2.5vmin, 2.5rem) 0;
             text-align: center;
+            box-shadow: var(--shadow-xl);
         }
 
         .comparison-table {
             width: 100%;
-            border-collapse: collapse;
-            margin: 2rem 0;
-            font-size: 1.5rem;
+            border-collapse: separate;
+            border-spacing: 0;
+            margin: clamp(1.25rem, 2.5vmin, 2.5rem) 0;
+            font-size: clamp(0.9375rem, 2.15vmin, 1.625rem);
+            border-radius: clamp(0.5rem, 1vmin, 1rem);
+            overflow: hidden;
+            box-shadow: var(--shadow-lg);
         }
 
         .comparison-table th {
-            background: var(--primary);
+            background: var(--gradient-primary);
             color: white;
-            padding: 1.5rem;
-            font-size: 1.8rem;
-            font-weight: 700;
+            padding: clamp(1rem, 1.75vmin, 1.75rem);
+            font-size: clamp(1.0625rem, 2.75vmin, 2.25rem);
+            font-weight: 800;
+            text-align: left;
         }
 
         .comparison-table td {
-            padding: 1.5rem;
-            border: 2px solid var(--gray-100);
+            padding: clamp(1rem, 1.75vmin, 1.75rem);
+            border-bottom: 1px solid var(--gray-200);
             font-weight: 600;
+            background: white;
         }
 
-        .comparison-table tr:nth-child(even) {
+        .comparison-table tr:last-child td {
+            border-bottom: none;
+        }
+
+        .comparison-table tr:nth-child(even) td {
             background: var(--gray-50);
         }
 
         .note-box {
-            background: #FEF3C7;
-            border-left: 6px solid var(--warning);
-            padding: 1.5rem;
-            margin: 1.5rem 0;
-            border-radius: 0.5rem;
+            background: linear-gradient(135deg, #FEF3C7 0%, #FDE68A 100%);
+            border-left: clamp(4px, 0.75vmin, 6px) solid var(--warning);
+            padding: clamp(1rem, 2vmin, 2rem);
+            margin: clamp(1rem, 2vmin, 2rem) 0;
+            border-radius: clamp(0.5rem, 1vmin, 1rem);
+            box-shadow: var(--shadow-md);
         }
 
         .note-box p {
             color: var(--gray-800);
-            font-size: 1.4rem;
+            font-size: clamp(1.0625rem, 2.15vmin, 1.625rem);
             margin: 0;
         }
 
@@ -329,19 +413,27 @@
             padding-left: 0;
         }
 
+        li {
+            padding-left: clamp(1.5rem, 2.5vmin, 2.5rem);
+            position: relative;
+            margin-bottom: clamp(0.75rem, 1.25vmin, 1.25rem);
+        }
+
         li::before {
-            content: "✓ ";
+            content: "✓";
             color: var(--success);
             font-weight: 900;
-            font-size: 2rem;
-            margin-right: 0.5rem;
+            font-size: clamp(1.375rem, 2.75vmin, 2.25rem);
+            position: absolute;
+            left: 0;
+            top: -2px;
         }
 
         .navigation {
-            background: white;
-            border-top: 1px solid #E5E7EB;
-            padding: 1rem 2rem;
-            box-shadow: 0 -4px 6px -1px rgb(0 0 0 / 0.1);
+            background: rgba(255, 255, 255, 0.98);
+            border-top: 1px solid var(--gray-200);
+            padding: clamp(0.75rem, 1.25vmin, 1.25rem) clamp(1rem, 2.5vmin, 2.5rem);
+            box-shadow: 0 -4px 12px rgb(0 0 0 / 0.08);
         }
 
         .navigation-content {
@@ -350,82 +442,188 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
+            gap: clamp(1rem, 2vmin, 2rem);
+            flex-wrap: wrap;
         }
 
         .progress-container {
             flex: 1;
-            max-width: 500px;
+            max-width: 600px;
+            min-width: 200px;
         }
 
         .progress-info {
             display: flex;
             justify-content: space-between;
-            margin-bottom: 0.5rem;
-            font-size: 1rem;
+            margin-bottom: clamp(0.5rem, 0.75vmin, 0.75rem);
+            font-size: clamp(0.9375rem, 1.6vmin, 1.125rem);
             color: var(--gray-700);
-            font-weight: 600;
+            font-weight: 700;
         }
 
         .progress-bar {
-            height: 8px;
-            background: #E5E7EB;
+            height: clamp(6px, 1vmin, 10px);
+            background: var(--gray-200);
             border-radius: 9999px;
             overflow: hidden;
+            box-shadow: inset 0 1px 3px rgb(0 0 0 / 0.1);
         }
 
         .progress-fill {
             height: 100%;
             background: var(--gradient-primary);
             border-radius: 9999px;
-            transition: width 0.5s ease;
+            transition: width 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 0 8px rgba(102, 126, 234, 0.5);
         }
 
         .nav-buttons {
             display: flex;
-            gap: 1rem;
+            gap: clamp(0.75rem, 1.25vmin, 1.25rem);
         }
 
         .nav-btn {
             display: flex;
             align-items: center;
-            gap: 0.5rem;
-            padding: 1rem 1.5rem;
+            gap: clamp(0.375rem, 0.75vmin, 0.75rem);
+            padding: clamp(0.75rem, 1vmin, 1rem) clamp(1rem, 2vmin, 2rem);
             background: white;
-            border: 2px solid #D1D5DB;
-            border-radius: 0.75rem;
-            font-weight: 600;
-            font-size: 1.1rem;
+            border: 2px solid var(--gray-300);
+            border-radius: clamp(0.5rem, 1vmin, 1rem);
+            font-weight: 700;
+            font-size: clamp(0.9375rem, 1.6vmin, 1.1875rem);
             color: var(--gray-700);
             cursor: pointer;
-            transition: all 0.3s ease;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: var(--shadow-sm);
+            white-space: nowrap;
         }
 
         .nav-btn:hover:not(:disabled) {
-            background: var(--primary);
+            background: var(--gradient-primary);
             color: white;
             border-color: var(--primary);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
         }
 
         .nav-btn:disabled {
-            opacity: 0.5;
+            opacity: 0.4;
             cursor: not-allowed;
+            background: var(--gray-100);
         }
 
         .fade-in {
-            animation: fadeIn 0.5s ease-in-out;
+            animation: fadeIn 0.6s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
         @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
+            from { 
+                opacity: 0; 
+                transform: translateY(30px); 
+            }
+            to { 
+                opacity: 1; 
+                transform: translateY(0); 
+            }
         }
 
+        strong {
+            font-weight: 800;
+            color: var(--gray-800);
+        }
+
+        .emphasis {
+            background: linear-gradient(135deg, #FEF3C7 0%, #FDE68A 100%);
+            padding: 0.25rem 0.5rem;
+            border-radius: 0.375rem;
+            font-weight: 700;
+        }
+
+        .scenario-btn {
+            display: block;
+            width: 100%;
+            text-align: left;
+            background: var(--gradient-primary);
+            color: white;
+            padding: clamp(1rem, 2vmin, 1.5rem);
+            margin: clamp(0.75rem, 1.25vmin, 1.25rem) 0;
+            border: none;
+            border-radius: clamp(0.5rem, 1vmin, 1rem);
+            font-size: clamp(1.0625rem, 2.15vmin, 1.625rem);
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: var(--shadow-md);
+        }
+
+        .scenario-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .scenario-btn.active {
+            background: var(--gradient-teal);
+        }
+
+        .scenario-content {
+            display: none;
+            background: linear-gradient(to bottom, white, var(--gray-50));
+            padding: clamp(1.25rem, 2.5vmin, 2rem);
+            margin: clamp(0.5rem, 1vmin, 1rem) 0 clamp(1rem, 2vmin, 2rem) 0;
+            border-radius: clamp(0.5rem, 1vmin, 1rem);
+            border-left: clamp(4px, 0.75vmin, 6px) solid var(--teal);
+            box-shadow: var(--shadow-md);
+        }
+
+        .scenario-content.show {
+            display: block;
+            animation: slideDown 0.3s ease;
+        }
+
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .scenario-content p {
+            font-size: clamp(1rem, 2.15vmin, 1.5rem);
+            line-height: 1.7;
+            color: var(--gray-700);
+            font-weight: 600;
+        }
+
+        /* Responsive adjustments */
         @media (max-width: 768px) {
-            .title-boxes { flex-direction: column; }
-            h1 { font-size: 3rem; }
-            h2 { font-size: 2.5rem; }
-            .school-name { font-size: 2rem; }
-            .unit-topic { font-size: 2.5rem; }
+            .header-content {
+                justify-content: center;
+            }
+            
+            .lesson-title {
+                order: -1;
+                flex-basis: 100%;
+            }
+            
+            .nav-buttons {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+        }
+
+        @media (max-height: 600px) {
+            .content-wrapper {
+                padding: 1rem;
+            }
+            
+            .slide {
+                padding: 1.5rem;
+            }
         }
     </style>
 </head>
@@ -436,7 +634,7 @@
         <div class="header-content">
             <span class="lesson-badge">Year 8 Mathematics</span>
             <div class="lesson-title">Anti-Bullying Week: Data Investigation</div>
-            <div>📅 17 November 2025</div>
+            <div class="lesson-date">📅 17 November 2025</div>
         </div>
     </div>
 
@@ -458,8 +656,8 @@
                 </div>
             </div>
             <div class="nav-buttons">
-                <button class="nav-btn" id="prev-btn" onclick="changeSlide(-1)" disabled>⬅ Previous</button>
-                <button class="nav-btn" id="next-btn" onclick="changeSlide(1)">Next ➡</button>
+                <button class="nav-btn" id="prev-btn" onclick="changeSlide(-1)" disabled>← Previous</button>
+                <button class="nav-btn" id="next-btn" onclick="changeSlide(1)">Next →</button>
             </div>
         </div>
     </div>
@@ -474,20 +672,13 @@
                     <div class="title-header">
                         <div class="school-name">Palm River Academy</div>
                         <div class="class-info">Year 8 Mathematics</div>
-                        <div class="lesson-date">Monday, 17 November 2025</div>
-                        <div class="unit-topic">Anti-Bullying Week: Defining Our Investigation</div>
+                        <div class="title-date">Monday, 17 November 2025</div>
+                        <div class="unit-topic">Anti-Bullying Week:<br>Defining Our Investigation</div>
                     </div>
                     
-                    <div class="title-boxes">
-                        <div class="objective-box">
-                            <div class="box-title">Objective</div>
-                            <div class="box-content">Identify variables we can analyze in our Anti-Bullying Week investigation</div>
-                        </div>
-                        
-                        <div class="warmup-box">
-                            <div class="box-title">Warm Up Activity</div>
-                            <div class="box-content">"Stand Up If..." - Connecting our experiences to data collection</div>
-                        </div>
+                    <div class="objective-box">
+                        <div class="box-title">📊 Learning Objective</div>
+                        <div class="box-content">Identify variables we can analyze in our Anti-Bullying Week investigation</div>
                     </div>
                 </div>
             `
@@ -498,20 +689,86 @@
                 <h2>Stand Up If...</h2>
                 <div class="activity-box">
                     <div class="box-title">🎯 Instructions</div>
-                    <p style="color: white; font-size: 1.8rem; margin: 1rem 0;">Remain seated. Listen to each statement.</p>
-                    <p style="color: white; font-size: 1.8rem; margin: 1rem 0;">Stand up if the statement applies to you.</p>
+                    <p style="color: white; font-size: clamp(1.1875rem, 2.6vmin, 2.125rem); margin: clamp(0.75rem, 1.5vmin, 1.5rem) 0; font-weight: 600;">Remain seated and listen to each statement.</p>
+                    <p style="color: white; font-size: clamp(1.1875rem, 2.6vmin, 2.125rem); margin: clamp(0.75rem, 1.5vmin, 1.5rem) 0; font-weight: 600;">Stand up when a statement applies to you.</p>
                 </div>
                 
                 <div class="concept-card">
-                    <h3>Statements</h3>
-                    <ul style="text-align: left; max-width: 900px; margin: 0 auto;">
-                        <li>You've ever helped someone who looked sad</li>
-                        <li>You've ever felt left out or excluded</li>
-                        <li>You've ever witnessed someone being treated unkindly</li>
-                        <li>You think data can help solve real problems</li>
-                        <li>You've ever changed your mind after seeing evidence</li>
-                        <li>You think our school could be safer and friendlier</li>
-                    </ul>
+                    <h3>Scenarios</h3>
+                    
+                    <button class="scenario-btn" onclick="toggleScenario(0)">
+                        🤝 Scenario 1: Helping Others
+                    </button>
+                    <div class="scenario-content" id="scenario-0">
+                        <p>Stand up if you've ever helped someone who looked sad or upset.</p>
+                    </div>
+
+                    <button class="scenario-btn" onclick="toggleScenario(1)">
+                        😔 Scenario 2: Feeling Left Out
+                    </button>
+                    <div class="scenario-content" id="scenario-1">
+                        <p>Stand up if you've ever felt left out or excluded from a group or activity.</p>
+                    </div>
+
+                    <button class="scenario-btn" onclick="toggleScenario(2)">
+                        👀 Scenario 3: Witnessing Unkindness
+                    </button>
+                    <div class="scenario-content" id="scenario-2">
+                        <p>Stand up if you've ever witnessed someone being treated unkindly at school.</p>
+                    </div>
+
+                    <button class="scenario-btn" onclick="toggleScenario(3)">
+                        📊 Scenario 4: Data and Problem-Solving
+                    </button>
+                    <div class="scenario-content" id="scenario-3">
+                        <p>Stand up if you think collecting data can help solve real-world problems.</p>
+                    </div>
+
+                    <button class="scenario-btn" onclick="toggleScenario(4)">
+                        🧠 Scenario 5: Changing Your Mind
+                    </button>
+                    <div class="scenario-content" id="scenario-4">
+                        <p>Stand up if you've ever changed your mind about something after seeing evidence or data.</p>
+                    </div>
+
+                    <button class="scenario-btn" onclick="toggleScenario(5)">
+                        🏫 Scenario 6: School Safety
+                    </button>
+                    <div class="scenario-content" id="scenario-5">
+                        <p>Stand up if you believe our school could be safer and friendlier for everyone.</p>
+                    </div>
+
+                    <button class="scenario-btn" onclick="toggleScenario(6)">
+                        💪 Scenario 7: Speaking Up
+                    </button>
+                    <div class="scenario-content" id="scenario-6">
+                        <p>Stand up if you've ever wanted to speak up about something unfair but weren't sure how.</p>
+                    </div>
+
+                    <button class="scenario-btn" onclick="toggleScenario(7)">
+                        🌟 Scenario 8: Making a Difference
+                    </button>
+                    <div class="scenario-content" id="scenario-7">
+                        <p>Stand up if you've ever made someone's day better with a kind word or action.</p>
+                    </div>
+
+                    <button class="scenario-btn" onclick="toggleScenario(8)">
+                        🤔 Scenario 9: Difficult Situations
+                    </button>
+                    <div class="scenario-content" id="scenario-8">
+                        <p>Stand up if you've ever felt unsure about what to do when you saw someone being treated poorly.</p>
+                    </div>
+
+                    <button class="scenario-btn" onclick="toggleScenario(9)">
+                        ✨ Scenario 10: Creating Change
+                    </button>
+                    <div class="scenario-content" id="scenario-9">
+                        <p>Stand up if you want to be part of creating positive change in our school community.</p>
+                    </div>
+                </div>
+                
+                <div class="note-box" style="margin-top: clamp(1.25rem, 2.5vmin, 2.5rem);">
+                    <p style="font-size: clamp(1.0625rem, 2.15vmin, 1.75rem); font-weight: 700;">💭 Reflection: These experiences connect us all. Today, we'll learn how mathematics can help us understand and address these challenges in meaningful ways.</p>
                 </div>
             `
         },
@@ -520,18 +777,23 @@
             content: `
                 <h2>Using Mathematics to Make Change</h2>
                 
-                <div class="large-text" style="background: var(--gradient-primary); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">
+                <div class="large-text" style="background: var(--gradient-primary); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">
                     This week, we will use mathematics to understand bullying better and help make our school safer and friendlier.
                 </div>
                 
                 <div class="concept-card">
                     <h3>How We'll Use Data</h3>
                     <ul style="text-align: left;">
-                        <li>Collect real data from our school community</li>
-                        <li>Analyze patterns to understand what's happening</li>
-                        <li>Use evidence to make informed decisions</li>
-                        <li>Create solutions based on facts, not assumptions</li>
+                        <li>Collect real data from our school community through thoughtful, well-designed surveys</li>
+                        <li>Analyze patterns to understand what's actually happening in our school</li>
+                        <li>Use evidence to make informed decisions about effective interventions</li>
+                        <li>Create solutions based on facts, not assumptions or guesses</li>
+                        <li>Present findings in a clear, compelling way to drive positive change</li>
                     </ul>
+                </div>
+                
+                <div class="large-text" style="color: var(--teal); margin-top: clamp(1.5rem, 3vmin, 3rem);">
+                    Data gives us the power to see clearly and act effectively to improve our school.
                 </div>
             `
         },
@@ -541,26 +803,26 @@
                 <h2>Mathematical Questions vs. General Questions</h2>
                 
                 <div class="concept-card">
-                    <h3>Compare These Two Questions:</h3>
+                    <h3>Compare These Two Questions</h3>
                     <table class="comparison-table">
                         <tr>
-                            <th>❌ Cannot Analyze with Data</th>
-                            <th>✓ Can Analyze with Data</th>
+                            <th style="background: linear-gradient(135deg, #EF4444 0%, #DC2626 100%);">❌ Cannot Analyze with Data</th>
+                            <th style="background: var(--gradient-teal);">✓ Can Analyze with Data</th>
                         </tr>
                         <tr>
-                            <td style="background: #FEE2E2;">"Are some people mean?"</td>
-                            <td style="background: #D1FAE5;">"How often have you seen bullying in the past month?"</td>
+                            <td style="background: #FEE2E2; color: var(--gray-800);">"Are some people mean?"</td>
+                            <td style="background: #D1FAE5; color: var(--gray-800);">"How often have you seen bullying in the past month?"</td>
                         </tr>
                     </table>
                 </div>
                 
                 <div class="question-box">
-                    <p style="color: white; font-size: 2rem; font-weight: 700; margin-bottom: 1rem;">Which question gives us data we can analyze?</p>
-                    <p style="color: white; font-size: 1.8rem;">Turn to your partner and discuss WHY.</p>
+                    <p style="color: white; font-size: clamp(1.375rem, 3.25vmin, 2.5rem); font-weight: 800; margin-bottom: clamp(0.75rem, 1.5vmin, 1.5rem);">🤔 Which question gives us data we can analyze?</p>
+                    <p style="color: white; font-size: clamp(1.1875rem, 2.6vmin, 2.125rem); font-weight: 600;">Turn to your partner and discuss WHY the second question is better for collecting useful data.</p>
                 </div>
                 
-                <div class="large-text" style="color: var(--primary); margin-top: 2rem;">
-                    We need questions that give us categorical or numerical data
+                <div class="large-text" style="color: var(--primary); margin-top: clamp(1.25rem, 2.5vmin, 2.5rem);">
+                    We need questions that give us categorical or numerical data we can actually work with.
                 </div>
             `
         },
@@ -570,20 +832,20 @@
                 <h2>Understanding Data Types</h2>
                 
                 <div class="vocab-card">
-                    <div class="vocab-term">Categorical Data</div>
+                    <div class="vocab-term">📋 Categorical Data</div>
                     <div class="vocab-definition">Data sorted into groups or categories</div>
-                    <p style="font-size: 1.6rem; color: var(--success); font-weight: 700; margin-top: 1rem;">Examples: Yes/No, Year 4/5/6/8/9, Type of bullying</p>
+                    <p style="font-size: clamp(1.0625rem, 2.4vmin, 1.875rem); color: var(--success); font-weight: 700; margin-top: clamp(0.75rem, 1.5vmin, 1.5rem);">Examples: Yes/No, Year 4/5/6/8/9, Type of bullying, Location</p>
                 </div>
                 
                 <div class="vocab-card">
-                    <div class="vocab-term">Numerical Data</div>
+                    <div class="vocab-term">🔢 Numerical Data</div>
                     <div class="vocab-definition">Data involving numbers we can count or measure</div>
-                    <p style="font-size: 1.6rem; color: var(--success); font-weight: 700; margin-top: 1rem;">Examples: How many times? Number of students, Age in years</p>
+                    <p style="font-size: clamp(1.0625rem, 2.4vmin, 1.875rem); color: var(--success); font-weight: 700; margin-top: clamp(0.75rem, 1.5vmin, 1.5rem);">Examples: How many times? Number of students, Age in years, Duration in minutes</p>
                 </div>
                 
                 <div class="activity-box">
-                    <p style="color: white; font-size: 1.8rem; font-weight: 700;">Turn and Talk (2 minutes)</p>
-                    <p style="color: white; font-size: 1.6rem;">Give your partner ONE example of categorical data and ONE example of numerical data about bullying.</p>
+                    <p style="color: white; font-size: clamp(1.1875rem, 2.6vmin, 2.125rem); font-weight: 800;">💬 Turn and Talk (2 minutes)</p>
+                    <p style="color: white; font-size: clamp(1.0625rem, 2.4vmin, 1.875rem); font-weight: 600; margin-top: clamp(0.5rem, 1vmin, 1rem);">Give your partner ONE example of categorical data and ONE example of numerical data about bullying in our school.</p>
                 </div>
             `
         },
@@ -593,22 +855,24 @@
                 <h2>Understanding Variables</h2>
                 
                 <div class="vocab-card">
-                    <div class="vocab-term">Variable</div>
-                    <div class="vocab-definition">Something that can change or be different between people or situations</div>
+                    <div class="vocab-term">🔄 Variable</div>
+                    <div class="vocab-definition">Something that can change or vary between people or situations</div>
                 </div>
                 
-            <div class="concept-card">
-                <h3>Examples of Variables in Our Investigation</h3>
-                <ul style="text-align: left;">
-                    <li><strong>Year group</strong> - different for different students (Year 4, 5, 6, 8, or 9)</li>
-                    <li><strong>Age</strong> - varies from student to student (9, 10, 11, 12, 13, 14 years)</li>
-                    <li><strong>Location where bullying happens</strong> - classroom, hallway, online, playground</li>
-                    <li><strong>Type of bullying</strong> - physical, verbal, social, cyber</li>
-                </ul>
-            </div>
+                <div class="concept-card">
+                    <h3>Examples of Variables in Our Investigation</h3>
+                    <ul style="text-align: left;">
+                        <li><strong>Year group</strong> — different for different students (Year 4, 5, 6, 8, or 9)</li>
+                        <li><strong>Age</strong> — varies from student to student (9, 10, 11, 12, 13, 14 years)</li>
+                        <li><strong>Location where bullying happens</strong> — classroom, hallway, online, playground, cafeteria</li>
+                        <li><strong>Type of bullying</strong> — physical, verbal, social, cyber</li>
+                        <li><strong>Frequency</strong> — how often bullying occurs (daily, weekly, monthly, rarely, never)</li>
+                        <li><strong>Number of witnesses</strong> — how many people see incidents occur</li>
+                    </ul>
+                </div>
                 
-                <div class="large-text">
-                    Variables help us identify patterns in data
+                <div class="large-text" style="color: var(--purple);">
+                    Variables help us identify patterns and relationships in data to make better decisions.
                 </div>
             `
         },
@@ -646,9 +910,13 @@
                 </table>
                 
                 <div class="activity-box">
-                    <p style="color: white; font-size: 2rem; font-weight: 700; margin-bottom: 1rem;">Pair Work (5 minutes)</p>
-                    <p style="color: white; font-size: 1.6rem;">Add 2-3 MORE variables to each column</p>
-                    <p style="color: white; font-size: 1.6rem;">Write on sticky notes or in your notebooks</p>
+                    <p style="color: white; font-size: clamp(1.375rem, 3.25vmin, 2.5rem); font-weight: 800; margin-bottom: clamp(0.75rem, 1.5vmin, 1.5rem);">👥 Pair Work (5 minutes)</p>
+                    <p style="color: white; font-size: clamp(1.0625rem, 2.4vmin, 1.875rem); font-weight: 600;">Add 2–3 MORE variables to each column that would help us understand bullying better</p>
+                    <p style="color: white; font-size: clamp(1.0625rem, 2.4vmin, 1.875rem); font-weight: 600; margin-top: clamp(0.5rem, 1vmin, 1rem);">Write your ideas on sticky notes or in your notebooks</p>
+                </div>
+                
+                <div class="note-box" style="margin-top: clamp(1.25rem, 2.5vmin, 2.5rem);">
+                    <p style="font-size: clamp(1.0625rem, 2.15vmin, 1.625rem); font-weight: 700;">💡 Think about: What information would help us understand when, where, and why bullying happens?</p>
                 </div>
             `
         },
@@ -665,26 +933,30 @@
                             <th>Type of Data</th>
                         </tr>
                         <tr>
-                            <td>Year group</td>
-                            <td style="background: #FEF3C7;">Categorical (Year 4, 5, 6, 8, 9)</td>
+                            <td><strong>Year group</strong></td>
+                            <td style="background: #FEF3C7; font-weight: 700;">📋 Categorical (Year 4, 5, 6, 8, 9)</td>
                         </tr>
                         <tr>
-                            <td>Age</td>
-                            <td style="background: #DBEAFE;">Numerical (9, 10, 11, 12, 13, 14 years)</td>
+                            <td><strong>Age</strong></td>
+                            <td style="background: #DBEAFE; font-weight: 700;">🔢 Numerical (9, 10, 11, 12, 13, 14 years)</td>
                         </tr>
                         <tr>
-                            <td>Number of times witnessed bullying</td>
-                            <td style="background: #DBEAFE;">Numerical (0, 1, 2, 3...)</td>
+                            <td><strong>Number of times witnessed bullying</strong></td>
+                            <td style="background: #DBEAFE; font-weight: 700;">🔢 Numerical (0, 1, 2, 3, 4, 5...)</td>
                         </tr>
                         <tr>
-                            <td>Type of bullying</td>
-                            <td style="background: #FEF3C7;">Categorical (Physical, verbal, social, cyber)</td>
+                            <td><strong>Type of bullying</strong></td>
+                            <td style="background: #FEF3C7; font-weight: 700;">📋 Categorical (Physical, verbal, social, cyber)</td>
                         </tr>
                         <tr>
-                            <td>Location</td>
-                            <td style="background: #FEF3C7;">Categorical (Classroom, hallway, online, playground)</td>
+                            <td><strong>Location</strong></td>
+                            <td style="background: #FEF3C7; font-weight: 700;">📋 Categorical (Classroom, hallway, online, playground)</td>
                         </tr>
                     </table>
+                </div>
+                
+                <div class="question-box" style="margin-top: clamp(1.5rem, 3vmin, 3rem);">
+                    <p style="color: white; font-size: clamp(1.1875rem, 2.6vmin, 2.125rem); font-weight: 700;">🤔 Quick Check: Can you explain to your partner why each variable is classified the way it is?</p>
                 </div>
             `
         },
@@ -694,25 +966,25 @@
                 <h2>Understanding Why Categories ≠ Numbers</h2>
                 
                 <div class="note-box">
-                    <p style="font-size: 1.8rem; font-weight: 700; margin-bottom: 1rem;">🤔 Important Concept:</p>
-                    <p style="font-size: 1.6rem; line-height: 1.8;">Even though year groups use numbers (Year 4, Year 5, Year 6, Year 8, Year 9), they are CATEGORICAL data, not numerical data.</p>
+                    <p style="font-size: clamp(1.1875rem, 2.6vmin, 2.125rem); font-weight: 800; margin-bottom: clamp(0.625rem, 1.25vmin, 1.25rem);">🤔 Important Concept</p>
+                    <p style="font-size: clamp(1.0625rem, 2.4vmin, 1.875rem); line-height: 1.7; font-weight: 600;">Even though year groups use numbers (Year 4, Year 5, Year 6, Year 8, Year 9), they are CATEGORICAL data, not numerical data.</p>
                 </div>
                 
                 <div class="concept-card">
                     <h3>Why?</h3>
-                    <p style="font-size: 1.8rem; margin-bottom: 2rem; text-align: center;">You cannot do mathematics with year groups!</p>
+                    <p style="font-size: clamp(1.1875rem, 2.6vmin, 2.125rem); margin-bottom: clamp(1rem, 2vmin, 2rem); text-align: center; font-weight: 700;">You cannot do mathematics with year groups!</p>
                     
-                    <div style="background: #FEE2E2; padding: 2rem; border-radius: 0.5rem; margin: 2rem 0;">
-                        <p style="font-size: 2rem; font-weight: 700; color: var(--danger); text-align: center;">Year 4 + Year 5 ≠ Year 9</p>
-                        <p style="font-size: 1.5rem; text-align: center; margin-top: 1rem; color: var(--gray-700);">This equation makes no sense!</p>
+                    <div style="background: linear-gradient(135deg, #FEE2E2 0%, #FECACA 100%); padding: clamp(1.5rem, 2.5vmin, 2.5rem); border-radius: clamp(0.5rem, 1vmin, 1rem); margin: clamp(1rem, 2vmin, 2rem) 0; border: 3px solid var(--danger);">
+                        <p style="font-size: clamp(1.625rem, 3.75vmin, 2.75rem); font-weight: 900; color: var(--danger); text-align: center;">Year 4 + Year 5 ≠ Year 9</p>
+                        <p style="font-size: clamp(1.0625rem, 2.4vmin, 1.875rem); text-align: center; margin-top: clamp(0.625rem, 1.25vmin, 1.25rem); color: var(--gray-700); font-weight: 600;">This equation makes no sense!</p>
                     </div>
                 </div>
                 
                 <div class="example-box">
-                    <p style="color: white; font-size: 1.6rem; line-height: 1.8;">Year groups are LABELS for different categories of students. We can COUNT how many students are in each year, but we cannot add, subtract, multiply, or divide the year groups themselves.</p>
+                    <p style="color: white; font-size: clamp(1.1875rem, 2.6vmin, 2rem); line-height: 1.7; font-weight: 600;">Year groups are LABELS for different categories of students. We can COUNT how many students are in each year, but we cannot add, subtract, multiply, or divide the year groups themselves.</p>
                 </div>
                 
-                <div class="large-text" style="color: var(--primary);">
+                <div class="large-text" style="color: var(--primary); margin-top: clamp(1rem, 2vmin, 2rem);">
                     If you can't do math with it, it's categorical!
                 </div>
             `
@@ -727,14 +999,15 @@
                 </div>
                 
                 <div class="activity-box">
-                    <p style="color: white; font-size: 2rem; font-weight: 700; margin-bottom: 1rem;">Quick Vote (4 minutes)</p>
-                    <p style="color: white; font-size: 1.6rem; margin-bottom: 0.5rem;">Your teacher will read all variables on the board</p>
-                    <p style="color: white; font-size: 1.6rem; margin-bottom: 0.5rem;">You get 3 votes - raise your hand for variables you want to study</p>
-                    <p style="color: white; font-size: 1.6rem;">We'll tally and record the TOP 4 variables</p>
+                    <p style="color: white; font-size: clamp(1.375rem, 3.25vmin, 2.5rem); font-weight: 800; margin-bottom: clamp(0.875rem, 1.75vmin, 1.75rem);">🗳️ Quick Vote (4 minutes)</p>
+                    <p style="color: white; font-size: clamp(1.1875rem, 2.6vmin, 2rem); margin-bottom: clamp(0.5rem, 1vmin, 1rem); font-weight: 600;">Your teacher will read all variables suggested on the board</p>
+                    <p style="color: white; font-size: clamp(1.1875rem, 2.6vmin, 2rem); margin-bottom: clamp(0.5rem, 1vmin, 1rem); font-weight: 600;">You get 3 votes — raise your hand for variables you want to study</p>
+                    <p style="color: white; font-size: clamp(1.1875rem, 2.6vmin, 2rem); font-weight: 600;">We'll tally the results and record the TOP 4 variables</p>
                 </div>
                 
-                <div class="concept-card">
-                    <h3>These 4 variables will guide our survey design this week</h3>
+                <div class="concept-card" style="border-left: clamp(4px, 0.75vmin, 6px) solid var(--purple);">
+                    <h3>Moving Forward</h3>
+                    <p style="font-size: clamp(1.1875rem, 2.6vmin, 2rem); color: var(--gray-700); text-align: center; font-weight: 600;">These 4 variables will guide our survey design this week and help us gather meaningful, actionable data about bullying in our school community.</p>
                 </div>
             `
         },
@@ -743,19 +1016,19 @@
             content: `
                 <h2>Which Variable Matters Most?</h2>
                 
-                <div class="activity-box">
-                    <p style="color: white; font-size: 2rem; font-weight: 700; margin-bottom: 1.5rem;">Think (2 minutes) - Individual</p>
-                    <p style="color: white; font-size: 1.8rem; line-height: 1.6;">Look at our 4 chosen variables. Which is MOST important for understanding bullying in our school? Why?</p>
+                <div class="activity-box" style="background: linear-gradient(135deg, #8B5CF6 0%, #6D28D9 100%);">
+                    <p style="color: white; font-size: clamp(1.375rem, 3.25vmin, 2.5rem); font-weight: 800; margin-bottom: clamp(0.75rem, 1.5vmin, 1.5rem);">🧠 Think (2 minutes) — Individual</p>
+                    <p style="color: white; font-size: clamp(1.1875rem, 2.6vmin, 2rem); line-height: 1.7; font-weight: 600;">Look at our 4 chosen variables. Which is MOST important for understanding bullying in our school? Why do you think so?</p>
                 </div>
                 
                 <div class="example-box">
-                    <p style="color: white; font-size: 2rem; font-weight: 700; margin-bottom: 1.5rem;">Pair (2 minutes) - Partner Discussion</p>
-                    <p style="color: white; font-size: 1.8rem;">Share your thinking. Do you agree or disagree?</p>
+                    <p style="color: white; font-size: clamp(1.375rem, 3.25vmin, 2.5rem); font-weight: 800; margin-bottom: clamp(0.75rem, 1.5vmin, 1.5rem);">👥 Pair (2 minutes) — Partner Discussion</p>
+                    <p style="color: white; font-size: clamp(1.1875rem, 2.6vmin, 2rem); font-weight: 600;">Share your thinking with your partner. Do you agree or disagree? What's your reasoning?</p>
                 </div>
                 
                 <div class="question-box">
-                    <p style="color: white; font-size: 2rem; font-weight: 700; margin-bottom: 1.5rem;">Share (2 minutes) - Whole Class</p>
-                    <p style="color: white; font-size: 1.8rem;">We'll hear from 3-4 students</p>
+                    <p style="color: white; font-size: clamp(1.375rem, 3.25vmin, 2.5rem); font-weight: 800; margin-bottom: clamp(0.75rem, 1.5vmin, 1.5rem);">🗣️ Share (2 minutes) — Whole Class</p>
+                    <p style="color: white; font-size: clamp(1.1875rem, 2.6vmin, 2rem); font-weight: 600;">We'll hear from 3–4 students about their reasoning and perspectives</p>
                 </div>
             `
         },
@@ -765,22 +1038,22 @@
                 <h2>Check Your Understanding</h2>
                 
                 <div class="question-box">
-                    <p style="color: white; font-size: 2rem; font-weight: 700; margin-bottom: 2rem;">Write in Your Notebooks:</p>
+                    <p style="color: white; font-size: clamp(1.375rem, 3.25vmin, 2.5rem); font-weight: 800; margin-bottom: clamp(1.25rem, 2.5vmin, 2.5rem);">📝 Write in Your Notebooks:</p>
                     
-                    <div style="text-align: left; max-width: 800px; margin: 0 auto;">
-                        <p style="color: white; font-size: 1.6rem; margin-bottom: 1rem;">1. What's a variable?</p>
+                    <div style="text-align: left; max-width: 900px; margin: 0 auto;">
+                        <p style="color: white; font-size: clamp(1.1875rem, 2.6vmin, 2rem); margin-bottom: clamp(0.75rem, 1.5vmin, 1.5rem); font-weight: 600;"><strong>1.</strong> What's a variable?</p>
                         
-                        <p style="color: white; font-size: 1.6rem; margin-bottom: 1rem; margin-top: 2rem;">2. Name one CATEGORICAL variable we'll analyze:</p>
+                        <p style="color: white; font-size: clamp(1.1875rem, 2.6vmin, 2rem); margin-bottom: clamp(0.75rem, 1.5vmin, 1.5rem); margin-top: clamp(1.25rem, 2.5vmin, 2.5rem); font-weight: 600;"><strong>2.</strong> Name one CATEGORICAL variable we'll analyze:</p>
                         
-                        <p style="color: white; font-size: 1.6rem; margin-bottom: 1rem; margin-top: 2rem;">3. Name one NUMERICAL variable we'll analyze:</p>
+                        <p style="color: white; font-size: clamp(1.1875rem, 2.6vmin, 2rem); margin-bottom: clamp(0.75rem, 1.5vmin, 1.5rem); margin-top: clamp(1.25rem, 2.5vmin, 2.5rem); font-weight: 600;"><strong>3.</strong> Name one NUMERICAL variable we'll analyze:</p>
                         
-                        <p style="color: white; font-size: 1.6rem; margin-bottom: 1rem; margin-top: 2rem;">4. The variable I'm most curious about is __________ because __________</p>
+                        <p style="color: white; font-size: clamp(1.1875rem, 2.6vmin, 2rem); margin-bottom: clamp(0.75rem, 1.5vmin, 1.5rem); margin-top: clamp(1.25rem, 2.5vmin, 2.5rem); font-weight: 600;"><strong>4.</strong> The variable I'm most curious about is __________ because __________</p>
                     </div>
                 </div>
                 
-                <div class="concept-card" style="border-top: 6px solid var(--warning); margin-top: 3rem;">
-                    <h3>Tomorrow in Mathematics</h3>
-                    <p style="font-size: 1.8rem; color: var(--gray-700);">We'll design survey questions to collect data about our chosen variables.</p>
+                <div class="concept-card" style="border-left: clamp(4px, 0.75vmin, 6px) solid var(--orange); margin-top: clamp(1.5rem, 3vmin, 3rem);">
+                    <h3>🔜 Tomorrow in Mathematics</h3>
+                    <p style="font-size: clamp(1.1875rem, 2.6vmin, 2.125rem); color: var(--gray-700); text-align: center; font-weight: 600;">We'll design effective survey questions to collect data about our chosen variables and prepare to launch our investigation.</p>
                 </div>
             `
         }
@@ -807,6 +1080,19 @@
         if (newSlide >= 0 && newSlide < slides.length) {
             currentSlide = newSlide;
             updateSlide();
+        }
+    }
+
+    function toggleScenario(index) {
+        const content = document.getElementById(`scenario-${index}`);
+        const button = event.target;
+        
+        if (content.classList.contains('show')) {
+            content.classList.remove('show');
+            button.classList.remove('active');
+        } else {
+            content.classList.add('show');
+            button.classList.add('active');
         }
     }
 
