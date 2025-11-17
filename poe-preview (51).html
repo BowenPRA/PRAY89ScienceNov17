@@ -1,0 +1,716 @@
+<!DOCTYPE html><html lang="en"><head><meta name="x-poe-datastore-behavior" content="local_only"><meta http-equiv="Content-Security-Policy" content="default-src 'self' 'unsafe-inline' 'unsafe-eval' data: blob: https://cdnjs.cloudflare.com https://cdn.jsdelivr.net https://code.jquery.com https://unpkg.com https://d3js.org https://threejs.org https://cdn.plot.ly https://stackpath.bootstrapcdn.com https://maps.googleapis.com https://cdn.tailwindcss.com https://ajax.googleapis.com https://kit.fontawesome.com https://cdn.datatables.net https://maxcdn.bootstrapcdn.com https://code.highcharts.com https://tako-static-assets-production.s3.amazonaws.com https://www.youtube.com https://fonts.googleapis.com https://fonts.gstatic.com https://pfst.cf2.poecdn.net https://puc.poecdn.net https://i.imgur.com https://wikimedia.org https://*.icons8.com https://*.giphy.com https://picsum.photos https://images.unsplash.com; frame-src 'self' https://www.youtube.com https://trytako.com; child-src 'self'; manifest-src 'self'; worker-src 'self'; upgrade-insecure-requests; block-all-mixed-content;">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Anti-Bullying Week: Understanding Power</title>
+    <meta name="description" content="Homeroom lesson on using our influence to uplift others">
+    <meta name="subject" content="Homeroom">
+    <meta name="year" content="Year 8">
+    <meta name="type" content="lesson">
+    <meta name="date" content="November 17, 2025">
+    
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&amp;display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #6366F1;
+            --primary-dark: #4F46E5;
+            --purple: #8B5CF6;
+            --purple-dark: #7C3AED;
+            --orange: #F97316;
+            --orange-dark: #EA580C;
+            --teal: #14B8A6;
+            --teal-dark: #0D9488;
+            --success: #10B981;
+            --warning: #F59E0B;
+            --danger: #EF4444;
+            --gray-50: #F9FAFB;
+            --gray-100: #F3F4F6;
+            --gray-200: #E5E7EB;
+            --gray-300: #D1D5DB;
+            --gray-600: #4B5563;
+            --gray-700: #374151;
+            --gray-800: #1F2937;
+            --gray-900: #111827;
+            --gradient-primary: linear-gradient(135deg, #667EEA 0%, #764BA2 100%);
+            --gradient-purple: linear-gradient(135deg, #8B5CF6 0%, #6D28D9 100%);
+            --gradient-orange: linear-gradient(135deg, #F97316 0%, #EA580C 100%);
+            --gradient-teal: linear-gradient(135deg, #14B8A6 0%, #0D9488 100%);
+            --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+            --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1);
+            --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1);
+            --shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.1);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #667EEA 0%, #764BA2 50%, #F093FB 100%);
+            color: var(--gray-900);
+            overflow: hidden;
+            height: 100vh;
+        }
+
+        .app-container {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .header {
+            background: rgba(255, 255, 255, 0.98);
+            backdrop-filter: blur(20px);
+            padding: clamp(0.75rem, 2vmin, 1.5rem) clamp(1rem, 3vmin, 3rem);
+            box-shadow: 0 4px 12px rgb(0 0 0 / 0.08);
+            border-bottom: 3px solid transparent;
+            border-image: var(--gradient-primary) 1;
+        }
+
+        .header-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: clamp(1rem, 2vw, 2rem);
+            flex-wrap: wrap;
+        }
+
+        .lesson-badge {
+            background: var(--gradient-primary);
+            color: white;
+            padding: clamp(0.625rem, 1.25vmin, 0.875rem) clamp(1rem, 2.5vmin, 1.5rem);
+            border-radius: 9999px;
+            font-weight: 700;
+            font-size: clamp(1rem, 2vmin, 1.25rem);
+            box-shadow: var(--shadow-md);
+            white-space: nowrap;
+        }
+
+        .lesson-title {
+            font-size: clamp(1.25rem, 2.75vmin, 2rem);
+            font-weight: 800;
+            color: var(--gray-800);
+            flex: 1;
+            text-align: center;
+            min-width: 200px;
+        }
+
+        .lesson-date {
+            font-size: clamp(1rem, 2vmin, 1.25rem);
+            font-weight: 600;
+            color: var(--gray-600);
+            white-space: nowrap;
+        }
+
+        .content-wrapper {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: clamp(1rem, 2.5vmin, 2.5rem);
+            min-height: 0;
+        }
+
+        .slide-container {
+            background: white;
+            border-radius: clamp(1rem, 2vmin, 2rem);
+            box-shadow: 0 25px 50px -12px rgb(0 0 0 / 0.25);
+            width: 100%;
+            max-width: 1300px;
+            height: 100%;
+            max-height: 800px;
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .slide {
+            flex: 1;
+            overflow-y: auto;
+            overflow-x: hidden;
+            padding: clamp(2rem, 4vmin, 4rem) clamp(2rem, 5vmin, 5rem);
+            scroll-behavior: smooth;
+        }
+
+        .slide::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        .slide::-webkit-scrollbar-track {
+            background: var(--gray-100);
+            border-radius: 10px;
+        }
+
+        .slide::-webkit-scrollbar-thumb {
+            background: var(--primary);
+            border-radius: 10px;
+        }
+
+        h1 {
+            font-size: clamp(2.5rem, 7vmin, 5rem);
+            font-weight: 900;
+            background: var(--gradient-primary);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: clamp(1.25rem, 2.5vmin, 2.5rem);
+            line-height: 1.1;
+            text-align: center;
+            letter-spacing: -0.02em;
+        }
+
+        h2 {
+            font-size: clamp(2rem, 5vmin, 3.75rem);
+            font-weight: 800;
+            color: var(--gray-800);
+            margin-bottom: clamp(1.5rem, 3vmin, 3rem);
+            text-align: center;
+            line-height: 1.2;
+            letter-spacing: -0.02em;
+        }
+
+        h3 {
+            font-size: clamp(1.5rem, 3.5vmin, 2.5rem);
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: clamp(1rem, 2vmin, 2rem);
+            line-height: 1.3;
+        }
+
+        p, li {
+            font-size: clamp(1.25rem, 2.75vmin, 2rem);
+            line-height: 1.7;
+            color: var(--gray-700);
+            margin-bottom: clamp(0.75rem, 1.5vmin, 1.5rem);
+            font-weight: 500;
+        }
+
+        .large-text {
+            font-size: clamp(1.5rem, 3.5vmin, 2.75rem);
+            font-weight: 700;
+            margin: clamp(1.5rem, 3vmin, 3rem) 0;
+            text-align: center;
+            line-height: 1.4;
+        }
+
+        .title-slide {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100%;
+            text-align: center;
+            padding: clamp(1rem, 2vmin, 2rem);
+        }
+
+        .title-header {
+            margin-bottom: clamp(2rem, 4vmin, 4rem);
+            width: 100%;
+        }
+
+        .week-badge {
+            font-size: clamp(1.75rem, 4.5vmin, 3.5rem);
+            font-weight: 900;
+            color: var(--gray-800);
+            margin-bottom: clamp(0.75rem, 1.5vmin, 1.5rem);
+            letter-spacing: -0.01em;
+        }
+
+        .unit-topic {
+            font-size: clamp(2.5rem, 6.5vmin, 5.5rem);
+            font-weight: 900;
+            background: var(--gradient-primary);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: clamp(2.5rem, 5vmin, 5rem);
+            line-height: 1.15;
+            letter-spacing: -0.02em;
+        }
+
+        .key-message-box {
+            background: var(--gradient-purple);
+            color: white;
+            padding: clamp(2rem, 3.5vmin, 3rem);
+            border-radius: clamp(1rem, 2vmin, 2rem);
+            box-shadow: var(--shadow-xl);
+            transition: transform 0.3s ease;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .key-message-box:hover {
+            transform: translateY(-5px);
+        }
+
+        .box-title {
+            font-size: clamp(1.5rem, 3vmin, 2.25rem);
+            font-weight: 800;
+            margin-bottom: clamp(1rem, 2vmin, 1.5rem);
+            letter-spacing: -0.01em;
+        }
+
+        .box-content {
+            font-size: clamp(1.25rem, 2.75vmin, 2rem);
+            font-weight: 600;
+            line-height: 1.6;
+        }
+
+        .reminder-box {
+            background: var(--gradient-orange);
+            color: white;
+            padding: clamp(2rem, 3.5vmin, 3rem);
+            border-radius: clamp(1rem, 2vmin, 2rem);
+            box-shadow: var(--shadow-xl);
+            transition: transform 0.3s ease;
+            margin-top: clamp(1.5rem, 3vmin, 3rem);
+        }
+
+        .reminder-box:hover {
+            transform: translateY(-5px);
+        }
+
+        .activity-box {
+            background: var(--gradient-teal);
+            color: white;
+            padding: clamp(2rem, 3.5vmin, 3rem);
+            border-radius: clamp(1rem, 2vmin, 2rem);
+            margin: clamp(1.5rem, 3vmin, 3rem) 0;
+            text-align: center;
+            box-shadow: var(--shadow-xl);
+        }
+
+        .concept-card {
+            background: linear-gradient(to bottom, white, var(--gray-50));
+            border-radius: clamp(1rem, 2vmin, 2rem);
+            padding: clamp(2rem, 3.5vmin, 3rem);
+            box-shadow: var(--shadow-lg);
+            margin: clamp(1.5rem, 3vmin, 3rem) 0;
+            border-left: clamp(6px, 1vmin, 8px) solid var(--success);
+        }
+
+        .wheel-example {
+            background: white;
+            border: 4px solid var(--primary);
+            border-radius: 50%;
+            width: clamp(300px, 50vmin, 500px);
+            height: clamp(300px, 50vmin, 500px);
+            margin: clamp(2rem, 4vmin, 4rem) auto;
+            position: relative;
+            box-shadow: var(--shadow-xl);
+        }
+
+        .wheel-center {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: var(--gradient-primary);
+            color: white;
+            width: clamp(100px, 16vmin, 160px);
+            height: clamp(100px, 16vmin, 160px);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 800;
+            font-size: clamp(1rem, 2.5vmin, 2rem);
+            text-align: center;
+            padding: clamp(0.5rem, 1vmin, 1rem);
+            box-shadow: var(--shadow-lg);
+            z-index: 10;
+        }
+
+        .spoke {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 2px;
+            height: 50%;
+            background: var(--primary);
+            transform-origin: top center;
+        }
+
+        .spoke-label {
+            position: absolute;
+            font-size: clamp(0.875rem, 1.75vmin, 1.5rem);
+            font-weight: 700;
+            color: var(--primary);
+            background: white;
+            padding: clamp(0.375rem, 0.75vmin, 0.75rem) clamp(0.625rem, 1.25vmin, 1.25rem);
+            border-radius: clamp(0.375rem, 0.75vmin, 0.75rem);
+            box-shadow: var(--shadow-md);
+            white-space: nowrap;
+        }
+
+        ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        li {
+            padding-left: clamp(2rem, 3.5vmin, 3rem);
+            position: relative;
+            margin-bottom: clamp(1rem, 2vmin, 1.5rem);
+        }
+
+        li::before {
+            content: "✓";
+            color: var(--success);
+            font-weight: 900;
+            font-size: clamp(1.5rem, 3vmin, 2.5rem);
+            position: absolute;
+            left: 0;
+            top: -2px;
+        }
+
+        .navigation {
+            background: rgba(255, 255, 255, 0.98);
+            border-top: 1px solid var(--gray-200);
+            padding: clamp(0.875rem, 1.75vmin, 1.5rem) clamp(1rem, 2.5vmin, 2.5rem);
+            box-shadow: 0 -4px 12px rgb(0 0 0 / 0.08);
+        }
+
+        .navigation-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: clamp(1rem, 2vmin, 2rem);
+            flex-wrap: wrap;
+        }
+
+        .progress-container {
+            flex: 1;
+            max-width: 600px;
+            min-width: 200px;
+        }
+
+        .progress-info {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: clamp(0.625rem, 1.25vmin, 1rem);
+            font-size: clamp(1rem, 2vmin, 1.25rem);
+            color: var(--gray-700);
+            font-weight: 700;
+        }
+
+        .progress-bar {
+            height: clamp(8px, 1.5vmin, 12px);
+            background: var(--gray-200);
+            border-radius: 9999px;
+            overflow: hidden;
+            box-shadow: inset 0 1px 3px rgb(0 0 0 / 0.1);
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: var(--gradient-primary);
+            border-radius: 9999px;
+            transition: width 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 0 8px rgba(102, 126, 234, 0.5);
+        }
+
+        .nav-buttons {
+            display: flex;
+            gap: clamp(1rem, 2vmin, 1.5rem);
+        }
+
+        .nav-btn {
+            display: flex;
+            align-items: center;
+            gap: clamp(0.5rem, 1vmin, 0.75rem);
+            padding: clamp(0.875rem, 1.75vmin, 1.25rem) clamp(1.25rem, 2.5vmin, 2.5rem);
+            background: white;
+            border: 2px solid var(--gray-300);
+            border-radius: clamp(0.625rem, 1.25vmin, 1rem);
+            font-weight: 700;
+            font-size: clamp(1rem, 2vmin, 1.375rem);
+            color: var(--gray-700);
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: var(--shadow-sm);
+            white-space: nowrap;
+        }
+
+        .nav-btn:hover:not(:disabled) {
+            background: var(--gradient-primary);
+            color: white;
+            border-color: var(--primary);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .nav-btn:disabled {
+            opacity: 0.4;
+            cursor: not-allowed;
+            background: var(--gray-100);
+        }
+
+        .fade-in {
+            animation: fadeIn 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        @keyframes fadeIn {
+            from { 
+                opacity: 0; 
+                transform: translateY(30px); 
+            }
+            to { 
+                opacity: 1; 
+                transform: translateY(0); 
+            }
+        }
+
+        strong {
+            font-weight: 800;
+            color: var(--gray-800);
+        }
+
+        @media (max-width: 768px) {
+            .header-content {
+                justify-content: center;
+            }
+            
+            .lesson-title {
+                order: -1;
+                flex-basis: 100%;
+            }
+            
+            .nav-buttons {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+        }
+
+        @media (max-height: 600px) {
+            .content-wrapper {
+                padding: 1rem;
+            }
+            
+            .slide {
+                padding: 1.5rem;
+            }
+        }
+    </style>
+<script src="https://puc.poecdn.net/authenticated_preview_page/syncedState.3f7572448765332f3047.js"></script></head>
+<body>
+
+<div class="app-container">
+    <div class="header">
+        <div class="header-content">
+            <span class="lesson-badge">Homeroom</span>
+            <div class="lesson-title">Anti-Bullying Week - Day 1</div>
+            <div class="lesson-date">📅 17 November 2025</div>
+        </div>
+    </div>
+
+    <div class="content-wrapper">
+        <div class="slide-container">
+            <div class="slide" id="slide-content"></div>
+        </div>
+    </div>
+
+    <div class="navigation">
+        <div class="navigation-content">
+            <div class="progress-container">
+                <div class="progress-info">
+                    <span id="current-slide">Slide 1</span>
+                    <span id="total-slides">of 6</span>
+                </div>
+                <div class="progress-bar">
+                    <div class="progress-fill" id="progress-fill" style="width: 0%"></div>
+                </div>
+            </div>
+            <div class="nav-buttons">
+                <button class="nav-btn" id="prev-btn" onclick="changeSlide(-1)" disabled="">← Previous</button>
+                <button class="nav-btn" id="next-btn" onclick="changeSlide(1)">Next →</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    const slides = [
+        {
+            title: "Welcome",
+            content: `
+                <div class="title-slide">
+                    <div class="title-header">
+                        <div class="week-badge">🛡️ Anti-Bullying Week 2025</div>
+                        <div class="unit-topic">Understanding Power</div>
+                    </div>
+                    
+                    <div class="key-message-box">
+                        <div class="box-title">💫 Today's Key Message</div>
+                        <div class="box-content">Everyone has influence;<br>we can use it to uplift others.</div>
+                    </div>
+                </div>
+            `
+        },
+        {
+            title: "What is Anti-Bullying Week?",
+            content: `
+                <h2>This Week Is About...</h2>
+                
+                <div class="concept-card">
+                    <ul>
+                        <li>Understanding how we each have power and influence in our community</li>
+                        <li>Learning how to use our influence positively</li>
+                        <li>Building a stronger, more supportive class together</li>
+                        <li>Creating a space where everyone feels safe and valued</li>
+                    </ul>
+                </div>
+                
+                <div class="large-text" style="color: var(--primary); margin-top: clamp(2rem, 4vmin, 4rem);">
+                    We all have the power to make a difference!
+                </div>
+            `
+        },
+        {
+            title: "Understanding Our Power",
+            content: `
+                <h2>Everyone Has Influence</h2>
+                
+                <div class="large-text" style="background: var(--gradient-primary); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">
+                    Power isn't about being the loudest<br>or the strongest.
+                </div>
+                
+                <div class="concept-card">
+                    <h3>We Have Power Through:</h3>
+                    <ul>
+                        <li><strong>Our words</strong> — what we say and how we say it</li>
+                        <li><strong>Our actions</strong> — choosing to include or exclude others</li>
+                        <li><strong>Our choices</strong> — standing up or staying silent</li>
+                        <li><strong>Our support</strong> — helping others feel valued</li>
+                    </ul>
+                </div>
+                
+                <div class="large-text" style="color: var(--purple);">
+                    The question is: How will we use our influence?
+                </div>
+            `
+        },
+        {
+            title: "The Support Wheel",
+            content: `
+                <h2>What Holds Us Together?</h2>
+                
+                <div class="large-text" style="color: var(--gray-700);">
+                    Think of our class like a bicycle wheel...
+                </div>
+                
+                <div class="wheel-example">
+                    <div class="spoke" style="transform: rotate(0deg);"></div>
+                    <div class="spoke" style="transform: rotate(45deg);"></div>
+                    <div class="spoke" style="transform: rotate(90deg);"></div>
+                    <div class="spoke" style="transform: rotate(135deg);"></div>
+                    <div class="spoke" style="transform: rotate(180deg);"></div>
+                    <div class="spoke" style="transform: rotate(225deg);"></div>
+                    <div class="spoke" style="transform: rotate(270deg);"></div>
+                    <div class="spoke" style="transform: rotate(315deg);"></div>
+                    
+                    <div class="spoke-label" style="top: 5%; left: 50%; transform: translateX(-50%);">Respect</div>
+                    <div class="spoke-label" style="top: 20%; right: 10%;">Listening</div>
+                    <div class="spoke-label" style="top: 50%; right: 2%; transform: translateY(-50%);">Kindness</div>
+                    <div class="spoke-label" style="bottom: 20%; right: 10%;">Inclusion</div>
+                    <div class="spoke-label" style="bottom: 5%; left: 50%; transform: translateX(-50%);">Support</div>
+                    <div class="spoke-label" style="bottom: 20%; left: 10%;">Honesty</div>
+                    <div class="spoke-label" style="top: 50%; left: 2%; transform: translateY(-50%);">Trust</div>
+                    <div class="spoke-label" style="top: 20%; left: 10%;">Courage</div>
+                    
+                    <div class="wheel-center">Our Class</div>
+                </div>
+                
+                <div class="large-text" style="color: var(--danger); margin-top: clamp(2rem, 4vmin, 4rem);">
+                    What happens if one spoke breaks?
+                </div>
+            `
+        },
+        {
+            title: "Your Turn: Build Our Wheel",
+            content: `
+                <h2>Activity: Spokes of Support</h2>
+                
+                <div class="activity-box">
+                    <p style="color: white; font-size: clamp(1.5rem, 3.5vmin, 2.5rem); font-weight: 800; margin-bottom: clamp(1rem, 2vmin, 2rem);">✏️ Individual Work (5 minutes)</p>
+                    <p style="color: white; font-size: clamp(1.25rem, 2.75vmin, 2rem); margin-bottom: clamp(0.75rem, 1.5vmin, 1.5rem); font-weight: 600;">Grab a piece of paper and draw a circle</p>
+                    <p style="color: white; font-size: clamp(1.25rem, 2.75vmin, 2rem); margin-bottom: clamp(0.75rem, 1.5vmin, 1.5rem); font-weight: 600;">Divide it into 6-8 sections (like pizza slices)</p>
+                    <p style="color: white; font-size: clamp(1.25rem, 2.75vmin, 2rem); font-weight: 600;">In each section, write one behaviour, value, or mindset that keeps our class strong</p>
+                </div>
+                
+                <div class="concept-card">
+                    <h3>Ideas to Consider:</h3>
+                    <ul>
+                        <li>What helps you feel safe in class?</li>
+                        <li>What makes our class work well together?</li>
+                        <li>What do you value in your classmates?</li>
+                        <li>What behaviours make our classroom better?</li>
+                    </ul>
+                </div>
+            `
+        },
+        {
+            title: "Important Reminders",
+            content: `
+                <h2>Before We Go...</h2>
+                
+                <div class="reminder-box">
+                    <div class="box-title">📢 Today's Announcements</div>
+                    <p style="color: white; font-size: clamp(1.25rem, 2.75vmin, 2rem); margin-bottom: clamp(1rem, 2vmin, 2rem); font-weight: 600;">⚠️ <strong>No movement with Caleb this morning</strong></p>
+                    <p style="color: white; font-size: clamp(1.25rem, 2.75vmin, 2rem); font-weight: 600;">🎭 <strong>Assembly during last period today</strong><br>Topic: Boredom/Tech</p>
+                </div>
+                
+                <div class="concept-card" style="margin-top: clamp(2rem, 4vmin, 4rem);">
+                    <h3>Next Steps</h3>
+                    <p style="font-size: clamp(1.25rem, 2.75vmin, 2rem); text-align: center; font-weight: 600;">When you finish your wheel, we'll share some ideas and create our class Anti-Bullying Support Wheel together!</p>
+                </div>
+                
+                <div class="large-text" style="color: var(--teal); margin-top: clamp(2rem, 4vmin, 4rem);">
+                    Remember: Your influence matters.<br>Use it to uplift others! 💪
+                </div>
+            `
+        }
+    ];
+
+    let currentSlide = 0;
+
+    function updateSlide() {
+        const slideContent = document.getElementById('slide-content');
+        slideContent.innerHTML = slides[currentSlide].content;
+        slideContent.className = 'slide fade-in';
+        
+        const progress = ((currentSlide + 1) / slides.length) * 100;
+        document.getElementById('progress-fill').style.width = `${progress}%`;
+        document.getElementById('current-slide').textContent = `Slide ${currentSlide + 1}`;
+        document.getElementById('total-slides').textContent = `of ${slides.length}`;
+        
+        document.getElementById('prev-btn').disabled = currentSlide === 0;
+        document.getElementById('next-btn').disabled = currentSlide === slides.length - 1;
+    }
+
+    function changeSlide(direction) {
+        const newSlide = currentSlide + direction;
+        if (newSlide >= 0 && newSlide < slides.length) {
+            currentSlide = newSlide;
+            updateSlide();
+        }
+    }
+
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'ArrowLeft') changeSlide(-1);
+        if (e.key === 'ArrowRight') changeSlide(1);
+    });
+
+    updateSlide();
+</script>
+
+
+
+</body></html>
