@@ -1,792 +1,970 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta name="x-poe-datastore-behavior" content="local_only">
-<meta http-equiv="Content-Security-Policy" content="default-src 'self' 'unsafe-inline' 'unsafe-eval' data: blob: https://cdnjs.cloudflare.com https://cdn.jsdelivr.net https://code.jquery.com https://unpkg.com https://d3js.org https://threejs.org https://cdn.plot.ly https://stackpath.bootstrapcdn.com https://maps.googleapis.com https://cdn.tailwindcss.com https://ajax.googleapis.com https://kit.fontawesome.com https://cdn.datatables.net https://maxcdn.bootstrapcdn.com https://code.highcharts.com https://tako-static-assets-production.s3.amazonaws.com https://www.youtube.com https://fonts.googleapis.com https://fonts.gstatic.com https://pfst.cf2.poecdn.net https://puc.poecdn.net https://i.imgur.com https://wikimedia.org https://*.icons8.com https://*.giphy.com https://picsum.photos https://images.unsplash.com; frame-src 'self' https://www.youtube.com https://trytako.com; child-src 'self'; manifest-src 'self'; worker-src 'self'; upgrade-insecure-requests; block-all-mixed-content;">
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Anti-Bullying Week Scientific Hypotheses</title>
-  
-  <!-- Lesson Metadata -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Anti-Bullying Week: Scientific Hypotheses</title>
     <meta name="description" content="Write testable hypotheses about bullying in our school">
     <meta name="subject" content="Science">
-    <meta name="year" content="Year 8">
+    <meta name="year" content="Year 8 & Year 9">
     <meta name="type" content="lesson">
-    <meta name="date" content="November 17, 2025">
-    <meta name="tags" content="Independent Variables, Dependent Variables, Anti-Bullying Week, Hypothesis, Prediction">
-  
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
-  <style>
-    :root {
-      --primary: #6366F1;
-      --purple: #8B5CF6;
-      --orange: #F97316;
-      --success: #10B981;
-      --warning: #F59E0B;
-      --danger: #EF4444;
-      --gray-50: #F9FAFB;
-      --gray-100: #F3F4F6;
-      --gray-700: #374151;
-      --gray-800: #1F2937;
-      --gray-900: #111827;
-      --gradient-purple: linear-gradient(135deg, #8B5CF6 0%, #6D28D9 100%);
-      --gradient-orange: linear-gradient(135deg, #F97316 0%, #EA580C 100%);
-      --gradient-primary: linear-gradient(135deg, #667EEA 0%, #764BA2 100%);
-      --shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.1);
-    }
+    <meta name="date" content="November 18, 2025">
+    <meta name="tags" content="Independent Variables, Dependent Variables, Anti-Bullying Week, Hypothesis, Prediction, Scientific Method">
+    
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #6366F1;
+            --primary-dark: #4F46E5;
+            --purple: #8B5CF6;
+            --purple-dark: #7C3AED;
+            --orange: #F97316;
+            --orange-dark: #EA580C;
+            --teal: #14B8A6;
+            --teal-dark: #0D9488;
+            --success: #10B981;
+            --warning: #F59E0B;
+            --danger: #EF4444;
+            --gray-50: #F9FAFB;
+            --gray-100: #F3F4F6;
+            --gray-200: #E5E7EB;
+            --gray-300: #D1D5DB;
+            --gray-600: #4B5563;
+            --gray-700: #374151;
+            --gray-800: #1F2937;
+            --gray-900: #111827;
+            --gradient-primary: linear-gradient(135deg, #667EEA 0%, #764BA2 100%);
+            --gradient-purple: linear-gradient(135deg, #8B5CF6 0%, #6D28D9 100%);
+            --gradient-orange: linear-gradient(135deg, #F97316 0%, #EA580C 100%);
+            --gradient-teal: linear-gradient(135deg, #14B8A6 0%, #0D9488 100%);
+            --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+            --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1);
+            --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1);
+            --shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.1);
+        }
 
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
 
-    body {
-      font-family: 'Inter', sans-serif;
-      background: var(--gradient-primary);
-      color: var(--gray-900);
-      overflow: hidden;
-      height: 100vh;
-    }
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #667EEA 0%, #764BA2 50%, #F093FB 100%);
+            color: var(--gray-900);
+            overflow: hidden;
+            height: 100vh;
+        }
 
-    .app-container {
-      height: 100vh;
-      display: flex;
-      flex-direction: column;
-    }
+        .app-container {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
 
-    .header {
-      background: rgba(255, 255, 255, 0.95);
-      backdrop-filter: blur(10px);
-      padding: 1rem 2rem;
-      box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1);
-    }
+        .header {
+            background: rgba(255, 255, 255, 0.98);
+            backdrop-filter: blur(20px);
+            padding: clamp(0.75rem, 2vmin, 1.25rem) clamp(1rem, 3vmin, 2.5rem);
+            box-shadow: 0 4px 12px rgb(0 0 0 / 0.08);
+            border-bottom: 3px solid transparent;
+            border-image: var(--gradient-primary) 1;
+        }
 
-    .header-content {
-      max-width: 1400px;
-      margin: 0 auto;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
+        .header-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: clamp(1rem, 2vw, 2rem);
+            flex-wrap: wrap;
+        }
 
-    .lesson-badge {
-      background: var(--gradient-primary);
-      color: white;
-      padding: 0.5rem 1rem;
-      border-radius: 9999px;
-      font-weight: 700;
-      font-size: 1rem;
-    }
+        .lesson-badge {
+            background: var(--gradient-primary);
+            color: white;
+            padding: clamp(0.5rem, 1vmin, 0.625rem) clamp(0.875rem, 2vmin, 1.25rem);
+            border-radius: 9999px;
+            font-weight: 700;
+            font-size: clamp(0.9375rem, 1.6vmin, 1.125rem);
+            box-shadow: var(--shadow-md);
+            white-space: nowrap;
+        }
 
-    .lesson-title {
-      font-size: 1.5rem;
-      font-weight: 700;
-      color: var(--gray-800);
-    }
+        .lesson-title {
+            font-size: clamp(1.0625rem, 2.15vmin, 1.625rem);
+            font-weight: 800;
+            color: var(--gray-800);
+            flex: 1;
+            text-align: center;
+            min-width: 200px;
+        }
 
-    .content-wrapper {
-      flex: 1;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 2rem;
-    }
+        .lesson-date {
+            font-size: clamp(0.9375rem, 1.6vmin, 1.125rem);
+            font-weight: 600;
+            color: var(--gray-600);
+            white-space: nowrap;
+        }
 
-    .slide-container {
-      background: white;
-      border-radius: 1.5rem;
-      box-shadow: var(--shadow-xl);
-      width: 100%;
-      max-width: 1200px;
-      height: calc(100vh - 200px);
-      max-height: 700px;
-      overflow: hidden;
-    }
+        .content-wrapper {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: clamp(1rem, 2.5vmin, 2.5rem);
+            min-height: 0;
+        }
 
-    .slide {
-      height: 100%;
-      overflow-y: auto;
-      padding: 3rem;
-      scroll-behavior: smooth;
-    }
+        .slide-container {
+            background: white;
+            border-radius: clamp(1rem, 2vmin, 2rem);
+            box-shadow: 0 25px 50px -12px rgb(0 0 0 / 0.25);
+            width: 100%;
+            max-width: 1300px;
+            height: 100%;
+            max-height: 800px;
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            display: flex;
+            flex-direction: column;
+        }
 
-    h1 {
-      font-size: 4.5rem;
-      font-weight: 900;
-      background: var(--gradient-primary);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      margin-bottom: 2rem;
-      line-height: 1.1;
-      text-align: center;
-    }
+        .slide {
+            flex: 1;
+            overflow-y: auto;
+            overflow-x: hidden;
+            padding: clamp(1.5rem, 3.5vmin, 3.5rem) clamp(1.5rem, 4vmin, 4rem);
+            scroll-behavior: smooth;
+        }
 
-    h2 {
-      font-size: 3rem;
-      font-weight: 800;
-      color: var(--gray-800);
-      margin-bottom: 2rem;
-      text-align: center;
-    }
+        .slide::-webkit-scrollbar {
+            width: 8px;
+        }
 
-    h3 {
-      font-size: 2rem;
-      font-weight: 700;
-      color: var(--primary);
-      margin-bottom: 1.5rem;
-    }
+        .slide::-webkit-scrollbar-track {
+            background: var(--gray-100);
+            border-radius: 10px;
+        }
 
-    p, li {
-      font-size: 1.5rem;
-      line-height: 1.8;
-      color: var(--gray-700);
-      margin-bottom: 1rem;
-      font-weight: 500;
-    }
+        .slide::-webkit-scrollbar-thumb {
+            background: var(--primary);
+            border-radius: 10px;
+        }
 
-    .large-text {
-      font-size: 2rem;
-      font-weight: 700;
-      margin: 2rem 0;
-      text-align: center;
-    }
+        h1 {
+            font-size: clamp(2.125rem, 6.3vmin, 4.75rem);
+            font-weight: 900;
+            background: var(--gradient-primary);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: clamp(1rem, 2vmin, 2rem);
+            line-height: 1.1;
+            text-align: center;
+            letter-spacing: -0.02em;
+        }
 
-    .title-slide {
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      height: 100%;
-      text-align: center;
-      padding: 2rem;
-    }
+        h2 {
+            font-size: clamp(1.875rem, 4.75vmin, 3.5rem);
+            font-weight: 800;
+            color: var(--gray-800);
+            margin-bottom: clamp(1.25rem, 2.5vmin, 2.5rem);
+            text-align: center;
+            line-height: 1.2;
+            letter-spacing: -0.02em;
+        }
 
-    .title-header {
-      margin-bottom: 3rem;
-    }
+        h3 {
+            font-size: clamp(1.375rem, 3.25vmin, 2.5rem);
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: clamp(0.75rem, 1.5vmin, 1.5rem);
+            line-height: 1.3;
+        }
 
-    .school-name {
-      font-size: 2.5rem;
-      font-weight: 800;
-      color: var(--gray-800);
-      margin-bottom: 1rem;
-    }
+        p, li {
+            font-size: clamp(1.0625rem, 2.15vmin, 1.625rem);
+            line-height: 1.7;
+            color: var(--gray-700);
+            margin-bottom: clamp(0.5rem, 1vmin, 1rem);
+            font-weight: 500;
+        }
 
-    .class-info {
-      font-size: 2rem;
-      font-weight: 600;
-      color: var(--gray-600);
-      margin-bottom: 0.5rem;
-    }
+        .large-text {
+            font-size: clamp(1.375rem, 3.25vmin, 2.5rem);
+            font-weight: 700;
+            margin: clamp(1.25rem, 2.5vmin, 2.5rem) 0;
+            text-align: center;
+            line-height: 1.4;
+        }
 
-    .lesson-date {
-      font-size: 1.5rem;
-      color: var(--gray-500);
-      margin-bottom: 2rem;
-    }
+        .title-slide {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100%;
+            text-align: center;
+            padding: clamp(1rem, 2vmin, 2rem);
+        }
 
-    .unit-topic {
-      font-size: 3.5rem;
-      font-weight: 900;
-      background: var(--gradient-primary);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      margin-bottom: 3rem;
-    }
+        .title-header {
+            margin-bottom: clamp(2rem, 4vmin, 4rem);
+            width: 100%;
+        }
 
-    .title-boxes {
-      display: flex;
-      gap: 2rem;
-      width: 100%;
-      max-width: 1000px;
-    }
+        .school-name {
+            font-size: clamp(1.625rem, 4.25vmin, 3rem);
+            font-weight: 900;
+            color: var(--gray-800);
+            margin-bottom: clamp(0.5rem, 1vmin, 1rem);
+            letter-spacing: -0.01em;
+        }
 
-    .objective-box {
-      background: var(--gradient-purple);
-      color: white;
-      padding: 2rem;
-      border-radius: 1rem;
-      flex: 1;
-    }
+        .class-info {
+            font-size: clamp(1.375rem, 3.25vmin, 2.25rem);
+            font-weight: 700;
+            background: var(--gradient-primary);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: clamp(0.25rem, 0.5vmin, 0.5rem);
+        }
 
-    .warmup-box {
-      background: var(--gradient-orange);
-      color: white;
-      padding: 2rem;
-      border-radius: 1rem;
-      flex: 1;
-    }
+        .title-date {
+            font-size: clamp(1.0625rem, 2.15vmin, 1.625rem);
+            color: var(--gray-600);
+            font-weight: 600;
+            margin-bottom: clamp(1.5rem, 2.5vmin, 2.5rem);
+        }
 
-    .box-title {
-      font-size: 1.8rem;
-      font-weight: 700;
-      margin-bottom: 1rem;
-    }
+        .unit-topic {
+            font-size: clamp(2.125rem, 5.75vmin, 4.75rem);
+            font-weight: 900;
+            background: var(--gradient-primary);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: clamp(2rem, 4vmin, 4rem);
+            line-height: 1.15;
+            letter-spacing: -0.02em;
+        }
 
-    .box-content {
-      font-size: 1.4rem;
-      font-weight: 600;
-      line-height: 1.6;
-    }
+        .objective-box {
+            background: var(--gradient-purple);
+            color: white;
+            padding: clamp(1.5rem, 3vmin, 2.5rem);
+            border-radius: clamp(0.75rem, 1.5vmin, 1.5rem);
+            box-shadow: var(--shadow-xl);
+            transition: transform 0.3s ease;
+            max-width: 700px;
+            margin: 0 auto;
+        }
 
-    .vocab-card {
-      background: linear-gradient(135deg, var(--gray-50) 0%, white 100%);
-      border: 3px solid var(--primary);
-      padding: 2rem;
-      border-radius: 1rem;
-      margin: 2rem 0;
-      text-align: center;
-    }
+        .objective-box:hover {
+            transform: translateY(-5px);
+        }
 
-    .vocab-term {
-      font-size: 2.5rem;
-      font-weight: 800;
-      color: var(--primary);
-      margin-bottom: 1rem;
-    }
+        .box-title {
+            font-size: clamp(1.375rem, 2.75vmin, 2.125rem);
+            font-weight: 800;
+            margin-bottom: clamp(0.75rem, 1.25vmin, 1.25rem);
+            letter-spacing: -0.01em;
+        }
 
-    .vocab-definition {
-      font-size: 1.8rem;
-      font-weight: 600;
-      color: var(--gray-700);
-      line-height: 1.6;
-    }
+        .box-content {
+            font-size: clamp(1.0625rem, 2.15vmin, 1.625rem);
+            font-weight: 600;
+            line-height: 1.6;
+        }
 
-    .concept-card {
-      background: white;
-      border-radius: 1rem;
-      padding: 2rem;
-      box-shadow: var(--shadow-xl);
-      margin: 2rem 0;
-      border-top: 6px solid var(--success);
-    }
+        .vocab-card {
+            background: linear-gradient(135deg, #F0F9FF 0%, #E0F2FE 100%);
+            border: 3px solid var(--primary);
+            padding: clamp(1.5rem, 2.5vmin, 2.5rem);
+            border-radius: clamp(0.75rem, 1.5vmin, 1.5rem);
+            margin: clamp(1.25rem, 2.5vmin, 2.5rem) 0;
+            text-align: center;
+            box-shadow: var(--shadow-lg);
+        }
 
-    .example-box {
-      background: var(--warning);
-      color: white;
-      padding: 2rem;
-      border-radius: 1rem;
-      margin: 2rem 0;
-      text-align: center;
-    }
+        .vocab-term {
+            font-size: clamp(1.625rem, 4.25vmin, 3.25rem);
+            font-weight: 900;
+            color: var(--primary);
+            margin-bottom: clamp(0.625rem, 1.25vmin, 1.25rem);
+            letter-spacing: -0.01em;
+        }
 
-    .question-box {
-      background: var(--danger);
-      color: white;
-      padding: 2rem;
-      border-radius: 1rem;
-      margin: 2rem 0;
-      text-align: center;
-    }
+        .vocab-definition {
+            font-size: clamp(1.25rem, 2.75vmin, 2.25rem);
+            font-weight: 600;
+            color: var(--gray-700);
+            line-height: 1.6;
+        }
 
-    .activity-box {
-      background: var(--success);
-      color: white;
-      padding: 2rem;
-      border-radius: 1rem;
-      margin: 2rem 0;
-      text-align: center;
-    }
+        .concept-card {
+            background: linear-gradient(to bottom, white, var(--gray-50));
+            border-radius: clamp(0.75rem, 1.5vmin, 1.5rem);
+            padding: clamp(1.5rem, 2.5vmin, 2.5rem);
+            box-shadow: var(--shadow-lg);
+            margin: clamp(1.25rem, 2.5vmin, 2.5rem) 0;
+            border-left: clamp(4px, 0.75vmin, 6px) solid var(--success);
+        }
 
-    .comparison-table {
-      width: 100%;
-      border-collapse: collapse;
-      margin: 2rem 0;
-      font-size: 1.5rem;
-    }
+        .example-box {
+            background: var(--gradient-orange);
+            color: white;
+            padding: clamp(1.5rem, 2.5vmin, 2.5rem);
+            border-radius: clamp(0.75rem, 1.5vmin, 1.5rem);
+            margin: clamp(1.25rem, 2.5vmin, 2.5rem) 0;
+            text-align: center;
+            box-shadow: var(--shadow-xl);
+        }
 
-    .comparison-table th {
-      background: var(--primary);
-      color: white;
-      padding: 1.5rem;
-      font-size: 1.8rem;
-      font-weight: 700;
-    }
+        .question-box {
+            background: var(--gradient-teal);
+            color: white;
+            padding: clamp(1.5rem, 2.5vmin, 2.5rem);
+            border-radius: clamp(0.75rem, 1.5vmin, 1.5rem);
+            margin: clamp(1.25rem, 2.5vmin, 2.5rem) 0;
+            text-align: center;
+            box-shadow: var(--shadow-xl);
+        }
 
-    .comparison-table td {
-      padding: 1.5rem;
-      border: 2px solid var(--gray-100);
-      font-weight: 600;
-    }
+        .activity-box {
+            background: var(--gradient-teal);
+            color: white;
+            padding: clamp(1.5rem, 2.5vmin, 2.5rem);
+            border-radius: clamp(0.75rem, 1.5vmin, 1.5rem);
+            margin: clamp(1.25rem, 2.5vmin, 2.5rem) 0;
+            text-align: center;
+            box-shadow: var(--shadow-xl);
+        }
 
-    .comparison-table tr:nth-child(even) {
-      background: var(--gray-50);
-    }
+        .hypothesis-box {
+            background: var(--gradient-purple);
+            color: white;
+            padding: clamp(1.75rem, 3vmin, 2.75rem);
+            border-radius: clamp(0.75rem, 1.5vmin, 1.5rem);
+            margin: clamp(1.5rem, 3vmin, 3rem) 0;
+            box-shadow: var(--shadow-xl);
+            text-align: center;
+        }
 
-    .hypothesis-box {
-      background: var(--gradient-primary);
-      color: white;
-      padding: 2.5rem;
-      border-radius: 1rem;
-      margin: 2rem 0;
-      font-size: 1.8rem;
-      line-height: 1.8;
-      font-weight: 600;
-      text-align: center;
-    }
+        .comparison-table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 0;
+            margin: clamp(1.25rem, 2.5vmin, 2.5rem) 0;
+            font-size: clamp(0.9375rem, 2.15vmin, 1.625rem);
+            border-radius: clamp(0.5rem, 1vmin, 1rem);
+            overflow: hidden;
+            box-shadow: var(--shadow-lg);
+        }
 
-    ul {
-      list-style: none;
-      padding-left: 0;
-    }
+        .comparison-table th {
+            background: var(--gradient-primary);
+            color: white;
+            padding: clamp(1rem, 1.75vmin, 1.75rem);
+            font-size: clamp(1.0625rem, 2.75vmin, 2.25rem);
+            font-weight: 800;
+            text-align: left;
+        }
 
-    li::before {
-      content: "✓ ";
-      color: var(--success);
-      font-weight: 900;
-      font-size: 2rem;
-      margin-right: 0.5rem;
-    }
+        .comparison-table td {
+            padding: clamp(1rem, 1.75vmin, 1.75rem);
+            border-bottom: 1px solid var(--gray-200);
+            font-weight: 600;
+            background: white;
+        }
 
-    .navigation {
-      background: white;
-      border-top: 1px solid #E5E7EB;
-      padding: 1rem 2rem;
-      box-shadow: 0 -4px 6px -1px rgb(0 0 0 / 0.1);
-    }
+        .comparison-table tr:last-child td {
+            border-bottom: none;
+        }
 
-    .navigation-content {
-      max-width: 1400px;
-      margin: 0 auto;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
+        .comparison-table tr:nth-child(even) td {
+            background: var(--gray-50);
+        }
 
-    .progress-container {
-      flex: 1;
-      max-width: 500px;
-    }
+        .note-box {
+            background: linear-gradient(135deg, #FEF3C7 0%, #FDE68A 100%);
+            border-left: clamp(4px, 0.75vmin, 6px) solid var(--warning);
+            padding: clamp(1rem, 2vmin, 2rem);
+            margin: clamp(1rem, 2vmin, 2rem) 0;
+            border-radius: clamp(0.5rem, 1vmin, 1rem);
+            box-shadow: var(--shadow-md);
+        }
 
-    .progress-info {
-      display: flex;
-      justify-content: space-between;
-      margin-bottom: 0.5rem;
-      font-size: 1rem;
-      color: var(--gray-700);
-      font-weight: 600;
-    }
+        .note-box p {
+            color: var(--gray-800);
+            font-size: clamp(1.0625rem, 2.15vmin, 1.625rem);
+            margin: 0;
+        }
 
-    .progress-bar {
-      height: 8px;
-      background: #E5E7EB;
-      border-radius: 9999px;
-      overflow: hidden;
-    }
+        ul {
+            list-style: none;
+            padding-left: 0;
+        }
 
-    .progress-fill {
-      height: 100%;
-      background: var(--gradient-primary);
-      border-radius: 9999px;
-      transition: width 0.5s ease;
-    }
+        li {
+            padding-left: clamp(1.5rem, 2.5vmin, 2.5rem);
+            position: relative;
+            margin-bottom: clamp(0.75rem, 1.25vmin, 1.25rem);
+        }
 
-    .nav-buttons {
-      display: flex;
-      gap: 1rem;
-    }
+        li::before {
+            content: "✓";
+            color: var(--success);
+            font-weight: 900;
+            font-size: clamp(1.375rem, 2.75vmin, 2.25rem);
+            position: absolute;
+            left: 0;
+            top: -2px;
+        }
 
-    .nav-btn {
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-      padding: 1rem 1.5rem;
-      background: white;
-      border: 2px solid #D1D5DB;
-      border-radius: 0.75rem;
-      font-weight: 600;
-      font-size: 1.1rem;
-      color: var(--gray-700);
-      cursor: pointer;
-      transition: all 0.3s ease;
-    }
+        .navigation {
+            background: rgba(255, 255, 255, 0.98);
+            border-top: 1px solid var(--gray-200);
+            padding: clamp(0.75rem, 1.25vmin, 1.25rem) clamp(1rem, 2.5vmin, 2.5rem);
+            box-shadow: 0 -4px 12px rgb(0 0 0 / 0.08);
+        }
 
-    .nav-btn:hover:not(:disabled) {
-      background: var(--primary);
-      color: white;
-      border-color: var(--primary);
-    }
+        .navigation-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: clamp(1rem, 2vmin, 2rem);
+            flex-wrap: wrap;
+        }
 
-    .nav-btn:disabled {
-      opacity: 0.5;
-      cursor: not-allowed;
-    }
+        .progress-container {
+            flex: 1;
+            max-width: 600px;
+            min-width: 200px;
+        }
 
-    .fade-in {
-      animation: fadeIn 0.5s ease-in-out;
-    }
+        .progress-info {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: clamp(0.5rem, 0.75vmin, 0.75rem);
+            font-size: clamp(0.9375rem, 1.6vmin, 1.125rem);
+            color: var(--gray-700);
+            font-weight: 700;
+        }
 
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(20px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
+        .progress-bar {
+            height: clamp(6px, 1vmin, 10px);
+            background: var(--gray-200);
+            border-radius: 9999px;
+            overflow: hidden;
+            box-shadow: inset 0 1px 3px rgb(0 0 0 / 0.1);
+        }
 
-    @media (max-width: 768px) {
-      .title-boxes { flex-direction: column; }
-      h1 { font-size: 3rem; }
-      h2 { font-size: 2.5rem; }
-      .school-name { font-size: 2rem; }
-      .unit-topic { font-size: 2.5rem; }
-    }
-  </style>
+        .progress-fill {
+            height: 100%;
+            background: var(--gradient-primary);
+            border-radius: 9999px;
+            transition: width 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 0 8px rgba(102, 126, 234, 0.5);
+        }
+
+        .nav-buttons {
+            display: flex;
+            gap: clamp(0.75rem, 1.25vmin, 1.25rem);
+        }
+
+        .nav-btn {
+            display: flex;
+            align-items: center;
+            gap: clamp(0.375rem, 0.75vmin, 0.75rem);
+            padding: clamp(0.75rem, 1vmin, 1rem) clamp(1rem, 2vmin, 2rem);
+            background: white;
+            border: 2px solid var(--gray-300);
+            border-radius: clamp(0.5rem, 1vmin, 1rem);
+            font-weight: 700;
+            font-size: clamp(0.9375rem, 1.6vmin, 1.1875rem);
+            color: var(--gray-700);
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: var(--shadow-sm);
+            white-space: nowrap;
+        }
+
+        .nav-btn:hover:not(:disabled) {
+            background: var(--gradient-primary);
+            color: white;
+            border-color: var(--primary);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .nav-btn:disabled {
+            opacity: 0.4;
+            cursor: not-allowed;
+            background: var(--gray-100);
+        }
+
+        .fade-in {
+            animation: fadeIn 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        @keyframes fadeIn {
+            from { 
+                opacity: 0; 
+                transform: translateY(30px); 
+            }
+            to { 
+                opacity: 1; 
+                transform: translateY(0); 
+            }
+        }
+
+        strong {
+            font-weight: 800;
+            color: var(--gray-800);
+        }
+
+        .statement-box {
+            background: var(--gray-50);
+            padding: clamp(1.5rem, 2.5vmin, 2.5rem);
+            border-radius: clamp(0.5rem, 1vmin, 1rem);
+            margin: clamp(1rem, 2vmin, 2rem) 0;
+            border-left: clamp(4px, 0.75vmin, 6px) solid var(--primary);
+        }
+
+        .statement-box p {
+            font-size: clamp(1.125rem, 2.5vmin, 2rem);
+            margin-bottom: clamp(1rem, 2vmin, 1.5rem);
+            font-weight: 600;
+        }
+
+        .statement-box p:last-child {
+            margin-bottom: 0;
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .header-content {
+                justify-content: center;
+            }
+            
+            .lesson-title {
+                order: -1;
+                flex-basis: 100%;
+            }
+            
+            .nav-buttons {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+        }
+
+        @media (max-height: 600px) {
+            .content-wrapper {
+                padding: 1rem;
+            }
+            
+            .slide {
+                padding: 1.5rem;
+            }
+        }
+    </style>
 </head>
 <body>
 
 <div class="app-container">
-  <div class="header">
-    <div class="header-content">
-      <span class="lesson-badge">Y8 & Y9 Science</span>
-      <div class="lesson-title">Anti-Bullying Week: Scientific Investigation</div>
-      <div>📅 Monday, 18 November 2024</div>
-    </div>
-  </div>
-
-  <div class="content-wrapper">
-    <div class="slide-container">
-      <div class="slide" id="slide-content"></div>
-    </div>
-  </div>
-
-  <div class="navigation">
-    <div class="navigation-content">
-      <div class="progress-container">
-        <div class="progress-info">
-          <span id="current-slide">Slide 1</span>
-          <span id="total-slides">of 11</span>
+    <div class="header">
+        <div class="header-content">
+            <span class="lesson-badge">Year 8 & Year 9 Science</span>
+            <div class="lesson-title">Anti-Bullying Week: Scientific Investigation</div>
+            <div class="lesson-date">📅 18 November 2025</div>
         </div>
-        <div class="progress-bar">
-          <div class="progress-fill" id="progress-fill" style="width: 0%"></div>
-        </div>
-      </div>
-      <div class="nav-buttons">
-        <button class="nav-btn" id="prev-btn" onclick="changeSlide(-1)" disabled>⬅ Previous</button>
-        <button class="nav-btn" id="next-btn" onclick="changeSlide(1)">Next ➡</button>
-      </div>
     </div>
-  </div>
+
+    <div class="content-wrapper">
+        <div class="slide-container">
+            <div class="slide" id="slide-content"></div>
+        </div>
+    </div>
+
+    <div class="navigation">
+        <div class="navigation-content">
+            <div class="progress-container">
+                <div class="progress-info">
+                    <span id="current-slide">Slide 1</span>
+                    <span id="total-slides">of 12</span>
+                </div>
+                <div class="progress-bar">
+                    <div class="progress-fill" id="progress-fill" style="width: 0%"></div>
+                </div>
+            </div>
+            <div class="nav-buttons">
+                <button class="nav-btn" id="prev-btn" onclick="changeSlide(-1)" disabled>← Previous</button>
+                <button class="nav-btn" id="next-btn" onclick="changeSlide(1)">Next →</button>
+            </div>
+        </div>
+    </div>
 </div>
 
 <script>
-  const slides = [
-    {
-      title: "Welcome",
-      content: `
-        <div class="title-slide">
-          <div class="title-header">
-            <div class="school-name">Palm River Academy</div>
-            <div class="class-info">Y8 & Y9 Science</div>
-            <div class="lesson-date">Monday, 18 November 2024</div>
-            <div class="unit-topic">Anti-Bullying Week: Hypotheses and Predictions</div>
-          </div>
-          
-          <div class="title-boxes">
-            <div class="objective-box">
-              <div class="box-title">Objective</div>
-              <div class="box-content">Write testable hypotheses about bullying in our school</div>
-            </div>
-            
-            <div class="warmup-box">
-              <div class="box-title">Warm Up Question</div>
-              <div class="box-content">What's the difference between a prediction and a hypothesis?</div>
-            </div>
-          </div>
-        </div>
-      `
-    },
-    {
-      title: "Warm-Up: Three Statements",
-      content: `
-        <h2>Predictions, Statements, or Something Else?</h2>
+    const slides = [
+        {
+            title: "Welcome",
+            content: `
+                <div class="title-slide">
+                    <div class="title-header">
+                        <div class="school-name">Palm River Academy</div>
+                        <div class="class-info">Year 8 & Year 9 Science</div>
+                        <div class="title-date">Monday, 18 November 2025</div>
+                        <div class="unit-topic">Anti-Bullying Week:<br>Writing Scientific Hypotheses</div>
+                    </div>
+                    
+                    <div class="objective-box">
+                        <div class="box-title">🔬 Learning Objective</div>
+                        <div class="box-content">Write testable hypotheses about bullying in our school using scientific reasoning</div>
+                    </div>
+                </div>
+            `
+        },
+        {
+            title: "Three Statements",
+            content: `
+                <h2>What Makes These Different?</h2>
+                
+                <div class="statement-box">
+                    <p><strong>Statement 1:</strong> "It will rain tomorrow."</p>
+                    <p><strong>Statement 2:</strong> "Plants need water to grow."</p>
+                    <p><strong>Statement 3:</strong> "Year 8 students experience more bullying than Year 9 students."</p>
+                </div>
+                
+                <div class="question-box">
+                    <p style="color: white; font-size: clamp(1.375rem, 3.25vmin, 2.5rem); font-weight: 800; margin-bottom: clamp(0.75rem, 1.5vmin, 1.5rem);">🤔 Think About It</p>
+                    <p style="color: white; font-size: clamp(1.1875rem, 2.6vmin, 2rem); font-weight: 600;">Which statements can we test with data? Which ones explain WHY something happens?</p>
+                </div>
+                
+                <div class="large-text" style="color: var(--primary); margin-top: clamp(1.5rem, 3vmin, 3rem);">
+                    Today we'll learn to write scientific hypotheses that can be tested with our investigation.
+                </div>
+            `
+        },
+        {
+            title: "What is a Prediction?",
+            content: `
+                <h2>Understanding Predictions</h2>
+                
+                <div class="vocab-card">
+                    <div class="vocab-term">📊 Prediction</div>
+                    <div class="vocab-definition">An educated guess about what we think will happen, based on observations or prior knowledge</div>
+                </div>
+                
+                <div class="concept-card">
+                    <h3>Examples of Predictions for Our Investigation</h3>
+                    <ul style="text-align: left;">
+                        <li>Cyber bullying is more common than physical bullying</li>
+                        <li>Bullying happens more during lunch than during lessons</li>
+                        <li>Year 4 students witness more bullying than Year 9 students</li>
+                        <li>Most bullying occurs in hallways and common areas</li>
+                    </ul>
+                </div>
+                
+                <div class="note-box">
+                    <p style="font-size: clamp(1.0625rem, 2.15vmin, 1.75rem); font-weight: 700;">💡 Key Point: Predictions tell us WHAT we think will happen, but they don't explain WHY.</p>
+                </div>
+            `
+        },
+        {
+            title: "From Predictions to Hypotheses",
+            content: `
+                <h2>What Makes a Hypothesis Scientific?</h2>
+                
+                <div class="large-text" style="background: var(--gradient-primary); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">
+                    A hypothesis is a testable prediction with scientific reasoning
+                </div>
+                
+                <div class="concept-card">
+                    <h3>A Scientific Hypothesis Must Include:</h3>
+                    <ul style="text-align: left;">
+                        <li><strong>What</strong> you predict will happen</li>
+                        <li><strong>Why</strong> you think it will happen (your scientific reasoning)</li>
+                        <li><strong>How</strong> it can be tested with data we can collect</li>
+                    </ul>
+                </div>
+                
+                <table class="comparison-table">
+                    <tr>
+                        <th>Prediction</th>
+                        <th>Hypothesis</th>
+                    </tr>
+                    <tr>
+                        <td>"Cyber bullying is more common"</td>
+                        <td>"Cyber bullying is more common than physical bullying <em>because</em> students spend more time online and digital communication allows anonymity"</td>
+                    </tr>
+                </table>
+            `
+        },
+        {
+            title: "Building a Strong Hypothesis",
+            content: `
+                <h2>The Scientific Method Structure</h2>
+                
+                <div class="example-box">
+                    <p style="color: white; font-size: clamp(1.25rem, 2.75vmin, 2.125rem); font-weight: 800; margin-bottom: clamp(1rem, 2vmin, 1.5rem);">Hypothesis Formula</p>
+                    <p style="color: white; font-size: clamp(1.1875rem, 2.6vmin, 2rem); line-height: 1.8; font-weight: 600;">
+                        "If [independent variable], then [dependent variable], because [scientific reasoning]"
+                    </p>
+                </div>
+                
+                <div class="concept-card">
+                    <h3>Understanding the Variables</h3>
+                    <p style="font-size: clamp(1.125rem, 2.5vmin, 1.875rem); margin-bottom: clamp(1rem, 2vmin, 1.5rem); font-weight: 600;"><strong>Independent Variable:</strong> What we're comparing or changing (e.g., year group, location, time of day)</p>
+                    <p style="font-size: clamp(1.125rem, 2.5vmin, 1.875rem); font-weight: 600;"><strong>Dependent Variable:</strong> What we're measuring or observing (e.g., number of bullying incidents, types of bullying)</p>
+                </div>
+                
+                <div class="large-text" style="color: var(--teal);">
+                    A good hypothesis shows the relationship between these variables with clear reasoning.
+                </div>
+            `
+        },
+        {
+            title: "Example: Year Groups",
+            content: `
+                <h2>Developing Our First Hypothesis</h2>
+                
+                <div class="example-box">
+                    <p style="color: white; font-size: clamp(1.25rem, 2.75vmin, 2.125rem); font-weight: 800; margin-bottom: clamp(0.75rem, 1.5vmin, 1.25rem);">Starting Prediction:</p>
+                    <p style="color: white; font-size: clamp(1.125rem, 2.5vmin, 2rem); font-weight: 600;">"Year 4 students witness more bullying than Year 9 students"</p>
+                </div>
+                
+                <div class="concept-card">
+                    <h3>Adding Scientific Reasoning</h3>
+                    
+                    <p style="font-size: clamp(1.125rem, 2.5vmin, 1.875rem); margin-bottom: clamp(1rem, 2vmin, 1.5rem); font-weight: 600;"><strong>What are we comparing?</strong></p>
+                    <p style="font-size: clamp(1.0625rem, 2.25vmin, 1.75rem); margin-bottom: clamp(1.5rem, 3vmin, 2.5rem);">Different year groups (independent variable) and their experiences witnessing bullying (dependent variable)</p>
+                    
+                    <p style="font-size: clamp(1.125rem, 2.5vmin, 1.875rem); margin-bottom: clamp(1rem, 2vmin, 1.5rem); font-weight: 600;"><strong>Why might this be true?</strong></p>
+                    <ul style="text-align: left;">
+                        <li>Younger students are still developing conflict resolution skills</li>
+                        <li>They're adapting to a new school environment and social dynamics</li>
+                        <li>Physical and social differences make them more vulnerable</li>
+                        <li>Older students have learned strategies to avoid or prevent bullying</li>
+                    </ul>
+                </div>
+            `
+        },
+        {
+            title: "Complete Hypothesis Example",
+            content: `
+                <h2>Putting It All Together</h2>
+                
+                <div class="hypothesis-box">
+                    <p style="font-size: clamp(1.25rem, 2.75vmin, 2.125rem); font-weight: 800; margin-bottom: clamp(1rem, 2vmin, 1.5rem); color: white;">Complete Scientific Hypothesis:</p>
+                    <p style="font-size: clamp(1.1875rem, 2.6vmin, 2rem); line-height: 1.8; color: white; font-weight: 600;">
+                        Year 4 students will report witnessing more bullying incidents than Year 9 students because younger students are still developing social skills and conflict resolution strategies, making them more vulnerable during their transition to secondary school.
+                    </p>
+                </div>
+                
+                <div class="concept-card">
+                    <h3>Notice the Structure:</h3>
+                    <ul style="text-align: left;">
+                        <li><strong>Prediction:</strong> "Year 4 students will report witnessing more bullying incidents"</li>
+                        <li><strong>Comparison:</strong> "than Year 9 students"</li>
+                        <li><strong>Reasoning:</strong> "because younger students are still developing social skills..."</li>
+                    </ul>
+                </div>
+                
+                <div class="large-text" style="color: var(--success);">
+                    ✓ This hypothesis is testable with survey data!
+                </div>
+            `
+        },
+        {
+            title: "Example: Location and Bullying",
+            content: `
+                <h2>Another Hypothesis Example</h2>
+                
+                <div class="example-box">
+                    <p style="color: white; font-size: clamp(1.25rem, 2.75vmin, 2.125rem); font-weight: 800; margin-bottom: clamp(0.75rem, 1.5vmin, 1.25rem);">Topic: Where Does Bullying Occur?</p>
+                    <p style="color: white; font-size: clamp(1.125rem, 2.5vmin, 2rem); font-weight: 600;">Let's build a hypothesis about location as our independent variable</p>
+                </div>
+                
+                <div class="concept-card">
+                    <h3>Building the Hypothesis</h3>
+                    <p style="font-size: clamp(1.125rem, 2.5vmin, 1.875rem); margin-bottom: clamp(1rem, 2vmin, 1.5rem); font-weight: 600;"><strong>Prediction:</strong> More bullying incidents occur in hallways than in classrooms</p>
+                    
+                    <p style="font-size: clamp(1.125rem, 2.5vmin, 1.875rem); margin-bottom: clamp(1rem, 2vmin, 1.5rem); margin-top: clamp(1.5rem, 3vmin, 2.5rem); font-weight: 600;"><strong>Reasoning:</strong></p>
+                    <ul style="text-align: left;">
+                        <li>Less adult supervision in hallways during transitions</li>
+                        <li>Crowded, chaotic environment with many students</li>
+                        <li>Brief interactions make intervention difficult</li>
+                        <li>Classrooms have structured activities and teacher presence</li>
+                    </ul>
+                </div>
+                
+                <div class="hypothesis-box" style="margin-top: clamp(1.5rem, 3vmin, 3rem);">
+                    <p style="font-size: clamp(1.1875rem, 2.6vmin, 2rem); line-height: 1.8; color: white; font-weight: 600;">
+                        "Bullying incidents will be reported more frequently in hallways than in classrooms because hallways have less adult supervision and more chaotic conditions during class transitions."
+                    </p>
+                </div>
+            `
+        },
+        {
+            title: "Testing Changes Over Time",
+            content: `
+                <h2>Hypotheses About Trends</h2>
+                
+                <div class="question-box">
+                    <p style="color: white; font-size: clamp(1.375rem, 3.25vmin, 2.5rem); font-weight: 800; margin-bottom: clamp(0.75rem, 1.5vmin, 1.5rem);">🤔 Challenge Question</p>
+                    <p style="color: white; font-size: clamp(1.1875rem, 2.6vmin, 2rem); font-weight: 600;">How can we test if cyber bullying is increasing over time?</p>
+                </div>
+                
+                <div class="concept-card">
+                    <h3>Methods for Testing Trends</h3>
+                    <ul style="text-align: left;">
+                        <li>Compare current year data to previous years' records</li>
+                        <li>Ask students: "Has cyber bullying increased, decreased, or stayed the same this year?"</li>
+                        <li>Compare responses across different year groups (older students remember past years)</li>
+                        <li>Track reported incidents over multiple time periods</li>
+                    </ul>
+                </div>
+                
+                <div class="example-box" style="margin-top: clamp(1.5rem, 3vmin, 3rem);">
+                    <p style="color: white; font-size: clamp(1.25rem, 2.75vmin, 2.125rem); font-weight: 800; margin-bottom: clamp(0.75rem, 1.5vmin, 1.25rem);">Example Trend Hypothesis:</p>
+                    <p style="color: white; font-size: clamp(1.1875rem, 2.6vmin, 2rem); line-height: 1.8; font-weight: 600;">
+                        "Students will report more cyber bullying incidents this year compared to last year because smartphone ownership and social media usage have increased among secondary students."
+                    </p>
+                </div>
+            `
+        },
+        {
+            title: "Your Turn: Write a Hypothesis",
+            content: `
+                <h2>Independent Practice</h2>
+                
+                <div class="activity-box">
+                    <p style="color: white; font-size: clamp(1.375rem, 3.25vmin, 2.5rem); font-weight: 800; margin-bottom: clamp(1rem, 2vmin, 1.5rem);">📝 Individual Work (7 minutes)</p>
+                    <p style="color: white; font-size: clamp(1.1875rem, 2.6vmin, 2rem); font-weight: 600;">Write a scientific hypothesis about bullying in our school</p>
+                </div>
+                
+                <div class="concept-card">
+                    <h3>Choose One Variable to Investigate:</h3>
+                    <ul style="text-align: left;">
+                        <li>Year group differences</li>
+                        <li>Location or setting</li>
+                        <li>Type of bullying</li>
+                        <li>Time of day or week</li>
+                        <li>Any other variable from our Mathematics lesson</li>
+                    </ul>
+                </div>
+                
+                <div class="note-box" style="margin-top: clamp(1.5rem, 3vmin, 3rem);">
+                    <p style="font-size: clamp(1.0625rem, 2.15vmin, 1.75rem); font-weight: 700; margin-bottom: clamp(0.5rem, 1vmin, 1rem);">✓ Your hypothesis must include:</p>
+                    <p style="font-size: clamp(1rem, 2.15vmin, 1.625rem); font-weight: 600; margin-bottom: clamp(0.375rem, 0.75vmin, 0.75rem);">• What you predict will happen</p>
+                    <p style="font-size: clamp(1rem, 2.15vmin, 1.625rem); font-weight: 600; margin-bottom: clamp(0.375rem, 0.75vmin, 0.75rem);">• A clear comparison</p>
+                    <p style="font-size: clamp(1rem, 2.15vmin, 1.625rem); font-weight: 600;">• Scientific reasoning using "because"</p>
+                </div>
+            `
+        },
+        {
+            title: "Ethical Scientific Practice",
+            content: `
+                <h2>Our Responsibility as Scientists</h2>
+                
+                <div class="large-text" style="background: var(--gradient-primary); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">
+                    Scientists conduct research ethically, especially when studying sensitive topics like bullying
+                </div>
+                
+                <div class="concept-card">
+                    <h3>Core Ethical Principles</h3>
+                    <table class="comparison-table">
+                        <tr>
+                            <th>Principle</th>
+                            <th>What It Means for Our Investigation</th>
+                        </tr>
+                        <tr>
+                            <td><strong>Confidentiality</strong></td>
+                            <td>All responses are anonymous; we protect participants' privacy</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Respect</strong></td>
+                            <td>Questions are appropriate, sensitive, and non-judgmental</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Honesty</strong></td>
+                            <td>We report what the data actually shows, even if unexpected</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Beneficial Purpose</strong></td>
+                            <td>Our goal is to help make school safer, not to blame individuals</td>
+                        </tr>
+                    </table>
+                </div>
+                
+                <div class="note-box" style="margin-top: clamp(1.5rem, 3vmin, 3rem);">
+                    <p style="font-size: clamp(1.0625rem, 2.15vmin, 1.75rem); font-weight: 700;">💡 Remember: Ethical research builds trust and leads to honest, useful data that can create real positive change.</p>
+                </div>
+            `
+        },
+        {
+            title: "Exit Task",
+            content: `
+                <h2>Show What You've Learned</h2>
+                
+                <div class="question-box">
+                    <p style="color: white; font-size: clamp(1.375rem, 3.25vmin, 2.5rem); font-weight: 800; margin-bottom: clamp(1.25rem, 2.5vmin, 2.5rem);">📝 Complete in Your Notebook:</p>
+                    
+                    <div style="text-align: left; max-width: 900px; margin: 0 auto;">
+                        <p style="color: white; font-size: clamp(1.1875rem, 2.6vmin, 2rem); margin-bottom: clamp(1rem, 2vmin, 1.5rem); font-weight: 600;"><strong>1.</strong> Write your complete hypothesis about bullying (include prediction, comparison, and reasoning)</p>
+                        
+                        <p style="color: white; font-size: clamp(1.1875rem, 2.6vmin, 2rem); margin-bottom: clamp(1rem, 2vmin, 1.5rem); margin-top: clamp(1.5rem, 3vmin, 3rem); font-weight: 600;"><strong>2.</strong> Identify your independent and dependent variables</p>
+                        
+                        <p style="color: white; font-size: clamp(1.1875rem, 2.6vmin, 2rem); margin-bottom: clamp(1rem, 2vmin, 1.5rem); margin-top: clamp(1.5rem, 3vmin, 3rem); font-weight: 600;"><strong>3.</strong> Explain how your hypothesis can be tested with data from our survey</p>
+                    </div>
+                </div>
+                
+                <div class="concept-card" style="border-left: clamp(4px, 0.75vmin, 6px) solid var(--orange); margin-top: clamp(1.5rem, 3vmin, 3rem);">
+                    <h3>🔜 Tomorrow</h3>
+                    <p style="font-size: clamp(1.1875rem, 2.6vmin, 2.125rem); color: var(--gray-700); text-align: center; font-weight: 600;">We'll transform our hypotheses into clear, unbiased survey questions and learn about avoiding bias in scientific investigations.</p>
+                </div>
+            `
+        }
+    ];
+
+    let currentSlide = 0;
+
+    function updateSlide() {
+        const slideContent = document.getElementById('slide-content');
+        slideContent.innerHTML = slides[currentSlide].content;
+        slideContent.className = 'slide fade-in';
         
-        <div class="concept-card">
-          <h3>Look at These Three Statements</h3>
-          <div style="background: var(--gray-50); padding: 2rem; border-radius: 0.5rem; margin: 1.5rem 0;">
-            <p style="font-size: 2rem; margin-bottom: 1.5rem;">1. "It will rain tomorrow."</p>
-            <p style="font-size: 2rem; margin-bottom: 1.5rem;">2. "Plants need water."</p>
-            <p style="font-size: 2rem; margin-bottom: 0;">3. "Year 8 students experience more bullying than Year 9 students."</p>
-          </div>
-        </div>
+        const progress = ((currentSlide + 1) / slides.length) * 100;
+        document.getElementById('progress-fill').style.width = `${progress}%`;
+        document.getElementById('current-slide').textContent = `Slide ${currentSlide + 1}`;
+        document.getElementById('total-slides').textContent = `of ${slides.length}`;
         
-        <div class="question-box">
-          <p style="color: white; font-size: 2.2rem; font-weight: 700; margin-bottom: 1.5rem;">What makes each one different?</p>
-          <p style="color: white; font-size: 1.8rem;">Think about which ones can be tested.</p>
-        </div>
-      `
-    },
-    {
-      title: "What is a Prediction?",
-      content: `
-        <h2>Understanding Predictions</h2>
-        
-        <div class="vocab-card">
-          <div class="vocab-term">Prediction</div>
-          <div class="vocab-definition">An educated guess about what we think will happen, based on what we already know or have observed</div>
-        </div>
-        
-        <div class="concept-card">
-          <h3>Examples of Predictions for Our Investigation</h3>
-          <ul style="text-align: left;">
-            <li>Cyber bullying is more common than physical bullying</li>
-            <li>Bullying happens more during lunch than during lessons</li>
-            <li>Year 4 students witness more bullying than Year 9 students</li>
-            <li>Most bullying happens in the hallways</li>
-          </ul>
-        </div>
-        
-        <div class="activity-box">
-          <p style="color: white; font-size: 1.8rem; font-weight: 700;">Turn and Talk (3 minutes)</p>
-          <p style="color: white; font-size: 1.6rem;">Make ONE prediction about bullying in our school using our variables from Math class</p>
-        </div>
-      `
-    },
-    {
-      title: "From Predictions to Hypotheses",
-      content: `
-        <h2>What Makes a Hypothesis Scientific?</h2>
-        
-        <div class="large-text" style="background: var(--gradient-primary); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">
-          A hypothesis is a testable prediction with reasoning
-        </div>
-        
-        <div class="concept-card">
-          <h3>A Scientific Hypothesis Includes:</h3>
-          <ul style="text-align: left;">
-            <li>What you predict will happen</li>
-            <li>Why you think it will happen (your reasoning)</li>
-            <li>How it can be tested with data</li>
-          </ul>
-        </div>
-        
-        <table class="comparison-table">
-          <tr>
-            <th>Prediction</th>
-            <th>Hypothesis</th>
-          </tr>
-          <tr>
-            <td>"Cyber bullying is more common"</td>
-            <td>"Cyber bullying is more common than physical bullying because students spend more time online and it's easier to be anonymous"</td>
-          </tr>
-        </table>
-      `
-    },
-    {
-      title: "Building Our First Hypothesis",
-      content: `
-        <h2>Example: Year Groups and Bullying</h2>
-        
-        <div class="example-box">
-          <p style="color: white; font-size: 1.8rem; font-weight: 700; margin-bottom: 1rem;">Our Prediction:</p>
-          <p style="color: white; font-size: 1.6rem;">"Year 4 students witness more bullying than Year 9 students"</p>
-        </div>
-        
-        <div class="concept-card">
-          <h3>Let's Add Scientific Reasoning</h3>
-          <p style="font-size: 1.6rem; margin-bottom: 1rem;"><strong>What are we comparing?</strong></p>
-          <p style="font-size: 1.5rem; margin-bottom: 2rem;">Different year groups and their experiences with bullying</p>
-          
-          <p style="font-size: 1.6rem; margin-bottom: 1rem;"><strong>Why might this be true?</strong></p>
-          <ul style="text-align: left;">
-            <li>Younger students are still developing social skills</li>
-            <li>They're new to the school environment</li>
-            <li>Physical size differences make them more vulnerable</li>
-          </ul>
-        </div>
-      `
-    },
-    {
-      title: "Complete Hypothesis - Example",
-      content: `
-        <h2>Putting It All Together</h2>
-        
-        <div class="hypothesis-box">
-          <p style="font-size: 2rem; font-weight: 700; margin-bottom: 1.5rem;">Hypothesis:</p>
-          <p style="font-size: 1.8rem; line-height: 2;">Year 4 students will report witnessing more bullying incidents than Year 9 students because younger students are still developing social skills and may be more vulnerable in their first years of secondary school.</p>
-        </div>
-        
-        <div class="concept-card">
-          <h3>Notice the Parts:</h3>
-          <ul style="text-align: left;">
-            <li><strong>Prediction:</strong> "Year 4 students will report witnessing more bullying"</li>
-            <li><strong>Comparison:</strong> "than Year 9 students"</li>
-            <li><strong>Reasoning:</strong> "because younger students are still developing social skills..."</li>
-          </ul>
-        </div>
-        
-        <div class="large-text" style="color: var(--primary);">
-          This can be tested with our survey data!
-        </div>
-      `
-    },
-    {
-      title: "How Can We Test If Cyber Bullying Is Increasing?",
-      content: `
-        <h2>Collecting Data Over Time</h2>
-        
-        <div class="question-box">
-          <p style="color: white; font-size: 2rem; font-weight: 700; margin-bottom: 1.5rem;">Prediction:</p>
-          <p style="color: white; font-size: 1.8rem;">"Cyber bullying is becoming more common"</p>
-        </div>
-        
-        <div class="concept-card">
-          <h3>How Can We Get Data to Test This?</h3>
-          <p style="font-size: 1.6rem; margin-bottom: 1.5rem; text-align: center;">Think: What kind of data would show us if something is "becoming more common"?</p>
-        </div>
-        
-        <div class="activity-box">
-          <p style="color: white; font-size: 2rem; font-weight: 700; margin-bottom: 1.5rem;">Pair Discussion (3 minutes)</p>
-          <p style="color: white; font-size: 1.6rem; margin-bottom: 1rem;">Discuss with your partner:</p>
-          <ul style="text-align: left; max-width: 800px; margin: 0 auto;">
-            <li style="color: white;">What data would we need?</li>
-            <li style="color: white;">How could we collect it?</li>
-            <li style="color: white;">What would the data look like if cyber bullying IS increasing?</li>
-          </ul>
-        </div>
-      `
-    },
-    {
-      title: "Testing Changes Over Time",
-      content: `
-        <h2>Data Methods for Trends</h2>
-        
-        <div class="concept-card">
-          <h3>Ways to Collect Data About Changes:</h3>
-          <ul style="text-align: left;">
-            <li>Compare this year's data to previous years' data</li>
-            <li>Ask: "Has cyber bullying increased, decreased, or stayed the same in the past year?"</li>
-            <li>Compare different age groups (older students remember past years)</li>
-            <li>Look at reported incidents over several months or years</li>
-          </ul>
-        </div>
-        
-        <div class="example-box">
-          <p style="color: white; font-size: 1.8rem; font-weight: 700; margin-bottom: 1rem;">Hypothesis Example:</p>
-          <p style="color: white; font-size: 1.6rem; line-height: 1.8;">"Students will report more cyber bullying incidents this year compared to last year because more students have access to smartphones and social media"</p>
-        </div>
-        
-        <div class="large-text" style="color: var(--primary);">
-          To test trends, we need data from different time periods
-        </div>
-      `
-    },
-    {
-      title: "Guided Practice - Write Your Hypothesis",
-      content: `
-        <h2>Create Your Own Hypothesis</h2>
-        
-        <div class="activity-box">
-          <p style="color: white; font-size: 2rem; font-weight: 700; margin-bottom: 1.5rem;">Individual Work (5 minutes)</p>
-          <p style="color: white; font-size: 1.6rem;">Write a hypothesis about bullying in our school in your notebook</p>
-        </div>
-        
-        <div class="concept-card">
-          <h3>Choose From:</h3>
-          <ul style="text-align: left;">
-            <li>One of the predictions we discussed in class</li>
-            <li>A new prediction based on our chosen variables</li>
-            <li>Your idea from the Math class exit task</li>
-          </ul>
-        </div>
-        
-        <div class="example-box">
-          <p style="color: white; font-size: 1.6rem; font-weight: 700; margin-bottom: 1rem;">Remember to Include:</p>
-          <p style="color: white; font-size: 1.4rem; margin-bottom: 0.5rem;">✓ What you predict will happen</p>
-          <p style="color: white; font-size: 1.4rem; margin-bottom: 0.5rem;">✓ A comparison (more/less than, different from)</p>
-          <p style="color: white; font-size: 1.4rem;">✓ Why you think this (because...)</p>
-        </div>
-      `
-    },
-    {
-      title: "Ethical Science",
-      content: `
-        <h2>Our Responsibility as Scientists</h2>
-        
-        <div class="large-text" style="background: var(--gradient-primary); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">
-          Scientists conduct research ethically, especially with sensitive topics like bullying
-        </div>
-        
-        <div class="concept-card">
-          <h3>Key Ethical Principles</h3>
-          <table class="comparison-table">
-            <tr>
-              <th>Principle</th>
-              <th>What It Means</th>
-            </tr>
-            <tr>
-              <td><strong>Confidentiality</strong></td>
-              <td>No names, keep data private and secure</td>
-            </tr>
-            <tr>
-              <td><strong>Respect</strong></td>
-              <td>Questions must be appropriate and sensitive</td>
-            </tr>
-            <tr>
-              <td><strong>Honesty</strong></td>
-              <td>Report what data shows, even if surprising</td>
-            </tr>
-            <tr>
-              <td><strong>Purpose</strong></td>
-              <td>We're helping make school safer, not blaming people</td>
-            </tr>
-          </table>
-        </div>
-      `
-    },
-    {
-      title: "Exit Task & Preview",
-      content: `
-        <h2>Show What You've Learned</h2>
-        
-        <div class="question-box">
-          <p style="color: white; font-size: 2rem; font-weight: 700; margin-bottom: 2rem;">Write in Your Notebook - Choose ONE:</p>
-          
-          <div style="text-align: left; max-width: 900px; margin: 0 auto;">
-            <p style="color: white; font-size: 1.8rem; margin-bottom: 1.5rem; font-weight: 700;">Option 1:</p>
-            <p style="color: white; font-size: 1.5rem; margin-bottom: 2.5rem;">Write your hypothesis about bullying in our school (include prediction + reasoning)</p>
-            
-            <p style="color: white; font-size: 1.8rem; margin-bottom: 1.5rem; font-weight: 700;">Option 2:</p>
-            <p style="color: white; font-size: 1.5rem;">Explain the difference between a prediction and a hypothesis using an example</p>
-          </div>
-        </div>
-        
-        <div class="concept-card" style="border-top: 6px solid var(--warning); margin-top: 3rem;">
-          <h3>Tomorrow in Science & Math</h3>
-          <p style="font-size: 1.8rem; color: var(--gray-700); line-height: 1.8;">We'll turn your hypotheses into survey questions and learn about avoiding bias in data collection.</p>
-        </div>
-      `
+        document.getElementById('prev-btn').disabled = currentSlide === 0;
+        document.getElementById('next-btn').disabled = currentSlide === slides.length - 1;
     }
-  ];
 
-  let currentSlide = 0;
-
-  function updateSlide() {
-    const slideContent = document.getElementById('slide-content');
-    slideContent.innerHTML = slides[currentSlide].content;
-    slideContent.className = 'slide fade-in';
-    
-    const progress = ((currentSlide + 1) / slides.length) * 100;
-    document.getElementById('progress-fill').style.width = `${progress}%`;
-    document.getElementById('current-slide').textContent = `Slide ${currentSlide + 1}`;
-    document.getElementById('total-slides').textContent = `of ${slides.length}`;
-    
-    document.getElementById('prev-btn').disabled = currentSlide === 0;
-    document.getElementById('next-btn').disabled = currentSlide === slides.length - 1;
-  }
-
-  function changeSlide(direction) {
-    const newSlide = currentSlide + direction;
-    if (newSlide >= 0 && newSlide < slides.length) {
-      currentSlide = newSlide;
-      updateSlide();
+    function changeSlide(direction) {
+        const newSlide = currentSlide + direction;
+        if (newSlide >= 0 && newSlide < slides.length) {
+            currentSlide = newSlide;
+            updateSlide();
+        }
     }
-  }
 
-  document.addEventListener('keydown', (e) => {
-    if (e.key === 'ArrowLeft') changeSlide(-1);
-    if (e.key === 'ArrowRight') changeSlide(1);
-  });
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'ArrowLeft') changeSlide(-1);
+        if (e.key === 'ArrowRight') changeSlide(1);
+    });
 
-  updateSlide();
+    updateSlide();
 </script>
 
 </body>
