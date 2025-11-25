@@ -1,0 +1,1089 @@
+<!DOCTYPE html><html lang="vi"><head><meta name="x-poe-datastore-behavior" content="local_only"><meta http-equiv="Content-Security-Policy" content="default-src 'self' 'unsafe-inline' 'unsafe-eval' data: blob: https://cdnjs.cloudflare.com https://cdn.jsdelivr.net https://code.jquery.com https://unpkg.com https://d3js.org https://threejs.org https://cdn.plot.ly https://stackpath.bootstrapcdn.com https://maps.googleapis.com https://cdn.tailwindcss.com https://ajax.googleapis.com https://kit.fontawesome.com https://cdn.datatables.net https://maxcdn.bootstrapcdn.com https://code.highcharts.com https://tako-static-assets-production.s3.amazonaws.com https://www.youtube.com https://fonts.googleapis.com https://fonts.gstatic.com https://pfst.cf2.poecdn.net https://puc.poecdn.net https://i.imgur.com https://wikimedia.org https://*.icons8.com https://*.giphy.com https://picsum.photos https://images.unsplash.com; frame-src 'self' https://www.youtube.com https://trytako.com; child-src 'self'; manifest-src 'self'; worker-src 'self'; upgrade-insecure-requests; block-all-mixed-content;">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bảng Tuần Hoàn - The Periodic Table</title>
+    <meta name="description" content="Giới thiệu về Bảng Tuần Hoàn và Cấu trúc Nguyên tử">
+    <meta name="subject" content="Science">
+    <meta name="year" content="Year 8">
+    <meta name="type" content="lesson">
+    <meta name="date" content="November 25, 2025">
+    <meta name="tags" content="Periodic Table, Atoms, Elements, Chemistry, Vietnamese">
+    
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&amp;display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #0EA5E9;
+            --primary-dark: #0284C7;
+            --secondary: #8B5CF6;
+            --secondary-dark: #7C3AED;
+            --accent: #F59E0B;
+            --accent-dark: #D97706;
+            --success: #10B981;
+            --pink: #EC4899;
+            --pink-dark: #DB2777;
+            --teal: #14B8A6;
+            --indigo: #6366F1;
+            --red: #EF4444;
+            --gray-50: #F9FAFB;
+            --gray-100: #F3F4F6;
+            --gray-200: #E5E7EB;
+            --gray-300: #D1D5DB;
+            --gray-600: #4B5563;
+            --gray-700: #374151;
+            --gray-800: #1F2937;
+            --gray-900: #111827;
+            --gradient-primary: linear-gradient(135deg, #0EA5E9 0%, #8B5CF6 100%);
+            --gradient-warm: linear-gradient(135deg, #F59E0B 0%, #EC4899 100%);
+            --gradient-cool: linear-gradient(135deg, #14B8A6 0%, #6366F1 100%);
+            --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+            --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1);
+            --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1);
+            --shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.1);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #0EA5E9 0%, #8B5CF6 50%, #EC4899 100%);
+            color: var(--gray-900);
+            overflow: hidden;
+            height: 100vh;
+        }
+
+        .app-container {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .header {
+            background: rgba(255, 255, 255, 0.98);
+            backdrop-filter: blur(20px);
+            padding: clamp(0.75rem, 2vmin, 1.25rem) clamp(1rem, 3vmin, 2.5rem);
+            box-shadow: 0 4px 12px rgb(0 0 0 / 0.08);
+            border-bottom: 3px solid transparent;
+            border-image: var(--gradient-primary) 1;
+        }
+
+        .header-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: clamp(1rem, 2vw, 2rem);
+            flex-wrap: wrap;
+        }
+
+        .lesson-badge {
+            background: var(--gradient-primary);
+            color: white;
+            padding: clamp(0.5rem, 1vmin, 0.625rem) clamp(0.875rem, 2vmin, 1.25rem);
+            border-radius: 9999px;
+            font-weight: 700;
+            font-size: clamp(0.9375rem, 1.6vmin, 1.125rem);
+            box-shadow: var(--shadow-md);
+            white-space: nowrap;
+        }
+
+        .lesson-title {
+            font-size: clamp(1.0625rem, 2.15vmin, 1.625rem);
+            font-weight: 800;
+            color: var(--gray-800);
+            flex: 1;
+            text-align: center;
+            min-width: 200px;
+        }
+
+        .lesson-date {
+            font-size: clamp(0.9375rem, 1.6vmin, 1.125rem);
+            font-weight: 600;
+            color: var(--gray-600);
+            white-space: nowrap;
+        }
+
+        .content-wrapper {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: clamp(1rem, 2.5vmin, 2.5rem);
+            min-height: 0;
+        }
+
+        .slide-container {
+            background: white;
+            border-radius: clamp(1rem, 2vmin, 2rem);
+            box-shadow: 0 25px 50px -12px rgb(0 0 0 / 0.25);
+            width: 100%;
+            max-width: 1300px;
+            height: 100%;
+            max-height: 800px;
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .slide {
+            flex: 1;
+            overflow-y: auto;
+            overflow-x: hidden;
+            padding: clamp(1.5rem, 3.5vmin, 3.5rem) clamp(1.5rem, 4vmin, 4rem);
+            scroll-behavior: smooth;
+        }
+
+        .slide::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        .slide::-webkit-scrollbar-track {
+            background: var(--gray-100);
+            border-radius: 10px;
+        }
+
+        .slide::-webkit-scrollbar-thumb {
+            background: var(--primary);
+            border-radius: 10px;
+        }
+
+        h1 {
+            font-size: clamp(2.125rem, 6.3vmin, 4.75rem);
+            font-weight: 900;
+            background: var(--gradient-primary);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: clamp(1rem, 2vmin, 2rem);
+            line-height: 1.1;
+            text-align: center;
+            letter-spacing: -0.02em;
+        }
+
+        h2 {
+            font-size: clamp(1.875rem, 4.75vmin, 3.5rem);
+            font-weight: 800;
+            color: var(--gray-800);
+            margin-bottom: clamp(1.25rem, 2.5vmin, 2.5rem);
+            text-align: center;
+            line-height: 1.2;
+            letter-spacing: -0.02em;
+        }
+
+        h3 {
+            font-size: clamp(1.375rem, 3.25vmin, 2.5rem);
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: clamp(0.75rem, 1.5vmin, 1.5rem);
+            line-height: 1.3;
+        }
+
+        p {
+            font-size: clamp(1.125rem, 2.35vmin, 1.75rem);
+            line-height: 1.7;
+            color: var(--gray-700);
+            margin-bottom: clamp(0.75rem, 1.25vmin, 1rem);
+            font-weight: 500;
+        }
+
+        .title-slide {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100%;
+            text-align: center;
+            padding: clamp(1rem, 2vmin, 2rem);
+        }
+
+        .title-header {
+            margin-bottom: clamp(2rem, 4vmin, 4rem);
+            width: 100%;
+        }
+
+        .school-name {
+            font-size: clamp(1.625rem, 4.25vmin, 3rem);
+            font-weight: 900;
+            color: var(--gray-800);
+            margin-bottom: clamp(0.5rem, 1vmin, 1rem);
+            letter-spacing: -0.01em;
+        }
+
+        .class-info {
+            font-size: clamp(1.375rem, 3.25vmin, 2.25rem);
+            font-weight: 700;
+            background: var(--gradient-primary);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: clamp(0.25rem, 0.5vmin, 0.5rem);
+        }
+
+        .title-date {
+            font-size: clamp(1.0625rem, 2.15vmin, 1.625rem);
+            color: var(--gray-600);
+            font-weight: 600;
+            margin-bottom: clamp(1.5rem, 2.5vmin, 2.5rem);
+        }
+
+        .unit-topic {
+            font-size: clamp(2.125rem, 5.75vmin, 4.75rem);
+            font-weight: 900;
+            background: var(--gradient-primary);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: clamp(2rem, 4vmin, 4rem);
+            line-height: 1.15;
+            letter-spacing: -0.02em;
+        }
+
+        .objective-box {
+            background: var(--gradient-primary);
+            color: white;
+            padding: clamp(1.5rem, 3vmin, 2.5rem);
+            border-radius: clamp(0.75rem, 1.5vmin, 1.5rem);
+            box-shadow: var(--shadow-xl);
+            transition: transform 0.3s ease;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .objective-box:hover {
+            transform: translateY(-5px);
+        }
+
+        .box-title {
+            font-size: clamp(1.375rem, 2.75vmin, 2.125rem);
+            font-weight: 800;
+            margin-bottom: clamp(0.75rem, 1.25vmin, 1.25rem);
+            letter-spacing: -0.01em;
+        }
+
+        .box-content {
+            font-size: clamp(1.125rem, 2.35vmin, 1.75rem);
+            font-weight: 600;
+            line-height: 1.6;
+        }
+
+        .notes-banner {
+            background: var(--gradient-warm);
+            color: white;
+            padding: clamp(0.75rem, 1.25vmin, 1rem) clamp(1.25rem, 2vmin, 1.5rem);
+            border-radius: clamp(0.5rem, 1vmin, 0.75rem);
+            font-weight: 800;
+            font-size: clamp(1.125rem, 2.35vmin, 1.5rem);
+            text-align: center;
+            margin-bottom: clamp(1rem, 2vmin, 1.5rem);
+            box-shadow: var(--shadow-md);
+            display: inline-block;
+        }
+
+        .note-item {
+            background: linear-gradient(to bottom, white, var(--gray-50));
+            border-left: clamp(4px, 0.75vmin, 6px) solid var(--accent);
+            padding: clamp(1.25rem, 2.25vmin, 1.75rem);
+            margin: clamp(1rem, 1.75vmin, 1.25rem) 0;
+            border-radius: clamp(0.5rem, 1vmin, 0.75rem);
+            box-shadow: var(--shadow-md);
+        }
+
+        .note-item p {
+            font-size: clamp(1.125rem, 2.35vmin, 1.625rem);
+            font-weight: 600;
+            color: var(--gray-800);
+            margin: 0;
+            line-height: 1.7;
+        }
+
+        .viet-text {
+            font-size: clamp(1.25rem, 2.65vmin, 1.875rem);
+            color: var(--gray-800);
+            font-weight: 700;
+            margin-bottom: clamp(0.5rem, 1vmin, 0.75rem);
+        }
+
+        .english-text {
+            font-size: clamp(1rem, 2.15vmin, 1.5rem);
+            color: var(--primary);
+            font-weight: 600;
+            font-style: italic;
+        }
+
+        .atom-diagram {
+            width: 100%;
+            max-width: 550px;
+            margin: clamp(1.5rem, 3vmin, 2.5rem) auto;
+            position: relative;
+            aspect-ratio: 1;
+        }
+
+        .nucleus {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 28%;
+            height: 28%;
+            background: radial-gradient(circle, #EF4444 0%, #DC2626 100%);
+            border-radius: 50%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 0 30px rgba(239, 68, 68, 0.6);
+            z-index: 10;
+        }
+
+        .nucleus-label {
+            color: white;
+            font-weight: 900;
+            font-size: clamp(0.875rem, 1.75vmin, 1.25rem);
+            text-align: center;
+            line-height: 1.3;
+        }
+
+        .orbit {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            border: 3px dashed var(--primary);
+            border-radius: 50%;
+            opacity: 0.6;
+        }
+
+        .orbit-1 {
+            width: 48%;
+            height: 48%;
+        }
+
+        .orbit-2 {
+            width: 72%;
+            height: 72%;
+        }
+
+        .orbit-3 {
+            width: 96%;
+            height: 96%;
+        }
+
+        .electron {
+            position: absolute;
+            width: clamp(18px, 3.25vmin, 28px);
+            height: clamp(18px, 3.25vmin, 28px);
+            background: radial-gradient(circle, #0EA5E9 0%, #0284C7 100%);
+            border-radius: 50%;
+            box-shadow: 0 0 15px rgba(14, 165, 233, 0.8);
+        }
+
+        .e1 { top: 50%; left: 0%; transform: translate(-50%, -50%); }
+        .e2 { top: 50%; right: 0%; transform: translate(50%, -50%); }
+        .e3 { top: 0%; left: 25%; transform: translate(-50%, -50%); }
+        .e4 { top: 0%; right: 25%; transform: translate(50%, -50%); }
+        .e5 { bottom: 0%; left: 25%; transform: translate(-50%, 50%); }
+        .e6 { bottom: 0%; right: 25%; transform: translate(50%, 50%); }
+
+        .label-arrow {
+            position: absolute;
+            font-size: clamp(1rem, 2.15vmin, 1.5rem);
+            font-weight: 800;
+            color: var(--gray-800);
+            background: white;
+            padding: clamp(0.5rem, 1vmin, 0.75rem) clamp(0.75rem, 1.5vmin, 1rem);
+            border-radius: clamp(0.375rem, 0.75vmin, 0.5rem);
+            box-shadow: var(--shadow-md);
+            border: 2px solid var(--primary);
+        }
+
+        .label-nucleus {
+            top: 50%;
+            right: -10%;
+            transform: translateY(-50%);
+        }
+
+        .label-electron {
+            top: 5%;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .label-shell {
+            bottom: 5%;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .key-point {
+            background: linear-gradient(135deg, #FEF3C7 0%, #FDE68A 100%);
+            border-left: clamp(4px, 0.75vmin, 6px) solid var(--accent);
+            padding: clamp(1.25rem, 2.25vmin, 1.75rem);
+            margin: clamp(1rem, 2vmin, 1.5rem) 0;
+            border-radius: clamp(0.5rem, 1vmin, 0.75rem);
+            box-shadow: var(--shadow-md);
+        }
+
+        .key-point p {
+            font-size: clamp(1.125rem, 2.35vmin, 1.625rem);
+            font-weight: 700;
+            color: var(--gray-800);
+            margin: 0;
+            line-height: 1.7;
+        }
+
+        .element-card {
+            background: white;
+            border: 4px solid var(--primary);
+            border-radius: clamp(0.75rem, 1.5vmin, 1rem);
+            padding: clamp(1.75rem, 2.75vmin, 2.25rem);
+            box-shadow: var(--shadow-lg);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .element-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: clamp(4px, 0.75vmin, 6px);
+            background: var(--gradient-primary);
+        }
+
+        .atomic-number {
+            font-size: clamp(1.25rem, 2.75vmin, 2rem);
+            font-weight: 800;
+            color: var(--primary);
+            margin-bottom: clamp(0.5rem, 1vmin, 0.75rem);
+        }
+
+        .element-symbol {
+            font-size: clamp(3.5rem, 7.5vmin, 5.5rem);
+            font-weight: 900;
+            color: var(--gray-800);
+            text-align: center;
+            margin: clamp(1rem, 2vmin, 1.5rem) 0;
+            line-height: 1;
+        }
+
+        .element-name {
+            font-size: clamp(1.375rem, 3vmin, 2.25rem);
+            font-weight: 700;
+            color: var(--gray-700);
+            text-align: center;
+            margin-bottom: clamp(0.75rem, 1.5vmin, 1rem);
+        }
+
+        .atomic-mass {
+            font-size: clamp(1.25rem, 2.75vmin, 2rem);
+            font-weight: 700;
+            color: var(--secondary);
+            text-align: center;
+        }
+
+        .two-columns {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: clamp(1.5rem, 3vmin, 2.5rem);
+            margin: clamp(1.5rem, 3vmin, 2rem) 0;
+        }
+
+        .write-box {
+            background: linear-gradient(135deg, #E0F2FE 0%, #BAE6FD 100%);
+            border: 3px dashed var(--primary);
+            border-radius: clamp(0.5rem, 1vmin, 0.75rem);
+            padding: clamp(1.25rem, 2.25vmin, 1.75rem);
+            margin: clamp(1rem, 2vmin, 1.5rem) 0;
+            min-height: clamp(60px, 10vmin, 100px);
+        }
+
+        .write-prompt {
+            font-size: clamp(1rem, 2.15vmin, 1.5rem);
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: clamp(0.5rem, 1vmin, 0.75rem);
+        }
+
+        .write-lines {
+            border-bottom: 2px solid var(--primary);
+            margin: clamp(0.5rem, 1vmin, 0.75rem) 0;
+            min-height: clamp(30px, 5vmin, 45px);
+        }
+
+        .navigation {
+            background: rgba(255, 255, 255, 0.98);
+            border-top: 1px solid var(--gray-200);
+            padding: clamp(0.75rem, 1.25vmin, 1.25rem) clamp(1rem, 2.5vmin, 2.5rem);
+            box-shadow: 0 -4px 12px rgb(0 0 0 / 0.08);
+        }
+
+        .navigation-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: clamp(1rem, 2vmin, 2rem);
+            flex-wrap: wrap;
+        }
+
+        .progress-container {
+            flex: 1;
+            max-width: 600px;
+            min-width: 200px;
+        }
+
+        .progress-info {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: clamp(0.5rem, 0.75vmin, 0.75rem);
+            font-size: clamp(0.9375rem, 1.6vmin, 1.125rem);
+            color: var(--gray-700);
+            font-weight: 700;
+        }
+
+        .progress-bar {
+            height: clamp(6px, 1vmin, 10px);
+            background: var(--gray-200);
+            border-radius: 9999px;
+            overflow: hidden;
+            box-shadow: inset 0 1px 3px rgb(0 0 0 / 0.1);
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: var(--gradient-primary);
+            border-radius: 9999px;
+            transition: width 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 0 8px rgba(14, 165, 233, 0.5);
+        }
+
+        .nav-buttons {
+            display: flex;
+            gap: clamp(0.75rem, 1.25vmin, 1.25rem);
+        }
+
+        .nav-btn {
+            display: flex;
+            align-items: center;
+            gap: clamp(0.375rem, 0.75vmin, 0.75rem);
+            padding: clamp(0.75rem, 1vmin, 1rem) clamp(1rem, 2vmin, 2rem);
+            background: white;
+            border: 2px solid var(--gray-300);
+            border-radius: clamp(0.5rem, 1vmin, 1rem);
+            font-weight: 700;
+            font-size: clamp(0.9375rem, 1.6vmin, 1.1875rem);
+            color: var(--gray-700);
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: var(--shadow-sm);
+            white-space: nowrap;
+        }
+
+        .nav-btn:hover:not(:disabled) {
+            background: var(--gradient-primary);
+            color: white;
+            border-color: var(--primary);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .nav-btn:disabled {
+            opacity: 0.4;
+            cursor: not-allowed;
+            background: var(--gray-100);
+        }
+
+        .fade-in {
+            animation: fadeIn 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        @keyframes fadeIn {
+            from { 
+                opacity: 0; 
+                transform: translateY(30px); 
+            }
+            to { 
+                opacity: 1; 
+                transform: translateY(0); 
+            }
+        }
+
+        .highlight-term {
+            background: linear-gradient(120deg, #FEF3C7 0%, #FDE68A 100%);
+            padding: clamp(0.125rem, 0.25vmin, 0.25rem) clamp(0.375rem, 0.75vmin, 0.5rem);
+            border-radius: clamp(0.25rem, 0.5vmin, 0.375rem);
+            font-weight: 800;
+            color: var(--gray-900);
+        }
+
+        .big-number {
+            font-size: clamp(3rem, 7vmin, 5.5rem);
+            font-weight: 900;
+            color: var(--primary);
+            text-align: center;
+            margin: clamp(1rem, 2vmin, 1.5rem) 0;
+        }
+
+        .simple-list {
+            background: white;
+            border: 3px solid var(--gray-300);
+            border-radius: clamp(0.5rem, 1vmin, 0.75rem);
+            padding: clamp(1.25rem, 2.25vmin, 1.75rem);
+            margin: clamp(1rem, 2vmin, 1.5rem) 0;
+        }
+
+        .list-item {
+            display: flex;
+            align-items: center;
+            gap: clamp(0.75rem, 1.5vmin, 1rem);
+            margin: clamp(0.75rem, 1.5vmin, 1rem) 0;
+            font-size: clamp(1.125rem, 2.35vmin, 1.625rem);
+            font-weight: 600;
+        }
+
+        .list-icon {
+            width: clamp(30px, 5vmin, 45px);
+            height: clamp(30px, 5vmin, 45px);
+            background: var(--primary);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 900;
+            font-size: clamp(1.125rem, 2.35vmin, 1.75rem);
+            flex-shrink: 0;
+        }
+
+        @media (max-width: 768px) {
+            .header-content {
+                justify-content: center;
+            }
+            
+            .lesson-title {
+                order: -1;
+                flex-basis: 100%;
+            }
+            
+            .nav-buttons {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+
+            .two-columns {
+                grid-template-columns: 1fr;
+            }
+
+            .label-arrow {
+                font-size: clamp(0.875rem, 1.75vmin, 1.125rem);
+                padding: clamp(0.375rem, 0.75vmin, 0.5rem) clamp(0.5rem, 1vmin, 0.75rem);
+            }
+
+            .label-nucleus {
+                right: -5%;
+            }
+        }
+    </style>
+<script src="https://puc.poecdn.net/authenticated_preview_page/syncedState.3f7572448765332f3047.js"></script></head>
+<body>
+
+<div class="app-container">
+    <div class="header">
+        <div class="header-content">
+            <span class="lesson-badge">Year 8 Khoa Học</span>
+            <div class="lesson-title">Bảng Tuần Hoàn - The Periodic Table</div>
+            <div class="lesson-date">📅 25/11/2025</div>
+        </div>
+    </div>
+
+    <div class="content-wrapper">
+        <div class="slide-container">
+            <div class="slide" id="slide-content"></div>
+        </div>
+    </div>
+
+    <div class="navigation">
+        <div class="navigation-content">
+            <div class="progress-container">
+                <div class="progress-info">
+                    <span id="current-slide">Trang 1</span>
+                    <span id="total-slides">/ 8</span>
+                </div>
+                <div class="progress-bar">
+                    <div class="progress-fill" id="progress-fill" style="width: 0%"></div>
+                </div>
+            </div>
+            <div class="nav-buttons">
+                <button class="nav-btn" id="prev-btn" onclick="changeSlide(-1)" disabled="">← Trước</button>
+                <button class="nav-btn" id="next-btn" onclick="changeSlide(1)">Tiếp →</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    const slides = [
+        {
+            title: "Chào mừng",
+            content: `
+                <div class="title-slide">
+                    <div class="title-header">
+                        <div class="school-name">Cambridge International School</div>
+                        <div class="class-info">Year 8 Khoa Học (Science)</div>
+                        <div class="title-date">Thứ Hai, 25 tháng 11 năm 2025</div>
+                        <div class="unit-topic">Bảng Tuần Hoàn<br>The Periodic Table</div>
+                    </div>
+                    
+                    <div class="objective-box">
+                        <div class="box-title">🎯 Mục Tiêu Hôm Nay</div>
+                        <div class="box-content">
+                            Hôm nay chúng ta sẽ học về bảng tuần hoàn và nguyên tử.<br>
+                            <span style="font-size: clamp(1rem, 2.15vmin, 1.5rem); opacity: 0.9;">Today we will learn about the periodic table and atoms.</span>
+                        </div>
+                    </div>
+                </div>
+            `
+        },
+        {
+            title: "Nguyên Tử Là Gì?",
+            content: `
+                <h2>Nguyên Tử Là Gì?</h2>
+                <p style="text-align: center; font-size: clamp(1rem, 2.15vmin, 1.5rem); font-style: italic; color: var(--primary); margin-bottom: clamp(2rem, 4vmin, 3rem);">What is an Atom?</p>
+                
+                <div class="atom-diagram">
+                    <div class="nucleus">
+                        <div class="nucleus-label">NHÂN<br>Nucleus</div>
+                    </div>
+                    <div class="orbit orbit-1">
+                        <div class="electron e1"></div>
+                        <div class="electron e2"></div>
+                    </div>
+                    <div class="orbit orbit-2">
+                        <div class="electron e3"></div>
+                        <div class="electron e4"></div>
+                    </div>
+                    <div class="orbit orbit-3">
+                        <div class="electron e5"></div>
+                        <div class="electron e6"></div>
+                    </div>
+                    
+                    <div class="label-arrow label-nucleus">
+                        NHÂN<br>
+                        <span style="font-size: clamp(0.75rem, 1.5vmin, 1.125rem); font-weight: 600;">Nucleus</span>
+                    </div>
+                    <div class="label-arrow label-electron">
+                        ELECTRON<br>
+                        <span style="font-size: clamp(0.75rem, 1.5vmin, 1.125rem); font-weight: 600;">Electron</span>
+                    </div>
+                    <div class="label-arrow label-shell">
+                        VỎ / LỚP<br>
+                        <span style="font-size: clamp(0.75rem, 1.5vmin, 1.125rem); font-weight: 600;">Shell</span>
+                    </div>
+                </div>
+                
+                <div class="key-point">
+                    <p>💡 Nguyên tử là hạt nhỏ nhất của vật chất<br>
+                    <span style="font-size: clamp(1rem, 2.15vmin, 1.375rem); font-style: italic; color: var(--primary);">An atom is the smallest unit of matter</span></p>
+                </div>
+            `
+        },
+        {
+            title: "Các Phần Của Nguyên Tử",
+            content: `
+                <h2>Các Phần Của Nguyên Tử</h2>
+                <p style="text-align: center; font-size: clamp(1rem, 2.15vmin, 1.5rem); font-style: italic; color: var(--primary); margin-bottom: clamp(2rem, 4vmin, 3rem);">Parts of an Atom</p>
+                
+                <div class="notes-banner">📝 VIẾT VÀO VỞ (Write in your notes):</div>
+                
+                <div class="simple-list">
+                    <div class="list-item">
+                        <div class="list-icon">1</div>
+                        <div>
+                            <div class="viet-text">NHÂN ở giữa (trung tâm)</div>
+                            <div class="english-text">Nucleus in the center</div>
+                        </div>
+                    </div>
+                    
+                    <div class="list-item">
+                        <div class="list-icon">2</div>
+                        <div>
+                            <div class="viet-text">PROTON trong nhân (dương +)</div>
+                            <div class="english-text">Protons in the nucleus (positive +)</div>
+                        </div>
+                    </div>
+                    
+                    <div class="list-item">
+                        <div class="list-icon">3</div>
+                        <div>
+                            <div class="viet-text">NEUTRON trong nhân (trung tính)</div>
+                            <div class="english-text">Neutrons in the nucleus (neutral)</div>
+                        </div>
+                    </div>
+                    
+                    <div class="list-item">
+                        <div class="list-icon">4</div>
+                        <div>
+                            <div class="viet-text">ELECTRON xung quanh nhân (âm −)</div>
+                            <div class="english-text">Electrons around the nucleus (negative −)</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="write-box">
+                    <div class="write-prompt">✍️ Viết bằng tiếng Anh (Write in English):</div>
+                    <div class="write-lines"></div>
+                    <div class="write-lines"></div>
+                </div>
+            `
+        },
+        {
+            title: "Vỏ Electron",
+            content: `
+                <h2>Vỏ Electron (Electron Shells)</h2>
+                
+                <div class="atom-diagram">
+                    <div class="nucleus">
+                        <div class="nucleus-label">NHÂN<br>Nucleus</div>
+                    </div>
+                    <div class="orbit orbit-1">
+                        <div class="electron e1"></div>
+                        <div class="electron e2"></div>
+                    </div>
+                    <div class="orbit orbit-2">
+                        <div class="electron e3"></div>
+                        <div class="electron e4"></div>
+                    </div>
+                    <div class="orbit orbit-3">
+                        <div class="electron e5"></div>
+                        <div class="electron e6"></div>
+                    </div>
+                </div>
+                
+                <div class="notes-banner">📝 VIẾT VÀO VỞ:</div>
+                
+                <div class="note-item">
+                    <p class="viet-text">Electron ở trong VỎ (lớp) xung quanh nhân</p>
+                    <p class="english-text">Electrons are in SHELLS around the nucleus</p>
+                </div>
+                
+                <div class="key-point">
+                    <p style="font-size: clamp(1.25rem, 2.65vmin, 1.875rem);">
+                        🔢 Số Proton = Số Electron<br>
+                        <span style="font-size: clamp(1rem, 2.15vmin, 1.5rem); color: var(--primary);">Number of Protons = Number of Electrons</span>
+                    </p>
+                </div>
+                
+                <div class="write-box">
+                    <div class="write-prompt">✍️ Viết:</div>
+                    <div class="write-lines"></div>
+                </div>
+            `
+        },
+        {
+            title: "Ký Hiệu Nguyên Tử",
+            content: `
+                <h2>Ký Hiệu Nguyên Tử</h2>
+                <p style="text-align: center; font-size: clamp(1rem, 2.15vmin, 1.5rem); font-style: italic; color: var(--primary); margin-bottom: clamp(2rem, 4vmin, 3rem);">Atomic Symbol</p>
+                
+                <div class="element-card" style="max-width: 450px; margin: 0 auto clamp(2rem, 4vmin, 3rem);">
+                    <div class="atomic-number">
+                        1 ← Số hiệu nguyên tử<br>
+                        <span style="font-size: clamp(0.875rem, 1.75vmin, 1.25rem); font-weight: 600; color: var(--secondary);">(Atomic Number)</span>
+                    </div>
+                    <div class="element-symbol">H</div>
+                    <div class="element-name">
+                        Hiđrô<br>
+                        <span style="font-size: clamp(1rem, 2.15vmin, 1.625rem); color: var(--primary);">Hydrogen</span>
+                    </div>
+                    <div class="atomic-mass">
+                        1.008 ← Khối lượng nguyên tử<br>
+                        <span style="font-size: clamp(0.875rem, 1.75vmin, 1.25rem); font-weight: 600; color: var(--gray-600);">(Atomic Mass)</span>
+                    </div>
+                </div>
+                
+                <div class="notes-banner">📝 VIẾT VÀO VỞ:</div>
+                
+                <div class="note-item">
+                    <p class="viet-text">Mỗi nguyên tố có KÝ HIỆU (1 hoặc 2 chữ cái)</p>
+                    <p class="english-text">Each element has a SYMBOL (1 or 2 letters)</p>
+                </div>
+                
+                <div class="write-box">
+                    <div class="write-prompt">✍️ Viết ký hiệu của Hydrogen:</div>
+                    <div class="write-lines"></div>
+                </div>
+            `
+        },
+        {
+            title: "Hai Ví Dụ",
+            content: `
+                <h2>Hai Nguyên Tố Quan Trọng</h2>
+                <p style="text-align: center; font-size: clamp(1rem, 2.15vmin, 1.5rem); font-style: italic; color: var(--primary); margin-bottom: clamp(2rem, 4vmin, 3rem);">Two Important Elements</p>
+                
+                <div class="two-columns">
+                    <div class="element-card">
+                        <div class="atomic-number">1</div>
+                        <div class="element-symbol">H</div>
+                        <div class="element-name">Hiđrô<br><span style="font-size: clamp(1rem, 2.15vmin, 1.625rem); color: var(--primary);">Hydrogen</span></div>
+                        <div class="atomic-mass">1.008</div>
+                    </div>
+                    
+                    <div class="element-card">
+                        <div class="atomic-number">8</div>
+                        <div class="element-symbol">O</div>
+                        <div class="element-name">Ôxy<br><span style="font-size: clamp(1rem, 2.15vmin, 1.625rem); color: var(--primary);">Oxygen</span></div>
+                        <div class="atomic-mass">15.999</div>
+                    </div>
+                </div>
+                
+                <div class="notes-banner">📝 VIẾT VÀO VỞ:</div>
+                
+                <div class="write-box">
+                    <div class="write-prompt">✍️ Viết:</div>
+                    <p style="margin: clamp(0.75rem, 1.5vmin, 1rem) 0; font-size: clamp(1rem, 2.15vmin, 1.375rem); font-weight: 600;">
+                        Hydrogen symbol: _____<br>
+                        Oxygen symbol: _____
+                    </p>
+                </div>
+                
+                <div class="key-point">
+                    <p>💧 Nước (Water) = H₂O<br>
+                    <span style="font-size: clamp(1rem, 2.15vmin, 1.375rem);">(2 Hydrogen + 1 Oxygen)</span></p>
+                </div>
+            `
+        },
+        {
+            title: "Số Hiệu Nguyên Tử",
+            content: `
+                <h2>Số Hiệu Nguyên Tử</h2>
+                <p style="text-align: center; font-size: clamp(1rem, 2.15vmin, 1.5rem); font-style: italic; color: var(--primary); margin-bottom: clamp(2rem, 4vmin, 3rem);">Atomic Number</p>
+                
+                <div class="element-card" style="max-width: 450px; margin: 0 auto clamp(2rem, 4vmin, 3rem);">
+                    <div class="atomic-number" style="font-size: clamp(1.75rem, 4vmin, 3rem);">
+                        8 ← ĐÂY LÀ<br>Atomic Number
+                    </div>
+                    <div class="element-symbol">O</div>
+                    <div class="element-name">Ôxy<br><span style="font-size: clamp(1rem, 2.15vmin, 1.625rem); color: var(--primary);">Oxygen</span></div>
+                    <div class="atomic-mass">15.999</div>
+                </div>
+                
+                <div class="notes-banner">📝 VIẾT VÀO VỞ:</div>
+                
+                <div class="note-item">
+                    <p class="viet-text">SỐ HIỆU NGUYÊN TỬ = Số Proton</p>
+                    <p class="english-text">ATOMIC NUMBER = Number of Protons</p>
+                </div>
+                
+                <div class="note-item">
+                    <p class="viet-text">Ôxy có 8 proton và 8 electron</p>
+                    <p class="english-text">Oxygen has 8 protons and 8 electrons</p>
+                </div>
+                
+                <div class="write-box">
+                    <div class="write-prompt">✍️ Viết:</div>
+                    <p style="margin: clamp(0.75rem, 1.5vmin, 1rem) 0; font-size: clamp(1rem, 2.15vmin, 1.375rem); font-weight: 600;">
+                        Atomic Number = Number of _________
+                    </p>
+                </div>
+            `
+        },
+        {
+            title: "Tổng Kết",
+            content: `
+                <h2>Tổng Kết - Summary</h2>
+                
+                <div class="objective-box" style="margin-bottom: clamp(2rem, 4vmin, 3rem);">
+                    <div class="box-title">✅ Hôm Nay Chúng Ta Đã Học</div>
+                    <div class="box-content" style="font-size: clamp(1rem, 2.15vmin, 1.5rem);">
+                        We learned about atoms and the periodic table
+                    </div>
+                </div>
+                
+                <div class="notes-banner">📝 ĐIỂM QUAN TRỌNG (Important Points):</div>
+                
+                <div class="simple-list">
+                    <div class="list-item">
+                        <div class="list-icon">1</div>
+                        <div>
+                            <div class="viet-text">Nguyên tử có: Nhân + Electron</div>
+                            <div class="english-text">Atoms have: Nucleus + Electrons</div>
+                        </div>
+                    </div>
+                    
+                    <div class="list-item">
+                        <div class="list-icon">2</div>
+                        <div>
+                            <div class="viet-text">Nhân có: Proton + Neutron</div>
+                            <div class="english-text">Nucleus has: Protons + Neutrons</div>
+                        </div>
+                    </div>
+                    
+                    <div class="list-item">
+                        <div class="list-icon">3</div>
+                        <div>
+                            <div class="viet-text">Số Proton = Số Electron</div>
+                            <div class="english-text">Number of Protons = Number of Electrons</div>
+                        </div>
+                    </div>
+                    
+                    <div class="list-item">
+                        <div class="list-icon">4</div>
+                        <div>
+                            <div class="viet-text">Mỗi nguyên tố có ký hiệu riêng</div>
+                            <div class="english-text">Each element has its own symbol</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="key-point" style="margin-top: clamp(2rem, 4vmin, 3rem); background: var(--gradient-primary); border: none;">
+                    <p style="color: white; font-size: clamp(1.25rem, 2.65vmin, 1.875rem);">
+                        🌟 Làm tốt lắm! Excellent work!<br>
+                        <span style="font-size: clamp(1rem, 2.15vmin, 1.5rem);">Kiểm tra vở của bạn! Check your notes!</span>
+                    </p>
+                </div>
+            `
+        }
+    ];
+
+    let currentSlide = 0;
+
+    function updateSlide() {
+        const slideContent = document.getElementById('slide-content');
+        slideContent.innerHTML = slides[currentSlide].content;
+        slideContent.className = 'slide fade-in';
+        
+        const progress = ((currentSlide + 1) / slides.length) * 100;
+        document.getElementById('progress-fill').style.width = `${progress}%`;
+        document.getElementById('current-slide').textContent = `Trang ${currentSlide + 1}`;
+        document.getElementById('total-slides').textContent = `/ ${slides.length}`;
+        
+        document.getElementById('prev-btn').disabled = currentSlide === 0;
+        document.getElementById('next-btn').disabled = currentSlide === slides.length - 1;
+    }
+
+    function changeSlide(direction) {
+        const newSlide = currentSlide + direction;
+        if (newSlide >= 0 && newSlide < slides.length) {
+            currentSlide = newSlide;
+            updateSlide();
+        }
+    }
+
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'ArrowLeft') changeSlide(-1);
+        if (e.key === 'ArrowRight') changeSlide(1);
+    });
+
+    updateSlide();
+</script>
+
+
+
+</body></html>
