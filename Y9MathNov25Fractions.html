@@ -1,0 +1,1110 @@
+<!DOCTYPE html><html lang="en"><head><meta name="x-poe-datastore-behavior" content="local_only"><meta http-equiv="Content-Security-Policy" content="default-src 'self' 'unsafe-inline' 'unsafe-eval' data: blob: https://cdnjs.cloudflare.com https://cdn.jsdelivr.net https://code.jquery.com https://unpkg.com https://d3js.org https://threejs.org https://cdn.plot.ly https://stackpath.bootstrapcdn.com https://maps.googleapis.com https://cdn.tailwindcss.com https://ajax.googleapis.com https://kit.fontawesome.com https://cdn.datatables.net https://maxcdn.bootstrapcdn.com https://code.highcharts.com https://tako-static-assets-production.s3.amazonaws.com https://www.youtube.com https://fonts.googleapis.com https://fonts.gstatic.com https://pfst.cf2.poecdn.net https://puc.poecdn.net https://i.imgur.com https://wikimedia.org https://*.icons8.com https://*.giphy.com https://picsum.photos https://images.unsplash.com; frame-src 'self' https://www.youtube.com https://trytako.com; child-src 'self'; manifest-src 'self'; worker-src 'self'; upgrade-insecure-requests; block-all-mixed-content;">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Adding and Subtracting Fractions</title>
+    <meta name="description" content="Adding and subtracting fractions with common denominators">
+    <meta name="subject" content="Mathematics">
+    <meta name="year" content="Year 9">
+    <meta name="type" content="lesson">
+    <meta name="date" content="November 25, 2025">
+    <meta name="tags" content="Fractions, Addition, Subtraction, Mixed Numbers">
+    
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&amp;display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #6366F1;
+            --primary-dark: #4F46E5;
+            --purple: #8B5CF6;
+            --purple-dark: #7C3AED;
+            --orange: #F97316;
+            --orange-dark: #EA580C;
+            --teal: #14B8A6;
+            --teal-dark: #0D9488;
+            --success: #10B981;
+            --warning: #F59E0B;
+            --danger: #EF4444;
+            --gray-50: #F9FAFB;
+            --gray-100: #F3F4F6;
+            --gray-200: #E5E7EB;
+            --gray-300: #D1D5DB;
+            --gray-600: #4B5563;
+            --gray-700: #374151;
+            --gray-800: #1F2937;
+            --gray-900: #111827;
+            --gradient-primary: linear-gradient(135deg, #667EEA 0%, #764BA2 100%);
+            --gradient-purple: linear-gradient(135deg, #8B5CF6 0%, #6D28D9 100%);
+            --gradient-orange: linear-gradient(135deg, #F97316 0%, #EA580C 100%);
+            --gradient-teal: linear-gradient(135deg, #14B8A6 0%, #0D9488 100%);
+            --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+            --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1);
+            --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1);
+            --shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.1);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #667EEA 0%, #764BA2 50%, #F093FB 100%);
+            color: var(--gray-900);
+            overflow: hidden;
+            height: 100vh;
+        }
+
+        .app-container {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .header {
+            background: rgba(255, 255, 255, 0.98);
+            backdrop-filter: blur(20px);
+            padding: clamp(0.75rem, 2vmin, 1.25rem) clamp(1rem, 3vmin, 2.5rem);
+            box-shadow: 0 4px 12px rgb(0 0 0 / 0.08);
+            border-bottom: 3px solid transparent;
+            border-image: var(--gradient-primary) 1;
+        }
+
+        .header-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: clamp(1rem, 2vw, 2rem);
+            flex-wrap: wrap;
+        }
+
+        .lesson-badge {
+            background: var(--gradient-primary);
+            color: white;
+            padding: clamp(0.5rem, 1vmin, 0.625rem) clamp(0.875rem, 2vmin, 1.25rem);
+            border-radius: 9999px;
+            font-weight: 700;
+            font-size: clamp(0.9375rem, 1.6vmin, 1.125rem);
+            box-shadow: var(--shadow-md);
+            white-space: nowrap;
+        }
+
+        .lesson-title {
+            font-size: clamp(1.0625rem, 2.15vmin, 1.625rem);
+            font-weight: 800;
+            color: var(--gray-800);
+            flex: 1;
+            text-align: center;
+            min-width: 200px;
+        }
+
+        .lesson-date {
+            font-size: clamp(0.9375rem, 1.6vmin, 1.125rem);
+            font-weight: 600;
+            color: var(--gray-600);
+            white-space: nowrap;
+        }
+
+        .content-wrapper {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: clamp(1rem, 2.5vmin, 2.5rem);
+            min-height: 0;
+        }
+
+        .slide-container {
+            background: white;
+            border-radius: clamp(1rem, 2vmin, 2rem);
+            box-shadow: 0 25px 50px -12px rgb(0 0 0 / 0.25);
+            width: 100%;
+            max-width: 1300px;
+            height: 100%;
+            max-height: 800px;
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .slide {
+            flex: 1;
+            overflow-y: auto;
+            overflow-x: hidden;
+            padding: clamp(1.5rem, 3.5vmin, 3.5rem) clamp(1.5rem, 4vmin, 4rem);
+            scroll-behavior: smooth;
+        }
+
+        .slide::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        .slide::-webkit-scrollbar-track {
+            background: var(--gray-100);
+            border-radius: 10px;
+        }
+
+        .slide::-webkit-scrollbar-thumb {
+            background: var(--primary);
+            border-radius: 10px;
+        }
+
+        h1 {
+            font-size: clamp(2.125rem, 6.3vmin, 4.75rem);
+            font-weight: 900;
+            background: var(--gradient-primary);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: clamp(1rem, 2vmin, 2rem);
+            line-height: 1.1;
+            text-align: center;
+            letter-spacing: -0.02em;
+        }
+
+        h2 {
+            font-size: clamp(1.875rem, 4.75vmin, 3.5rem);
+            font-weight: 800;
+            color: var(--gray-800);
+            margin-bottom: clamp(1.25rem, 2.5vmin, 2.5rem);
+            text-align: center;
+            line-height: 1.2;
+            letter-spacing: -0.02em;
+        }
+
+        h3 {
+            font-size: clamp(1.375rem, 3.25vmin, 2.5rem);
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: clamp(0.75rem, 1.5vmin, 1.5rem);
+            line-height: 1.3;
+        }
+
+        p, li {
+            font-size: clamp(1.0625rem, 2.15vmin, 1.625rem);
+            line-height: 1.7;
+            color: var(--gray-700);
+            margin-bottom: clamp(0.5rem, 1vmin, 1rem);
+            font-weight: 500;
+        }
+
+        .title-slide {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100%;
+            text-align: center;
+            padding: clamp(1rem, 2vmin, 2rem);
+        }
+
+        .title-header {
+            margin-bottom: clamp(2rem, 4vmin, 4rem);
+            width: 100%;
+        }
+
+        .school-name {
+            font-size: clamp(1.625rem, 4.25vmin, 3rem);
+            font-weight: 900;
+            color: var(--gray-800);
+            margin-bottom: clamp(0.5rem, 1vmin, 1rem);
+            letter-spacing: -0.01em;
+        }
+
+        .class-info {
+            font-size: clamp(1.375rem, 3.25vmin, 2.25rem);
+            font-weight: 700;
+            background: var(--gradient-primary);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: clamp(0.25rem, 0.5vmin, 0.5rem);
+        }
+
+        .title-date {
+            font-size: clamp(1.0625rem, 2.15vmin, 1.625rem);
+            color: var(--gray-600);
+            font-weight: 600;
+            margin-bottom: clamp(1.5rem, 2.5vmin, 2.5rem);
+        }
+
+        .unit-topic {
+            font-size: clamp(2.125rem, 5.75vmin, 4.75rem);
+            font-weight: 900;
+            background: var(--gradient-primary);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: clamp(2rem, 4vmin, 4rem);
+            line-height: 1.15;
+            letter-spacing: -0.02em;
+        }
+
+        .objective-box {
+            background: var(--gradient-purple);
+            color: white;
+            padding: clamp(1.5rem, 3vmin, 2.5rem);
+            border-radius: clamp(0.75rem, 1.5vmin, 1.5rem);
+            box-shadow: var(--shadow-xl);
+            transition: transform 0.3s ease;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .objective-box:hover {
+            transform: translateY(-5px);
+        }
+
+        .box-title {
+            font-size: clamp(1.375rem, 2.75vmin, 2.125rem);
+            font-weight: 800;
+            margin-bottom: clamp(0.75rem, 1.25vmin, 1.25rem);
+            letter-spacing: -0.01em;
+        }
+
+        .box-content {
+            font-size: clamp(1.0625rem, 2.15vmin, 1.625rem);
+            font-weight: 600;
+            line-height: 1.6;
+        }
+
+        .step-box {
+            background: linear-gradient(to bottom, white, var(--gray-50));
+            border-left: clamp(4px, 0.75vmin, 6px) solid var(--primary);
+            padding: clamp(1.25rem, 2vmin, 2rem);
+            margin: clamp(1rem, 2vmin, 1.5rem) 0;
+            border-radius: clamp(0.5rem, 1vmin, 1rem);
+            box-shadow: var(--shadow-md);
+        }
+
+        .step-number {
+            display: inline-block;
+            background: var(--primary);
+            color: white;
+            width: clamp(2rem, 4vmin, 2.75rem);
+            height: clamp(2rem, 4vmin, 2.75rem);
+            border-radius: 50%;
+            text-align: center;
+            line-height: clamp(2rem, 4vmin, 2.75rem);
+            font-weight: 800;
+            margin-right: clamp(0.75rem, 1.5vmin, 1rem);
+            font-size: clamp(1rem, 2.15vmin, 1.5rem);
+        }
+
+        .step-text {
+            display: inline;
+            font-size: clamp(1.0625rem, 2.15vmin, 1.625rem);
+            font-weight: 600;
+            color: var(--gray-800);
+        }
+
+        .fraction {
+            display: inline-flex;
+            flex-direction: column;
+            align-items: center;
+            vertical-align: middle;
+            margin: 0 clamp(0.375rem, 0.75vmin, 0.5rem);
+        }
+
+        .fraction-numerator {
+            border-bottom: 3px solid var(--gray-800);
+            padding: 0 clamp(0.5rem, 1vmin, 0.75rem) clamp(0.25rem, 0.5vmin, 0.375rem);
+            font-size: clamp(1.25rem, 2.75vmin, 2.125rem);
+            font-weight: 700;
+        }
+
+        .fraction-denominator {
+            padding: clamp(0.25rem, 0.5vmin, 0.375rem) clamp(0.5rem, 1vmin, 0.75rem) 0;
+            font-size: clamp(1.25rem, 2.75vmin, 2.125rem);
+            font-weight: 700;
+        }
+
+        .problem-card {
+            background: white;
+            border: 3px solid var(--gray-300);
+            border-radius: clamp(0.75rem, 1.5vmin, 1.5rem);
+            padding: clamp(1.5rem, 2.5vmin, 2.5rem);
+            margin: clamp(1rem, 2vmin, 1.5rem) 0;
+            box-shadow: var(--shadow-lg);
+            text-align: center;
+        }
+
+        .problem-number {
+            background: var(--gradient-orange);
+            color: white;
+            display: inline-block;
+            padding: clamp(0.375rem, 0.75vmin, 0.5rem) clamp(0.75rem, 1.5vmin, 1rem);
+            border-radius: clamp(0.375rem, 0.75vmin, 0.5rem);
+            font-weight: 800;
+            font-size: clamp(1rem, 2.15vmin, 1.5rem);
+            margin-bottom: clamp(1rem, 2vmin, 1.5rem);
+        }
+
+        .problem-text {
+            font-size: clamp(1.5rem, 3.5vmin, 2.75rem);
+            font-weight: 700;
+            color: var(--gray-800);
+            margin: clamp(1.25rem, 2.5vmin, 2rem) 0;
+        }
+
+        .reveal-btn {
+            background: var(--gradient-primary);
+            color: white;
+            border: none;
+            padding: clamp(0.75rem, 1.5vmin, 1rem) clamp(1.5rem, 3vmin, 2.5rem);
+            border-radius: clamp(0.5rem, 1vmin, 1rem);
+            font-weight: 700;
+            font-size: clamp(1rem, 2.15vmin, 1.375rem);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: var(--shadow-md);
+            margin-top: clamp(1rem, 2vmin, 1.5rem);
+        }
+
+        .reveal-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .reveal-btn:active {
+            transform: translateY(0);
+        }
+
+        .solution {
+            display: none;
+            background: linear-gradient(135deg, #E0F2FE 0%, #BAE6FD 100%);
+            border: 3px solid var(--teal);
+            border-radius: clamp(0.75rem, 1.5vmin, 1rem);
+            padding: clamp(1.25rem, 2vmin, 2rem);
+            margin-top: clamp(1rem, 2vmin, 1.5rem);
+        }
+
+        .solution.show {
+            display: block;
+            animation: slideDown 0.4s ease;
+        }
+
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .solution-title {
+            font-size: clamp(1.125rem, 2.5vmin, 1.75rem);
+            font-weight: 800;
+            color: var(--teal-dark);
+            margin-bottom: clamp(0.75rem, 1.5vmin, 1rem);
+        }
+
+        .solution-step {
+            font-size: clamp(1.0625rem, 2.15vmin, 1.5rem);
+            font-weight: 600;
+            color: var(--gray-800);
+            margin: clamp(0.5rem, 1vmin, 0.75rem) 0;
+            text-align: left;
+        }
+
+        .example-box {
+            background: var(--gradient-orange);
+            color: white;
+            padding: clamp(1.5rem, 2.5vmin, 2.5rem);
+            border-radius: clamp(0.75rem, 1.5vmin, 1.5rem);
+            margin: clamp(1.25rem, 2.5vmin, 2.5rem) 0;
+            text-align: center;
+            box-shadow: var(--shadow-xl);
+        }
+
+        .note-box {
+            background: linear-gradient(135deg, #FEF3C7 0%, #FDE68A 100%);
+            border-left: clamp(4px, 0.75vmin, 6px) solid var(--warning);
+            padding: clamp(1rem, 2vmin, 2rem);
+            margin: clamp(1rem, 2vmin, 2rem) 0;
+            border-radius: clamp(0.5rem, 1vmin, 1rem);
+            box-shadow: var(--shadow-md);
+        }
+
+        .note-box p {
+            color: var(--gray-800);
+            font-size: clamp(1.0625rem, 2.15vmin, 1.625rem);
+            margin: 0;
+        }
+
+        .two-methods {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: clamp(1rem, 2vmin, 2rem);
+            margin: clamp(1.25rem, 2.5vmin, 2rem) 0;
+        }
+
+        .method-card {
+            background: white;
+            border: 3px solid var(--primary);
+            border-radius: clamp(0.75rem, 1.5vmin, 1.5rem);
+            padding: clamp(1.25rem, 2vmin, 2rem);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .method-title {
+            font-size: clamp(1.125rem, 2.5vmin, 1.875rem);
+            font-weight: 800;
+            color: var(--primary);
+            margin-bottom: clamp(0.75rem, 1.5vmin, 1rem);
+            text-align: center;
+        }
+
+        .navigation {
+            background: rgba(255, 255, 255, 0.98);
+            border-top: 1px solid var(--gray-200);
+            padding: clamp(0.75rem, 1.25vmin, 1.25rem) clamp(1rem, 2.5vmin, 2.5rem);
+            box-shadow: 0 -4px 12px rgb(0 0 0 / 0.08);
+        }
+
+        .navigation-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: clamp(1rem, 2vmin, 2rem);
+            flex-wrap: wrap;
+        }
+
+        .progress-container {
+            flex: 1;
+            max-width: 600px;
+            min-width: 200px;
+        }
+
+        .progress-info {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: clamp(0.5rem, 0.75vmin, 0.75rem);
+            font-size: clamp(0.9375rem, 1.6vmin, 1.125rem);
+            color: var(--gray-700);
+            font-weight: 700;
+        }
+
+        .progress-bar {
+            height: clamp(6px, 1vmin, 10px);
+            background: var(--gray-200);
+            border-radius: 9999px;
+            overflow: hidden;
+            box-shadow: inset 0 1px 3px rgb(0 0 0 / 0.1);
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: var(--gradient-primary);
+            border-radius: 9999px;
+            transition: width 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 0 8px rgba(102, 126, 234, 0.5);
+        }
+
+        .nav-buttons {
+            display: flex;
+            gap: clamp(0.75rem, 1.25vmin, 1.25rem);
+        }
+
+        .nav-btn {
+            display: flex;
+            align-items: center;
+            gap: clamp(0.375rem, 0.75vmin, 0.75rem);
+            padding: clamp(0.75rem, 1vmin, 1rem) clamp(1rem, 2vmin, 2rem);
+            background: white;
+            border: 2px solid var(--gray-300);
+            border-radius: clamp(0.5rem, 1vmin, 1rem);
+            font-weight: 700;
+            font-size: clamp(0.9375rem, 1.6vmin, 1.1875rem);
+            color: var(--gray-700);
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: var(--shadow-sm);
+            white-space: nowrap;
+        }
+
+        .nav-btn:hover:not(:disabled) {
+            background: var(--gradient-primary);
+            color: white;
+            border-color: var(--primary);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .nav-btn:disabled {
+            opacity: 0.4;
+            cursor: not-allowed;
+            background: var(--gray-100);
+        }
+
+        .fade-in {
+            animation: fadeIn 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        @keyframes fadeIn {
+            from { 
+                opacity: 0; 
+                transform: translateY(30px); 
+            }
+            to { 
+                opacity: 1; 
+                transform: translateY(0); 
+            }
+        }
+
+        @media (max-width: 768px) {
+            .header-content {
+                justify-content: center;
+            }
+            
+            .lesson-title {
+                order: -1;
+                flex-basis: 100%;
+            }
+            
+            .nav-buttons {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+
+            .two-methods {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+<script src="https://puc.poecdn.net/authenticated_preview_page/syncedState.3f7572448765332f3047.js"></script></head>
+<body>
+
+<div class="app-container">
+    <div class="header">
+        <div class="header-content">
+            <span class="lesson-badge">Year 9 Cambridge Mathematics</span>
+            <div class="lesson-title">Adding &amp; Subtracting Fractions</div>
+            <div class="lesson-date">📅 25 November 2025</div>
+        </div>
+    </div>
+
+    <div class="content-wrapper">
+        <div class="slide-container">
+            <div class="slide" id="slide-content"></div>
+        </div>
+    </div>
+
+    <div class="navigation">
+        <div class="navigation-content">
+            <div class="progress-container">
+                <div class="progress-info">
+                    <span id="current-slide">Slide 1</span>
+                    <span id="total-slides">of 8</span>
+                </div>
+                <div class="progress-bar">
+                    <div class="progress-fill" id="progress-fill" style="width: 0%"></div>
+                </div>
+            </div>
+            <div class="nav-buttons">
+                <button class="nav-btn" id="prev-btn" onclick="changeSlide(-1)" disabled="">← Previous</button>
+                <button class="nav-btn" id="next-btn" onclick="changeSlide(1)">Next →</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    const slides = [
+        {
+            title: "Welcome",
+            content: `
+                <div class="title-slide">
+                    <div class="title-header">
+                        <div class="school-name">Cambridge International</div>
+                        <div class="class-info">Year 9 Mathematics</div>
+                        <div class="title-date">Tuesday, 25 November 2025</div>
+                        <div class="unit-topic">Adding & Subtracting<br>Fractions</div>
+                    </div>
+                    
+                    <div class="objective-box">
+                        <div class="box-title">🎯 Learning Objective</div>
+                        <div class="box-content">Today we will master adding and subtracting fractions with different denominators, including algebraic fractions and complex mixed numbers.</div>
+                    </div>
+                </div>
+            `
+        },
+        {
+            title: "Steps for Adding Fractions",
+            content: `
+                <h2>How to Add Fractions</h2>
+                
+                <div class="step-box">
+                    <span class="step-number">1</span>
+                    <span class="step-text">Find the Lowest Common Multiple (LCM) of the denominators</span>
+                </div>
+                
+                <div class="step-box">
+                    <span class="step-number">2</span>
+                    <span class="step-text">Convert each fraction to an equivalent fraction with the LCM as denominator</span>
+                </div>
+                
+                <div class="step-box">
+                    <span class="step-number">3</span>
+                    <span class="step-text">Add the numerators while keeping the common denominator</span>
+                </div>
+                
+                <div class="step-box">
+                    <span class="step-number">4</span>
+                    <span class="step-text">Simplify the result to its lowest terms</span>
+                </div>
+                
+                <div class="example-box" style="margin-top: clamp(1.5rem, 3vmin, 2.5rem);">
+                    <p style="color: white; font-size: clamp(1.375rem, 3.25vmin, 2.5rem); font-weight: 800; margin-bottom: clamp(1rem, 2vmin, 1.5rem);">Example:</p>
+                    <p style="color: white; font-size: clamp(1.5rem, 3.5vmin, 2.75rem); font-weight: 700;">
+                        <span class="fraction">
+                            <span class="fraction-numerator">5</span>
+                            <span class="fraction-denominator">12</span>
+                        </span>
+                        +
+                        <span class="fraction">
+                            <span class="fraction-numerator">7</span>
+                            <span class="fraction-denominator">18</span>
+                        </span>
+                        =
+                        <span class="fraction">
+                            <span class="fraction-numerator">15</span>
+                            <span class="fraction-denominator">36</span>
+                        </span>
+                        +
+                        <span class="fraction">
+                            <span class="fraction-numerator">14</span>
+                            <span class="fraction-denominator">36</span>
+                        </span>
+                        =
+                        <span class="fraction">
+                            <span class="fraction-numerator">29</span>
+                            <span class="fraction-denominator">36</span>
+                        </span>
+                    </p>
+                    <p style="color: white; font-size: clamp(1rem, 2.15vmin, 1.625rem); font-weight: 600; margin-top: clamp(1rem, 2vmin, 1.5rem);">LCM(12, 18) = 36</p>
+                </div>
+            `
+        },
+        {
+            title: "Practice Problems - Addition",
+            content: `
+                <h2>Practice: Adding Fractions</h2>
+                
+                <div class="problem-card">
+                    <div class="problem-number">Problem 1</div>
+                    <div class="problem-text">
+                        <span class="fraction">
+                            <span class="fraction-numerator">5</span>
+                            <span class="fraction-denominator">8</span>
+                        </span>
+                        +
+                        <span class="fraction">
+                            <span class="fraction-numerator">7</span>
+                            <span class="fraction-denominator">12</span>
+                        </span>
+                        = ?
+                    </div>
+                    <button class="reveal-btn" onclick="revealSolution('sol1')">Show Solution</button>
+                    <div class="solution" id="sol1">
+                        <div class="solution-title">✓ Solution</div>
+                        <div class="solution-step">Find LCM of 8 and 12: LCM = 24</div>
+                        <div class="solution-step">Convert: 5/8 = 15/24 (multiply by 3/3)</div>
+                        <div class="solution-step">Convert: 7/12 = 14/24 (multiply by 2/2)</div>
+                        <div class="solution-step">Add: 15/24 + 14/24 = 29/24</div>
+                        <div class="solution-step">Convert to mixed number: 1 5/24</div>
+                        <div class="problem-text" style="margin-top: 1rem;">1<span class="fraction" style="margin-left: 0.25rem;">
+                            <span class="fraction-numerator">5</span>
+                            <span class="fraction-denominator">24</span>
+                        </span></div>
+                    </div>
+                </div>
+
+                <div class="problem-card">
+                    <div class="problem-number">Problem 2</div>
+                    <div class="problem-text">
+                        <span class="fraction">
+                            <span class="fraction-numerator">11</span>
+                            <span class="fraction-denominator">15</span>
+                        </span>
+                        +
+                        <span class="fraction">
+                            <span class="fraction-numerator">13</span>
+                            <span class="fraction-denominator">20</span>
+                        </span>
+                        = ?
+                    </div>
+                    <button class="reveal-btn" onclick="revealSolution('sol2')">Show Solution</button>
+                    <div class="solution" id="sol2">
+                        <div class="solution-title">✓ Solution</div>
+                        <div class="solution-step">Find LCM of 15 and 20: LCM = 60</div>
+                        <div class="solution-step">Convert: 11/15 = 44/60 (multiply by 4/4)</div>
+                        <div class="solution-step">Convert: 13/20 = 39/60 (multiply by 3/3)</div>
+                        <div class="solution-step">Add: 44/60 + 39/60 = 83/60</div>
+                        <div class="solution-step">Convert to mixed number: 1 23/60</div>
+                        <div class="problem-text" style="margin-top: 1rem;">1<span class="fraction" style="margin-left: 0.25rem;">
+                            <span class="fraction-numerator">23</span>
+                            <span class="fraction-denominator">60</span>
+                        </span></div>
+                    </div>
+                </div>
+            `
+        },
+        {
+            title: "More Practice - Addition",
+            content: `
+                <h2>Challenging Problems</h2>
+                
+                <div class="problem-card">
+                    <div class="problem-number">Problem 3</div>
+                    <div class="problem-text">
+                        <span class="fraction">
+                            <span class="fraction-numerator">7</span>
+                            <span class="fraction-denominator">18</span>
+                        </span>
+                        +
+                        <span class="fraction">
+                            <span class="fraction-numerator">5</span>
+                            <span class="fraction-denominator">24</span>
+                        </span>
+                        +
+                        <span class="fraction">
+                            <span class="fraction-numerator">11</span>
+                            <span class="fraction-denominator">36</span>
+                        </span>
+                        = ?
+                    </div>
+                    <button class="reveal-btn" onclick="revealSolution('sol3')">Show Solution</button>
+                    <div class="solution" id="sol3">
+                        <div class="solution-title">✓ Solution</div>
+                        <div class="solution-step">Find LCM of 18, 24, and 36: LCM = 72</div>
+                        <div class="solution-step">Convert: 7/18 = 28/72 (multiply by 4/4)</div>
+                        <div class="solution-step">Convert: 5/24 = 15/72 (multiply by 3/3)</div>
+                        <div class="solution-step">Convert: 11/36 = 22/72 (multiply by 2/2)</div>
+                        <div class="solution-step">Add: 28/72 + 15/72 + 22/72 = 65/72</div>
+                        <div class="problem-text" style="margin-top: 1rem;">
+                            <span class="fraction">
+                                <span class="fraction-numerator">65</span>
+                                <span class="fraction-denominator">72</span>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="problem-card">
+                    <div class="problem-number">Problem 4</div>
+                    <div class="problem-text">2<span class="fraction" style="margin-left: 0.25rem;">
+                            <span class="fraction-numerator">5</span>
+                            <span class="fraction-denominator">9</span>
+                        </span>
+                        + 3<span class="fraction" style="margin-left: 0.25rem;">
+                            <span class="fraction-numerator">7</span>
+                            <span class="fraction-denominator">12</span>
+                        </span>
+                        = ?
+                    </div>
+                    <button class="reveal-btn" onclick="revealSolution('sol4')">Show Solution</button>
+                    <div class="solution" id="sol4">
+                        <div class="solution-title">✓ Solution</div>
+                        <div class="solution-step">Method 1: Add whole numbers and fractions separately</div>
+                        <div class="solution-step">Whole numbers: 2 + 3 = 5</div>
+                        <div class="solution-step">Fractions: Find LCM of 9 and 12 = 36</div>
+                        <div class="solution-step">5/9 = 20/36 and 7/12 = 21/36</div>
+                        <div class="solution-step">Add: 20/36 + 21/36 = 41/36 = 1 5/36</div>
+                        <div class="solution-step">Total: 5 + 1 5/36 = 6 5/36</div>
+                        <div class="problem-text" style="margin-top: 1rem;">6<span class="fraction" style="margin-left: 0.25rem;">
+                            <span class="fraction-numerator">5</span>
+                            <span class="fraction-denominator">36</span>
+                        </span></div>
+                    </div>
+                </div>
+            `
+        },
+        {
+            title: "Subtracting Fractions",
+            content: `
+                <h2>How to Subtract Fractions</h2>
+                
+                <div class="note-box">
+                    <p style="font-size: clamp(1.125rem, 2.5vmin, 1.875rem); font-weight: 700;">The process is identical to addition, but we subtract numerators instead!</p>
+                </div>
+                
+                <div class="step-box">
+                    <span class="step-number">1</span>
+                    <span class="step-text">Find the Lowest Common Multiple (LCM) of the denominators</span>
+                </div>
+                
+                <div class="step-box">
+                    <span class="step-number">2</span>
+                    <span class="step-text">Convert each fraction to an equivalent fraction with the LCM as denominator</span>
+                </div>
+                
+                <div class="step-box">
+                    <span class="step-number">3</span>
+                    <span class="step-text">Subtract the numerators while keeping the common denominator</span>
+                </div>
+                
+                <div class="step-box">
+                    <span class="step-number">4</span>
+                    <span class="step-text">Simplify the result to its lowest terms</span>
+                </div>
+                
+                <div class="example-box" style="margin-top: clamp(1.5rem, 3vmin, 2.5rem);">
+                    <p style="color: white; font-size: clamp(1.375rem, 3.25vmin, 2.5rem); font-weight: 800; margin-bottom: clamp(1rem, 2vmin, 1.5rem);">Example:</p>
+                    <p style="color: white; font-size: clamp(1.5rem, 3.5vmin, 2.75rem); font-weight: 700;">
+                        <span class="fraction">
+                            <span class="fraction-numerator">13</span>
+                            <span class="fraction-denominator">15</span>
+                        </span>
+                        −
+                        <span class="fraction">
+                            <span class="fraction-numerator">7</span>
+                            <span class="fraction-denominator">20</span>
+                        </span>
+                        =
+                        <span class="fraction">
+                            <span class="fraction-numerator">52</span>
+                            <span class="fraction-denominator">60</span>
+                        </span>
+                        −
+                        <span class="fraction">
+                            <span class="fraction-numerator">21</span>
+                            <span class="fraction-denominator">60</span>
+                        </span>
+                        =
+                        <span class="fraction">
+                            <span class="fraction-numerator">31</span>
+                            <span class="fraction-denominator">60</span>
+                        </span>
+                    </p>
+                    <p style="color: white; font-size: clamp(1rem, 2.15vmin, 1.625rem); font-weight: 600; margin-top: clamp(1rem, 2vmin, 1.5rem);">LCM(15, 20) = 60</p>
+                </div>
+            `
+        },
+        {
+            title: "Practice Problems - Subtraction",
+            content: `
+                <h2>Practice: Subtracting Fractions</h2>
+                
+                <div class="problem-card">
+                    <div class="problem-number">Problem 5</div>
+                    <div class="problem-text">
+                        <span class="fraction">
+                            <span class="fraction-numerator">11</span>
+                            <span class="fraction-denominator">12</span>
+                        </span>
+                        −
+                        <span class="fraction">
+                            <span class="fraction-numerator">5</span>
+                            <span class="fraction-denominator">16</span>
+                        </span>
+                        = ?
+                    </div>
+                    <button class="reveal-btn" onclick="revealSolution('sol5')">Show Solution</button>
+                    <div class="solution" id="sol5">
+                        <div class="solution-title">✓ Solution</div>
+                        <div class="solution-step">Find LCM of 12 and 16: LCM = 48</div>
+                        <div class="solution-step">Convert: 11/12 = 44/48 (multiply by 4/4)</div>
+                        <div class="solution-step">Convert: 5/16 = 15/48 (multiply by 3/3)</div>
+                        <div class="solution-step">Subtract: 44/48 − 15/48 = 29/48</div>
+                        <div class="problem-text" style="margin-top: 1rem;">
+                            <span class="fraction">
+                                <span class="fraction-numerator">29</span>
+                                <span class="fraction-denominator">48</span>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="problem-card">
+                    <div class="problem-number">Problem 6</div>
+                    <div class="problem-text">
+                        <span class="fraction">
+                            <span class="fraction-numerator">17</span>
+                            <span class="fraction-denominator">18</span>
+                        </span>
+                        −
+                        <span class="fraction">
+                            <span class="fraction-numerator">13</span>
+                            <span class="fraction-denominator">24</span>
+                        </span>
+                        = ?
+                    </div>
+                    <button class="reveal-btn" onclick="revealSolution('sol6')">Show Solution</button>
+                    <div class="solution" id="sol6">
+                        <div class="solution-title">✓ Solution</div>
+                        <div class="solution-step">Find LCM of 18 and 24: LCM = 72</div>
+                        <div class="solution-step">Convert: 17/18 = 68/72 (multiply by 4/4)</div>
+                        <div class="solution-step">Convert: 13/24 = 39/72 (multiply by 3/3)</div>
+                        <div class="solution-step">Subtract: 68/72 − 39/72 = 29/72</div>
+                        <div class="problem-text" style="margin-top: 1rem;">
+                            <span class="fraction">
+                                <span class="fraction-numerator">29</span>
+                                <span class="fraction-denominator">72</span>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            `
+        },
+        {
+            title: "More Practice - Subtraction",
+            content: `
+                <h2>Challenging Problems</h2>
+                
+                <div class="problem-card">
+                    <div class="problem-number">Problem 7</div>
+                    <div class="problem-text">5<span class="fraction" style="margin-left: 0.25rem;">
+                            <span class="fraction-numerator">2</span>
+                            <span class="fraction-denominator">5</span>
+                        </span>
+                        − 2<span class="fraction" style="margin-left: 0.25rem;">
+                            <span class="fraction-numerator">7</span>
+                            <span class="fraction-denominator">8</span>
+                        </span>
+                        = ?
+                    </div>
+                    <button class="reveal-btn" onclick="revealSolution('sol7')">Show Solution</button>
+                    <div class="solution" id="sol7">
+                        <div class="solution-title">✓ Solution</div>
+                        <div class="solution-step">Method: Convert to improper fractions</div>
+                        <div class="solution-step">5 2/5 = 27/5 and 2 7/8 = 23/8</div>
+                        <div class="solution-step">Find LCM of 5 and 8 = 40</div>
+                        <div class="solution-step">Convert: 27/5 = 216/40 and 23/8 = 115/40</div>
+                        <div class="solution-step">Subtract: 216/40 − 115/40 = 101/40</div>
+                        <div class="solution-step">Convert to mixed: 101 ÷ 40 = 2 R21, so 2 21/40</div>
+                        <div class="problem-text" style="margin-top: 1rem;">2<span class="fraction" style="margin-left: 0.25rem;">
+                            <span class="fraction-numerator">21</span>
+                            <span class="fraction-denominator">40</span>
+                        </span></div>
+                    </div>
+                </div>
+
+                <div class="problem-card">
+                    <div class="problem-number">Problem 8</div>
+                    <div class="problem-text">
+                        <span class="fraction">
+                            <span class="fraction-numerator">5</span>
+                            <span class="fraction-denominator">6</span>
+                        </span>
+                        −
+                        <span class="fraction">
+                            <span class="fraction-numerator">7</span>
+                            <span class="fraction-denominator">15</span>
+                        </span>
+                        −
+                        <span class="fraction">
+                            <span class="fraction-numerator">11</span>
+                            <span class="fraction-denominator">30</span>
+                        </span>
+                        = ?
+                    </div>
+                    <button class="reveal-btn" onclick="revealSolution('sol8')">Show Solution</button>
+                    <div class="solution" id="sol8">
+                        <div class="solution-title">✓ Solution</div>
+                        <div class="solution-step">Find LCM of 6, 15, and 30: LCM = 30</div>
+                        <div class="solution-step">Convert: 5/6 = 25/30 (multiply by 5/5)</div>
+                        <div class="solution-step">Convert: 7/15 = 14/30 (multiply by 2/2)</div>
+                        <div class="solution-step">11/30 stays the same</div>
+                        <div class="solution-step">Subtract: 25/30 − 14/30 − 11/30 = 0/30 = 0</div>
+                        <div class="problem-text" style="margin-top: 1rem;">0</div>
+                    </div>
+                </div>
+            `
+        },
+        {
+            title: "Mixed Numbers",
+            content: `
+                <h2>Working with Mixed Numbers</h2>
+                
+                <div class="note-box">
+                    <p style="font-size: clamp(1.0625rem, 2.15vmin, 1.625rem); font-weight: 700;">Mixed number = whole number + proper fraction</p>
+                    <p style="font-size: clamp(1.375rem, 3.25vmin, 2.5rem); font-weight: 800; margin-top: clamp(0.75rem, 1.5vmin, 1rem); color: var(--primary);">Example: 4<span class="fraction" style="margin-left: 0.25rem;"><span class="fraction-numerator">7</span><span class="fraction-denominator">12</span></span></p>
+                </div>
+                
+                <div class="example-box">
+                    <p style="color: white; font-size: clamp(1.375rem, 3.25vmin, 2.5rem); font-weight: 800; margin-bottom: clamp(1rem, 2vmin, 1.5rem);">There are TWO methods to solve:</p>
+                </div>
+                
+                <div class="two-methods">
+                    <div class="method-card">
+                        <div class="method-title">Method 1: Separate</div>
+                        <p style="font-size: clamp(1.0625rem, 2.15vmin, 1.5rem); font-weight: 600; text-align: left; margin-bottom: clamp(0.75rem, 1.5vmin, 1rem);">Keep as mixed numbers</p>
+                        <p style="font-size: clamp(1rem, 2.15vmin, 1.375rem); font-weight: 600; text-align: left; line-height: 1.8;">• Add/subtract whole numbers separately</p>
+                        <p style="font-size: clamp(1rem, 2.15vmin, 1.375rem); font-weight: 600; text-align: left; line-height: 1.8;">• Add/subtract fractions with LCM</p>
+                        <p style="font-size: clamp(1rem, 2.15vmin, 1.375rem); font-weight: 600; text-align: left; line-height: 1.8;">• Combine and adjust if needed</p>
+                        <p style="font-size: clamp(1rem, 2.15vmin, 1.375rem); font-weight: 600; text-align: left; line-height: 1.8; color: var(--orange);">• Watch for borrowing in subtraction!</p>
+                    </div>
+                    
+                    <div class="method-card">
+                        <div class="method-title">Method 2: Convert</div>
+                        <p style="font-size: clamp(1.0625rem, 2.15vmin, 1.5rem); font-weight: 600; text-align: left; margin-bottom: clamp(0.75rem, 1.5vmin, 1rem);">Use improper fractions</p>
+                        <p style="font-size: clamp(1rem, 2.15vmin, 1.375rem); font-weight: 600; text-align: left; line-height: 1.8;">• Convert all to improper fractions</p>
+                        <p style="font-size: clamp(1rem, 2.15vmin, 1.375rem); font-weight: 600; text-align: left; line-height: 1.8;">• Add/subtract with common LCM</p>
+                        <p style="font-size: clamp(1rem, 2.15vmin, 1.375rem); font-weight: 600; text-align: left; line-height: 1.8;">• Convert answer back to mixed</p>
+                        <p style="font-size: clamp(1rem, 2.15vmin, 1.375rem); font-weight: 600; text-align: left; line-height: 1.8; color: var(--orange);">• Often more reliable!</p>
+                    </div>
+                </div>
+                
+                <div class="example-box" style="margin-top: clamp(1.5rem, 3vmin, 2rem);">
+                    <p style="color: white; font-size: clamp(1.25rem, 2.75vmin, 2.125rem); font-weight: 800; margin-bottom: clamp(1rem, 2vmin, 1.25rem);">Example: 4<span class="fraction" style="margin-left: 0.25rem;"><span class="fraction-numerator">3</span><span class="fraction-denominator">8</span></span> + 2<span class="fraction" style="margin-left: 0.25rem;"><span class="fraction-numerator">5</span><span class="fraction-denominator">12</span></span></p>
+                    <p style="color: white; font-size: clamp(1.0625rem, 2.15vmin, 1.75rem); font-weight: 600; margin-bottom: clamp(0.5rem, 1vmin, 0.75rem);">Method 1: (4 + 2) + (9/24 + 10/24) = 6 + 19/24 = 6<span class="fraction" style="margin-left: 0.25rem;"><span class="fraction-numerator">19</span><span class="fraction-denominator">24</span></span></p>
+                    <p style="color: white; font-size: clamp(1.0625rem, 2.15vmin, 1.75rem); font-weight: 600;">Method 2: 35/8 + 29/12 = 105/24 + 58/24 = 163/24 = 6<span class="fraction" style="margin-left: 0.25rem;"><span class="fraction-numerator">19</span><span class="fraction-denominator">24</span></span></p>
+                </div>
+                
+                <div class="note-box" style="margin-top: clamp(1.5rem, 3vmin, 2rem);">
+                    <p style="font-size: clamp(1.0625rem, 2.15vmin, 1.625rem); font-weight: 700;">💡 Pro tip: For subtraction where the second fraction is larger, converting to improper fractions avoids the complexity of borrowing!</p>
+                </div>
+            `
+        }
+    ];
+
+    let currentSlide = 0;
+
+    function updateSlide() {
+        const slideContent = document.getElementById('slide-content');
+        slideContent.innerHTML = slides[currentSlide].content;
+        slideContent.className = 'slide fade-in';
+        
+        const progress = ((currentSlide + 1) / slides.length) * 100;
+        document.getElementById('progress-fill').style.width = `${progress}%`;
+        document.getElementById('current-slide').textContent = `Slide ${currentSlide + 1}`;
+        document.getElementById('total-slides').textContent = `of ${slides.length}`;
+        
+        document.getElementById('prev-btn').disabled = currentSlide === 0;
+        document.getElementById('next-btn').disabled = currentSlide === slides.length - 1;
+    }
+
+    function changeSlide(direction) {
+        const newSlide = currentSlide + direction;
+        if (newSlide >= 0 && newSlide < slides.length) {
+            currentSlide = newSlide;
+            updateSlide();
+        }
+    }
+
+    function revealSolution(id) {
+        const solution = document.getElementById(id);
+        solution.classList.add('show');
+        event.target.style.display = 'none';
+    }
+
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'ArrowLeft') changeSlide(-1);
+        if (e.key === 'ArrowRight') changeSlide(1);
+    });
+
+    updateSlide();
+</script>
+
+
+
+</body></html>
