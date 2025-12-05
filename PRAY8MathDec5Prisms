@@ -1,0 +1,1368 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Volume of Cylinders and Prisms - Year 8 Math</title>
+    <meta name="description" content="Finding volume of cylinders and prisms">
+    <meta name="subject" content="Mathematics">
+    <meta name="year" content="Year 8">
+    <meta name="type" content="lesson">
+    <meta name="date" content="5 December 2025">
+    <meta name="unit" content="8.3">
+    <meta name="tags" content="3D Shapes, Volume, Cylinders, Prisms, Geometry">
+    <meta name="author" content="Palm River Academy">
+    
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #0EA5E9;
+            --primary-dark: #0284C7;
+            --secondary: #8B5CF6;
+            --secondary-dark: #7C3AED;
+            --accent: #F59E0B;
+            --accent-dark: #D97706;
+            --success: #10B981;
+            --pink: #EC4899;
+            --pink-dark: #DB2777;
+            --teal: #14B8A6;
+            --indigo: #6366F1;
+            --red: #EF4444;
+            --gray-50: #F9FAFB;
+            --gray-100: #F3F4F6;
+            --gray-200: #E5E7EB;
+            --gray-300: #D1D5DB;
+            --gray-600: #4B5563;
+            --gray-700: #374151;
+            --gray-800: #1F2937;
+            --gray-900: #111827;
+            --gradient-primary: linear-gradient(135deg, #0EA5E9 0%, #8B5CF6 100%);
+            --gradient-warm: linear-gradient(135deg, #F59E0B 0%, #EC4899 100%);
+            --gradient-cool: linear-gradient(135deg, #14B8A6 0%, #6366F1 100%);
+            --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+            --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1);
+            --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1);
+            --shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.1);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #0EA5E9 0%, #8B5CF6 50%, #EC4899 100%);
+            color: var(--gray-900);
+            overflow: hidden;
+            height: 100vh;
+        }
+
+        .app-container {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .header {
+            background: rgba(255, 255, 255, 0.98);
+            backdrop-filter: blur(20px);
+            padding: clamp(0.75rem, 2vmin, 1.25rem) clamp(1rem, 3vmin, 2.5rem);
+            box-shadow: 0 4px 12px rgb(0 0 0 / 0.08);
+            border-bottom: 3px solid transparent;
+            border-image: var(--gradient-primary) 1;
+        }
+
+        .header-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: clamp(1rem, 2vw, 2rem);
+            flex-wrap: wrap;
+        }
+
+        .lesson-badge {
+            background: var(--gradient-primary);
+            color: white;
+            padding: clamp(0.5rem, 1vmin, 0.625rem) clamp(0.875rem, 2vmin, 1.25rem);
+            border-radius: 9999px;
+            font-weight: 700;
+            font-size: clamp(0.9375rem, 1.6vmin, 1.125rem);
+            box-shadow: var(--shadow-md);
+            white-space: nowrap;
+        }
+
+        .lesson-title {
+            font-size: clamp(1.0625rem, 2.15vmin, 1.625rem);
+            font-weight: 800;
+            color: var(--gray-800);
+            flex: 1;
+            text-align: center;
+            min-width: 200px;
+        }
+
+        .lesson-date {
+            font-size: clamp(0.9375rem, 1.6vmin, 1.125rem);
+            font-weight: 600;
+            color: var(--gray-600);
+            white-space: nowrap;
+        }
+
+        .content-wrapper {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: clamp(1rem, 2.5vmin, 2.5rem);
+            min-height: 0;
+        }
+
+        .slide-container {
+            background: white;
+            border-radius: clamp(1rem, 2vmin, 2rem);
+            box-shadow: 0 25px 50px -12px rgb(0 0 0 / 0.25);
+            width: 100%;
+            max-width: 1300px;
+            height: 100%;
+            max-height: 800px;
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .slide {
+            flex: 1;
+            overflow-y: auto;
+            overflow-x: hidden;
+            padding: clamp(1.5rem, 3.5vmin, 3.5rem) clamp(1.5rem, 4vmin, 4rem);
+            scroll-behavior: smooth;
+        }
+
+        .slide::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        .slide::-webkit-scrollbar-track {
+            background: var(--gray-100);
+            border-radius: 10px;
+        }
+
+        .slide::-webkit-scrollbar-thumb {
+            background: var(--primary);
+            border-radius: 10px;
+        }
+
+        h1 {
+            font-size: clamp(2.125rem, 6.3vmin, 4.75rem);
+            font-weight: 900;
+            background: var(--gradient-primary);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: clamp(1rem, 2vmin, 2rem);
+            line-height: 1.1;
+            text-align: center;
+            letter-spacing: -0.02em;
+        }
+
+        h2 {
+            font-size: clamp(1.875rem, 4.75vmin, 3.5rem);
+            font-weight: 800;
+            color: var(--gray-800);
+            margin-bottom: clamp(1.25rem, 2.5vmin, 2.5rem);
+            text-align: center;
+            line-height: 1.2;
+            letter-spacing: -0.02em;
+        }
+
+        h3 {
+            font-size: clamp(1.375rem, 3.25vmin, 2.5rem);
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: clamp(0.75rem, 1.5vmin, 1.5rem);
+            line-height: 1.3;
+        }
+
+        p, li {
+            font-size: clamp(1.0625rem, 2.15vmin, 1.625rem);
+            line-height: 1.7;
+            color: var(--gray-700);
+            margin-bottom: clamp(0.75rem, 1.25vmin, 1rem);
+            font-weight: 500;
+        }
+
+        .title-slide {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100%;
+            text-align: center;
+            padding: clamp(1rem, 2vmin, 2rem);
+        }
+
+        .title-header {
+            margin-bottom: clamp(2rem, 4vmin, 4rem);
+            width: 100%;
+        }
+
+        .school-name {
+            font-size: clamp(1.625rem, 4.25vmin, 3rem);
+            font-weight: 900;
+            color: var(--gray-800);
+            margin-bottom: clamp(0.5rem, 1vmin, 1rem);
+            letter-spacing: -0.01em;
+        }
+
+        .class-info {
+            font-size: clamp(1.375rem, 3.25vmin, 2.25rem);
+            font-weight: 700;
+            background: var(--gradient-primary);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: clamp(0.25rem, 0.5vmin, 0.5rem);
+        }
+
+        .title-date {
+            font-size: clamp(1.0625rem, 2.15vmin, 1.625rem);
+            color: var(--gray-600);
+            font-weight: 600;
+            margin-bottom: clamp(1.5rem, 2.5vmin, 2.5rem);
+        }
+
+        .unit-topic {
+            font-size: clamp(2.125rem, 5.75vmin, 4.75rem);
+            font-weight: 900;
+            background: var(--gradient-primary);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: clamp(2rem, 4vmin, 4rem);
+            line-height: 1.15;
+            letter-spacing: -0.02em;
+        }
+
+        .objective-box {
+            background: var(--gradient-primary);
+            color: white;
+            padding: clamp(2rem, 4vmin, 3.5rem);
+            border-radius: clamp(0.75rem, 1.5vmin, 1.5rem);
+            box-shadow: var(--shadow-xl);
+            transition: transform 0.3s ease;
+            max-width: 1000px;
+            margin: 0 auto;
+            width: 100%;
+        }
+
+        .objective-box:hover {
+            transform: translateY(-5px);
+        }
+
+        .box-title {
+            font-size: clamp(1.5rem, 3vmin, 2.5rem);
+            font-weight: 800;
+            margin-bottom: clamp(1rem, 2vmin, 1.5rem);
+            letter-spacing: -0.01em;
+        }
+
+        .box-content {
+            font-size: clamp(1.25rem, 2.75vmin, 2rem);
+            font-weight: 600;
+            line-height: 1.6;
+        }
+
+        .warmup-banner {
+            background: var(--gradient-warm);
+            color: white;
+            padding: clamp(1rem, 2vmin, 1.5rem);
+            border-radius: clamp(0.75rem, 1.5vmin, 1rem);
+            font-weight: 800;
+            font-size: clamp(1.25rem, 2.75vmin, 2rem);
+            text-align: center;
+            margin-bottom: clamp(1.5rem, 3vmin, 2rem);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .question-card {
+            background: linear-gradient(to bottom, white, var(--gray-50));
+            border: 4px solid var(--primary);
+            border-radius: clamp(0.75rem, 1.5vmin, 1.5rem);
+            padding: clamp(2rem, 4vmin, 3rem);
+            margin: clamp(1.5rem, 3vmin, 2rem) 0;
+            box-shadow: var(--shadow-xl);
+        }
+
+        .question-text {
+            font-size: clamp(1.25rem, 2.75vmin, 2rem);
+            font-weight: 700;
+            color: var(--gray-800);
+            margin-bottom: clamp(1.5rem, 3vmin, 2rem);
+            text-align: center;
+        }
+
+        .reveal-btn {
+            background: var(--gradient-primary);
+            color: white;
+            border: none;
+            padding: clamp(1rem, 2vmin, 1.5rem) clamp(2rem, 4vmin, 3rem);
+            border-radius: clamp(0.5rem, 1vmin, 0.75rem);
+            font-size: clamp(1.0625rem, 2.15vmin, 1.5rem);
+            font-weight: 700;
+            cursor: pointer;
+            box-shadow: var(--shadow-md);
+            transition: all 0.3s ease;
+            display: block;
+            margin: 0 auto;
+        }
+
+        .reveal-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .answer-box {
+            background: linear-gradient(135deg, #D1FAE5 0%, #A7F3D0 100%);
+            border-left: 6px solid var(--success);
+            padding: clamp(1.5rem, 3vmin, 2rem);
+            border-radius: clamp(0.5rem, 1vmin, 0.75rem);
+            margin-top: clamp(1.5rem, 3vmin, 2rem);
+            display: none;
+            animation: slideDown 0.5s ease;
+        }
+
+        .answer-box.show {
+            display: block;
+        }
+
+        .answer-text {
+            font-size: clamp(1.125rem, 2.5vmin, 1.75rem);
+            font-weight: 600;
+            color: var(--gray-800);
+            line-height: 1.6;
+        }
+
+        .write-down-note {
+            background: linear-gradient(135deg, #FEF3C7 0%, #FDE68A 100%);
+            border: 3px solid var(--accent);
+            padding: clamp(0.75rem, 1.5vmin, 1rem);
+            border-radius: clamp(0.5rem, 1vmin, 0.75rem);
+            margin-top: clamp(1rem, 2vmin, 1.25rem);
+            text-align: center;
+        }
+
+        .write-down-note p {
+            font-size: clamp(1rem, 2.15vmin, 1.375rem);
+            font-weight: 800;
+            color: var(--gray-900);
+            margin: 0;
+        }
+
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .definition-box {
+            background: linear-gradient(135deg, #E0E7FF 0%, #C7D2FE 100%);
+            border: 4px solid var(--indigo);
+            border-radius: clamp(0.75rem, 1.5vmin, 1rem);
+            padding: clamp(1.5rem, 3vmin, 2rem);
+            margin: clamp(1.5rem, 3vmin, 2rem) 0;
+            box-shadow: var(--shadow-lg);
+        }
+
+        .definition-term {
+            font-size: clamp(1.5rem, 3.5vmin, 2.5rem);
+            font-weight: 900;
+            color: var(--indigo);
+            margin-bottom: clamp(0.75rem, 1.5vmin, 1rem);
+            text-align: center;
+        }
+
+        .definition-text {
+            font-size: clamp(1.125rem, 2.5vmin, 1.75rem);
+            font-weight: 600;
+            color: var(--gray-800);
+            line-height: 1.6;
+            text-align: center;
+        }
+
+        .key-point {
+            background: linear-gradient(135deg, #FEF3C7 0%, #FDE68A 100%);
+            border-left: clamp(4px, 0.75vmin, 6px) solid var(--accent);
+            padding: clamp(1rem, 2vmin, 1.5rem);
+            margin: clamp(1rem, 2vmin, 1.5rem) 0;
+            border-radius: clamp(0.5rem, 1vmin, 0.75rem);
+            box-shadow: var(--shadow-md);
+        }
+
+        .key-point p {
+            font-size: clamp(1.0625rem, 2.15vmin, 1.5rem);
+            font-weight: 700;
+            color: var(--gray-800);
+            margin: 0;
+        }
+
+        .diagram-container {
+            width: 100%;
+            max-width: 600px;
+            margin: clamp(2rem, 4vmin, 3rem) auto;
+            text-align: center;
+        }
+
+        .diagram-svg {
+            width: 100%;
+            height: auto;
+            max-height: 400px;
+        }
+
+        .highlight-term {
+            background: linear-gradient(120deg, #FEF3C7 0%, #FDE68A 100%);
+            padding: clamp(0.125rem, 0.25vmin, 0.25rem) clamp(0.375rem, 0.75vmin, 0.5rem);
+            border-radius: clamp(0.25rem, 0.5vmin, 0.375rem);
+            font-weight: 700;
+            color: var(--gray-900);
+        }
+
+        .activity-box {
+            background: linear-gradient(135deg, #DBEAFE 0%, #BFDBFE 100%);
+            border: 4px solid var(--primary);
+            border-radius: clamp(0.75rem, 1.5vmin, 1.5rem);
+            padding: clamp(2rem, 4vmin, 3rem);
+            margin: clamp(1.5rem, 3vmin, 2rem) 0;
+            box-shadow: var(--shadow-xl);
+        }
+
+        .activity-title {
+            font-size: clamp(1.5rem, 3.5vmin, 2.5rem);
+            font-weight: 900;
+            color: var(--primary);
+            margin-bottom: clamp(1rem, 2vmin, 1.5rem);
+            text-align: center;
+        }
+
+        .navigation {
+            background: rgba(255, 255, 255, 0.98);
+            border-top: 1px solid var(--gray-200);
+            padding: clamp(0.75rem, 1.25vmin, 1.25rem) clamp(1rem, 2.5vmin, 2.5rem);
+            box-shadow: 0 -4px 12px rgb(0 0 0 / 0.08);
+        }
+
+        .navigation-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: clamp(1rem, 2vmin, 2rem);
+            flex-wrap: wrap;
+        }
+
+        .progress-container {
+            flex: 1;
+            max-width: 600px;
+            min-width: 200px;
+        }
+
+        .progress-info {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: clamp(0.5rem, 0.75vmin, 0.75rem);
+            font-size: clamp(0.9375rem, 1.6vmin, 1.125rem);
+            color: var(--gray-700);
+            font-weight: 700;
+        }
+
+        .progress-bar {
+            height: clamp(6px, 1vmin, 10px);
+            background: var(--gray-200);
+            border-radius: 9999px;
+            overflow: hidden;
+            box-shadow: inset 0 1px 3px rgb(0 0 0 / 0.1);
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: var(--gradient-primary);
+            border-radius: 9999px;
+            transition: width 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 0 8px rgba(14, 165, 233, 0.5);
+        }
+
+        .nav-buttons {
+            display: flex;
+            gap: clamp(0.75rem, 1.25vmin, 1.25rem);
+        }
+
+        .nav-btn {
+            display: flex;
+            align-items: center;
+            gap: clamp(0.375rem, 0.75vmin, 0.75rem);
+            padding: clamp(0.75rem, 1vmin, 1rem) clamp(1rem, 2vmin, 2rem);
+            background: white;
+            border: 2px solid var(--gray-300);
+            border-radius: clamp(0.5rem, 1vmin, 1rem);
+            font-weight: 700;
+            font-size: clamp(0.9375rem, 1.6vmin, 1.1875rem);
+            color: var(--gray-700);
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: var(--shadow-sm);
+            white-space: nowrap;
+        }
+
+        .nav-btn:hover:not(:disabled) {
+            background: var(--gradient-primary);
+            color: white;
+            border-color: var(--primary);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .nav-btn:disabled {
+            opacity: 0.4;
+            cursor: not-allowed;
+            background: var(--gray-100);
+        }
+
+        .fade-in {
+            animation: fadeIn 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        @keyframes fadeIn {
+            from { 
+                opacity: 0; 
+                transform: translateY(30px); 
+            }
+            to { 
+                opacity: 1; 
+                transform: translateY(0); 
+            }
+        }
+
+        .homework-banner {
+            background: var(--gradient-cool);
+            color: white;
+            padding: clamp(1rem, 2vmin, 1.5rem);
+            border-radius: clamp(0.75rem, 1.5vmin, 1rem);
+            font-weight: 800;
+            font-size: clamp(1.25rem, 2.75vmin, 2rem);
+            text-align: center;
+            margin-bottom: clamp(1.5rem, 3vmin, 2rem);
+            box-shadow: var(--shadow-lg);
+        }
+
+        @media (max-width: 768px) {
+            .header-content {
+                justify-content: center;
+            }
+            
+            .lesson-title {
+                order: -1;
+                flex-basis: 100%;
+            }
+
+            .nav-buttons {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="app-container">
+    <div class="header">
+        <div class="header-content">
+            <span class="lesson-badge">Year 8 Math</span>
+            <div class="lesson-title">8.3 Volume of Cylinders and Prisms</div>
+            <div class="lesson-date">📅 Friday, 5 December 2025</div>
+        </div>
+    </div>
+
+    <div class="content-wrapper">
+        <div class="slide-container">
+            <div class="slide" id="slide-content"></div>
+        </div>
+    </div>
+
+    <div class="navigation">
+        <div class="navigation-content">
+            <div class="progress-container">
+                <div class="progress-info">
+                    <span id="current-slide">Slide 1</span>
+                    <span id="total-slides">of 18</span>
+                </div>
+                <div class="progress-bar">
+                    <div class="progress-fill" id="progress-fill" style="width: 0%"></div>
+                </div>
+            </div>
+            <div class="nav-buttons">
+                <button class="nav-btn" id="prev-btn" onclick="changeSlide(-1)" disabled>← Previous</button>
+                <button class="nav-btn" id="next-btn" onclick="changeSlide(1)">Next →</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    const slides = [
+        {
+            title: "Welcome",
+            content: `
+                <div class="title-slide">
+                    <div class="title-header">
+                        <div class="school-name">Palm River Academy</div>
+                        <div class="class-info">Year 8 Mathematics</div>
+                        <div class="title-date">Friday, 5 December 2025</div>
+                        <div class="unit-topic">Volume of Cylinders & Prisms</div>
+                    </div>
+                    
+                    <div class="objective-box">
+                        <div class="box-title">🎯 Today's Learning Objective</div>
+                        <div class="box-content">We will find the volume of cylinders and prisms by understanding cross-sections and applying volume formulas.</div>
+                    </div>
+                </div>
+            `
+        },
+        {
+            title: "Review Question 1",
+            content: `
+                <div class="warmup-banner">🔄 REVIEW: Yesterday's Learning</div>
+                
+                <div class="question-card">
+                    <div class="question-text">Question 1: What is the difference between VOLUME and AREA?</div>
+                    <button class="reveal-btn" onclick="revealAnswer('review1')">🔍 Click to Reveal Answer</button>
+                    <div class="answer-box" id="review1">
+                        <div class="answer-text">
+                            <strong>AREA</strong> measures the space inside a 2D shape (a flat surface)
+                            <br>• Measured in square units: cm², m², etc.
+                            <br>• Example: The area of a rectangle is length × width
+                            <br><br>
+                            <strong>VOLUME</strong> measures the space inside a 3D shape (how much it can hold)
+                            <br>• Measured in cubic units: cm³, m³, etc.
+                            <br>• Example: The volume of a box tells us how much it can contain
+                            <br><br>
+                            <em>Think of it this way: Area is for covering (like paint), Volume is for filling (like water)</em>
+                        </div>
+                        <div class="write-down-note">
+                            <p>✍️ NOTE: Area = 2D (square units), Volume = 3D (cubic units)</p>
+                        </div>
+                    </div>
+                </div>
+            `
+        },
+        {
+            title: "Review Question 2",
+            content: `
+                <div class="warmup-banner">🔄 REVIEW: Yesterday's Learning</div>
+                
+                <div class="question-card">
+                    <div class="question-text">Question 2: Give me TWO reasons why a circle is NOT a polygon</div>
+                    <button class="reveal-btn" onclick="revealAnswer('review2')">🔍 Click to Reveal Answer</button>
+                    <div class="answer-box" id="review2">
+                        <div class="answer-text">
+                            <strong>Reason 1: No Straight Sides</strong>
+                            <br>• A polygon MUST have straight line segments as sides
+                            <br>• A circle is curved all the way around with NO straight sides
+                            <br><br>
+                            <strong>Reason 2: No Vertices (Corners)</strong>
+                            <br>• A polygon MUST have vertices where sides meet
+                            <br>• A circle has NO corners or vertices because it's completely round
+                            <br><br>
+                            <em>Remember: A circle is still a 2D shape, just not a polygon!</em>
+                        </div>
+                        <div class="write-down-note">
+                            <p>✍️ NOTE: Circle ≠ Polygon (no straight sides, no vertices)</p>
+                        </div>
+                    </div>
+                </div>
+            `
+        },
+        {
+            title: "What is a Cylinder?",
+            content: `
+                <h2>Understanding Cylinders</h2>
+                
+                <div class="definition-box">
+                    <div class="definition-term">What is a CYLINDER?</div>
+                    <div class="definition-text">
+                        A cylinder is a 3D shape created when we take a CIRCLE and extend it into the third dimension by adding length (or height).
+                        <br><br>
+                        Think of it as: Circle + Length = Cylinder
+                    </div>
+                </div>
+                
+                <div class="diagram-container">
+                    <svg class="diagram-svg" viewBox="0 0 400 300">
+                        <!-- Circle -->
+                        <circle cx="100" cy="150" r="60" fill="#60A5FA" stroke="#2563EB" stroke-width="3"/>
+                        <text x="100" y="240" text-anchor="middle" font-size="18" font-weight="bold">Circle (2D)</text>
+                        
+                        <!-- Arrow -->
+                        <path d="M 180 150 L 240 150" stroke="#F59E0B" stroke-width="4" fill="none"/>
+                        <polygon points="240,150 230,145 230,155" fill="#F59E0B"/>
+                        <text x="210" y="140" text-anchor="middle" font-size="16" font-weight="bold" fill="#F59E0B">+ Length</text>
+                        
+                        <!-- Cylinder -->
+                        <ellipse cx="320" cy="110" rx="50" ry="15" fill="#93C5FD" stroke="#2563EB" stroke-width="2"/>
+                        <rect x="270" y="110" width="100" height="80" fill="#60A5FA" stroke="none"/>
+                        <ellipse cx="320" cy="190" rx="50" ry="15" fill="#2563EB" stroke="#2563EB" stroke-width="2"/>
+                        <line x1="270" y1="110" x2="270" y2="190" stroke="#2563EB" stroke-width="2"/>
+                        <line x1="370" y1="110" x2="370" y2="190" stroke="#2563EB" stroke-width="2"/>
+                        <text x="320" y="240" text-anchor="middle" font-size="18" font-weight="bold">Cylinder (3D)</text>
+                    </svg>
+                </div>
+                
+                <div class="key-point">
+                    <p>💡 Real-life examples: Cans, pipes, batteries, water bottles, drums</p>
+                </div>
+                
+                <div class="write-down-note">
+                    <p>✍️ WRITE DOWN: Cylinder = Circle extended into 3D with length/height</p>
+                </div>
+            `
+        },
+        {
+            title: "What is a Prism?",
+            content: `
+                <h2>Understanding Prisms</h2>
+                
+                <div class="definition-box">
+                    <div class="definition-term">What is a PRISM?</div>
+                    <div class="definition-text">
+                        A prism is a 3D shape created when we take ANY POLYGON and extend it into the third dimension by adding length (or height).
+                        <br><br>
+                        Think of it as: Polygon + Length = Prism
+                    </div>
+                </div>
+                
+                <div class="diagram-container">
+                    <svg class="diagram-svg" viewBox="0 0 400 300">
+                        <!-- Rectangle -->
+                        <rect x="50" y="100" width="80" height="100" fill="#A78BFA" stroke="#7C3AED" stroke-width="3"/>
+                        <text x="90" y="220" text-anchor="middle" font-size="16" font-weight="bold">Rectangle (2D)</text>
+                        
+                        <!-- Arrow -->
+                        <path d="M 150 150 L 210 150" stroke="#F59E0B" stroke-width="4" fill="none"/>
+                        <polygon points="210,150 200,145 200,155" fill="#F59E0B"/>
+                        <text x="180" y="140" text-anchor="middle" font-size="14" font-weight="bold" fill="#F59E0B">+ Length</text>
+                        
+                        <!-- Rectangular Prism -->
+                        <g transform="translate(250, 80)">
+                            <rect x="0" y="40" width="80" height="100" fill="#A78BFA" stroke="#7C3AED" stroke-width="2"/>
+                            <path d="M 0 40 L 30 20 L 110 20 L 80 40 Z" fill="#C4B5FD" stroke="#7C3AED" stroke-width="2"/>
+                            <path d="M 80 40 L 110 20 L 110 120 L 80 140 Z" fill="#8B5CF6" stroke="#7C3AED" stroke-width="2"/>
+                        </g>
+                        <text x="290" y="220" text-anchor="middle" font-size="16" font-weight="bold">Rectangular Prism (3D)</text>
+                    </svg>
+                </div>
+                
+                <div class="key-point">
+                    <p>💡 There are MANY types of prisms because there are many polygons: triangular prisms, rectangular prisms (cuboids), pentagonal prisms, hexagonal prisms, etc.</p>
+                </div>
+                
+                <div class="write-down-note">
+                    <p>✍️ WRITE DOWN: Prism = Any polygon extended into 3D with length/height</p>
+                </div>
+            `
+        },
+        {
+            title: "Cross-Section Definition",
+            content: `
+                <h2>What is a Cross-Section?</h2>
+                
+                <div class="definition-box">
+                    <div class="definition-term">CROSS-SECTION</div>
+                    <div class="definition-text">
+                        A cross-section is the 2D shape (face) you see when you cut straight through a 3D solid.
+                        <br><br>
+                        Think of it like slicing through bread or cheese - the flat surface you see is the cross-section!
+                    </div>
+                </div>
+                
+                <div class="diagram-container">
+                    <svg class="diagram-svg" viewBox="0 0 500 250">
+                        <!-- Cylinder with cut -->
+                        <ellipse cx="150" cy="80" rx="50" ry="15" fill="#93C5FD" stroke="#2563EB" stroke-width="2"/>
+                        <rect x="100" y="80" width="100" height="100" fill="#60A5FA" stroke="none"/>
+                        <ellipse cx="150" cy="180" rx="50" ry="15" fill="#2563EB" stroke="#2563EB" stroke-width="2"/>
+                        <line x1="100" y1="80" x2="100" y2="180" stroke="#2563EB" stroke-width="2"/>
+                        <line x1="200" y1="80" x2="200" y2="180" stroke="#2563EB" stroke-width="2"/>
+                        
+                        <!-- Cut line -->
+                        <line x1="80" y1="130" x2="220" y2="130" stroke="#EF4444" stroke-width="3" stroke-dasharray="10,5"/>
+                        
+                        <!-- Arrow -->
+                        <path d="M 240 130 L 300 130" stroke="#F59E0B" stroke-width="3" fill="none"/>
+                        <polygon points="300,130 290,125 290,135" fill="#F59E0B"/>
+                        
+                        <!-- Cross-section (circle) -->
+                        <circle cx="380" cy="130" r="50" fill="#FCA5A5" stroke="#EF4444" stroke-width="3"/>
+                        <text x="380" y="200" text-anchor="middle" font-size="16" font-weight="bold">Cross-section</text>
+                        <text x="380" y="220" text-anchor="middle" font-size="14" fill="#EF4444">(It's a circle!)</text>
+                    </svg>
+                </div>
+                
+                <div class="key-point">
+                    <p>🔪 For a cylinder: The cross-section is a CIRCLE</p>
+                </div>
+                
+                <div class="key-point">
+                    <p>🔪 For a prism: The cross-section is the POLYGON shape it started from</p>
+                </div>
+                
+                <div class="write-down-note">
+                    <p>✍️ WRITE DOWN: Cross-section = the 2D face when you cut through a 3D shape</p>
+                </div>
+            `
+        },
+        {
+            title: "Finding Volume Formula",
+            content: `
+                <h2>How to Find Volume of Cylinders and Prisms</h2>
+                
+                <div class="definition-box" style="background: linear-gradient(135deg, #D1FAE5 0%, #A7F3D0 100%); border-color: var(--success);">
+                    <div class="definition-term" style="color: var(--success);">UNIVERSAL VOLUME FORMULA</div>
+                    <div class="definition-text" style="font-size: clamp(1.5rem, 3.5vmin, 2.5rem);">
+                        Volume = Area of Cross-Section × Height
+                        <br><br>
+                        <span style="font-size: clamp(1.125rem, 2.5vmin, 1.75rem);">or</span>
+                        <br><br>
+                        V = A × h
+                    </div>
+                </div>
+                
+                <div class="key-point" style="background: linear-gradient(135deg, #DBEAFE 0%, #BFDBFE 100%); border-color: var(--primary);">
+                    <p style="font-size: clamp(1.25rem, 2.75vmin, 2rem);">For a CYLINDER: V = πr² × h (because the cross-section is a circle with area πr²)</p>
+                </div>
+                
+                <div class="key-point" style="background: linear-gradient(135deg, #E0E7FF 0%, #C7D2FE 100%); border-color: var(--indigo);">
+                    <p style="font-size: clamp(1.25rem, 2.75vmin, 2rem);">For a RECTANGULAR PRISM: V = (l × w) × h (because the cross-section is a rectangle with area l × w)</p>
+                </div>
+                
+                <div class="key-point" style="background: linear-gradient(135deg, #FCE7F3 0%, #FBCFE8 100%); border-color: var(--pink);">
+                    <p style="font-size: clamp(1.25rem, 2.75vmin, 2rem);">For a TRIANGULAR PRISM: V = (½ × b × h) × length (because the cross-section is a triangle)</p>
+                </div>
+                
+                <div class="write-down-note">
+                    <p>✍️ WRITE DOWN: Volume = Area of Cross-Section × Height</p>
+                </div>
+            `
+        },
+        {
+            title: "Common Prisms",
+            content: `
+                <h2>The Most Common Prism</h2>
+                
+                <div class="definition-box">
+                    <div class="definition-term">Rectangular Prism (Cuboid)</div>
+                    <div class="definition-text">
+                        The most common prism is the RECTANGULAR PRISM, also called a CUBOID.
+                        <br><br>
+                        It has a rectangle as its cross-section.
+                        <br><br>
+                        Examples: Boxes, books, rooms, buildings, bricks
+                    </div>
+                </div>
+                
+                <div class="diagram-container">
+                    <svg class="diagram-svg" viewBox="0 0 350 300">
+                        <g transform="translate(50, 50)">
+                            <!-- Front face -->
+                            <rect x="0" y="60" width="120" height="140" fill="#60A5FA" stroke="#2563EB" stroke-width="3"/>
+                            <!-- Top face -->
+                            <path d="M 0 60 L 50 20 L 170 20 L 120 60 Z" fill="#93C5FD" stroke="#2563EB" stroke-width="3"/>
+                            <!-- Right face -->
+                            <path d="M 120 60 L 170 20 L 170 160 L 120 200 Z" fill="#3B82F6" stroke="#2563EB" stroke-width="3"/>
+                            
+                            <!-- Labels -->
+                            <text x="60" y="250" text-anchor="middle" font-size="18" font-weight="bold" fill="#1E3A8A">width</text>
+                            <text x="200" y="90" font-size="18" font-weight="bold" fill="#1E3A8A">length</text>
+                            <text x="-20" y="130" font-size="18" font-weight="bold" fill="#1E3A8A">height</text>
+                        </g>
+                    </svg>
+                </div>
+                
+                <div class="key-point">
+                    <p>📦 Volume of Rectangular Prism = length × width × height</p>
+                </div>
+                
+                <div class="key-point" style="background: linear-gradient(135deg, #FEF3C7 0%, #FDE68A 100%); border-color: var(--accent);">
+                    <p>💡 But you can make prisms from ANY polygon: triangles, pentagons, hexagons, octagons - just take the polygon's area and multiply by the height!</p>
+                </div>
+            `
+        },
+        {
+            title: "Example - Rectangular Prism",
+            content: `
+                <h2>Example: Volume of Rectangular Prism</h2>
+                
+                <div class="question-card">
+                    <div class="diagram-container">
+                        <svg class="diagram-svg" viewBox="0 0 350 300">
+                            <g transform="translate(50, 40)">
+                                <rect x="0" y="60" width="120" height="100" fill="#A78BFA" stroke="#7C3AED" stroke-width="3"/>
+                                <path d="M 0 60 L 40 30 L 160 30 L 120 60 Z" fill="#C4B5FD" stroke="#7C3AED" stroke-width="3"/>
+                                <path d="M 120 60 L 160 30 L 160 130 L 120 160 Z" fill="#8B5CF6" stroke="#7C3AED" stroke-width="3"/>
+                                
+                                <text x="60" y="200" text-anchor="middle" font-size="20" font-weight="bold">8 m</text>
+                                <text x="180" y="80" font-size="20" font-weight="bold">5 m</text>
+                                <text x="-30" y="110" font-size="20" font-weight="bold">4 m</text>
+                            </g>
+                        </svg>
+                    </div>
+                    
+                    <div class="question-text">
+                        Find the volume of this rectangular prism:<br>
+                        Length = 8 m, Width = 5 m, Height = 4 m
+                    </div>
+                    
+                    <button class="reveal-btn" onclick="revealAnswer('rect-prism')">🔍 Click to Reveal Answer</button>
+                    <div class="answer-box" id="rect-prism">
+                        <div class="answer-text">
+                            <strong>Method 1: Direct Formula</strong><br>
+                            V = length × width × height<br>
+                            V = 8 × 5 × 4<br>
+                            V = <strong>160 m³</strong>
+                            <br><br>
+                            <strong>Method 2: Cross-Section Method</strong><br>
+                            Step 1: Find area of rectangular cross-section<br>
+                            A = 8 × 5 = 40 m²<br>
+                            Step 2: Multiply by height<br>
+                            V = 40 × 4 = <strong>160 m³</strong>
+                        </div>
+                        <div class="write-down-note">
+                            <p>✍️ Both methods work! Volume = 160 cubic meters</p>
+                        </div>
+                    </div>
+                </div>
+            `
+        },
+        {
+            title: "Example - Triangular Prism",
+            content: `
+                <h2>Example: Volume of Triangular Prism</h2>
+                
+                <div class="question-card">
+                    <div class="diagram-container">
+                        <svg class="diagram-svg" viewBox="0 0 400 300">
+                            <g transform="translate(50, 40)">
+                                <!-- Front triangle -->
+                                <polygon points="60,180 0,180 30,120" fill="#F472B6" stroke="#EC4899" stroke-width="3"/>
+                                <!-- Back triangle -->
+                                <polygon points="210,150 150,150 180,90" fill="#FBCFE8" stroke="#EC4899" stroke-width="3"/>
+                                <!-- Connecting edges -->
+                                <line x1="0" y1="180" x2="150" y2="150" stroke="#EC4899" stroke-width="3"/>
+                                <line x1="60" y1="180" x2="210" y2="150" stroke="#EC4899" stroke-width="3"/>
+                                <line x1="30" y1="120" x2="180" y2="90" stroke="#EC4899" stroke-width="3"/>
+                                <!-- Bottom face -->
+                                <path d="M 0 180 L 60 180 L 210 150 L 150 150 Z" fill="#F9A8D4" stroke="#EC4899" stroke-width="3"/>
+                                
+                                <!-- Labels -->
+                                <text x="30" y="210" text-anchor="middle" font-size="18" font-weight="bold">6 cm (base)</text>
+                                <text x="10" y="150" font-size="18" font-weight="bold">8 cm</text>
+                                <text x="240" y="120" font-size="18" font-weight="bold">15 cm (length)</text>
+                                <line x1="30" y1="120" x2="30" y2="180" stroke="black" stroke-width="2" stroke-dasharray="5,5"/>
+                            </g>
+                        </svg>
+                    </div>
+                    
+                    <div class="question-text">
+                        Find the volume of this triangular prism:<br>
+                        Triangle base = 6 cm, Triangle height = 8 cm<br>
+                        Prism length = 15 cm
+                    </div>
+                    
+                    <button class="reveal-btn" onclick="revealAnswer('tri-prism')">🔍 Click to Reveal Answer</button>
+                    <div class="answer-box" id="tri-prism">
+                        <div class="answer-text">
+                            <strong>Step 1: Find area of triangular cross-section</strong><br>
+                            Area of triangle = ½ × base × height<br>
+                            A = ½ × 6 × 8<br>
+                            A = ½ × 48<br>
+                            A = 24 cm²
+                            <br><br>
+                            <strong>Step 2: Multiply by prism length</strong><br>
+                            V = Area × length<br>
+                            V = 24 × 15<br>
+                            V = <strong>360 cm³</strong>
+                        </div>
+                        <div class="write-down-note">
+                            <p>✍️ Remember: Find the triangle area first, then multiply by length!</p>
+                        </div>
+                    </div>
+                </div>
+            `
+        },
+        {
+            title: "Partner Activity",
+            content: `
+                <div class="activity-box">
+                    <div class="activity-title">👥 PARTNER ACTIVITY: Measure & Calculate!</div>
+                    
+                    <div style="text-align: center; margin: clamp(2rem, 4vmin, 3rem) 0;">
+                        <p style="font-size: clamp(1.25rem, 2.75vmin, 2rem); font-weight: 700; color: var(--gray-800);">
+                            Find a rectangular prism OR cylinder in the classroom with your partner!
+                        </p>
+                    </div>
+                    
+                    <div class="key-point" style="background: linear-gradient(135deg, #FEF3C7 0%, #FDE68A 100%); border-color: var(--accent);">
+                        <p style="font-size: clamp(1.125rem, 2.5vmin, 1.75rem);">
+                            <strong>Your Task:</strong><br>
+                            1️⃣ Choose an object (box, can, book, container, etc.)<br>
+                            2️⃣ Measure its relevant dimensions<br>
+                            3️⃣ Calculate its volume<br>
+                            4️⃣ Write your answer with units!
+                        </p>
+                    </div>
+                    
+                    <div class="definition-box" style="margin-top: clamp(2rem, 4vmin, 3rem);">
+                        <div class="definition-text" style="text-align: left;">
+                            <strong style="color: var(--primary);">For a Rectangular Prism (box/book):</strong><br>
+                            • Measure: length, width, height<br>
+                            • Calculate: V = length × width × height
+                            <br><br>
+                            <strong style="color: var(--indigo);">For a Cylinder (can/bottle):</strong><br>
+                            • Measure: diameter (or radius) and height<br>
+                            • Calculate: V = πr²h (use π = 3.14)<br>
+                            • Remember: radius = diameter ÷ 2
+                        </div>
+                    </div>
+                    
+                    <div class="key-point" style="margin-top: clamp(2rem, 4vmin, 3rem); background: var(--gradient-primary); border: none;">
+                        <p style="color: white; font-size: clamp(1.125rem, 2.5vmin, 1.75rem);">
+                            ⏰ You have 10 minutes to measure and calculate!<br>
+                            Mr. Bowen will provide measuring tools.
+                        </p>
+                    </div>
+                </div>
+            `
+        },
+        {
+            title: "Is a Sphere a Cylinder?",
+            content: `
+                <h2>Question: Is a Sphere a Cylinder?</h2>
+                
+                <div class="question-card">
+                    <div class="diagram-container">
+                        <svg class="diagram-svg" viewBox="0 0 300 200">
+                            <circle cx="150" cy="100" r="70" fill="#F472B6" stroke="#EC4899" stroke-width="3"/>
+                            <ellipse cx="150" cy="100" rx="70" ry="25" fill="none" stroke="#EC4899" stroke-width="2" stroke-dasharray="5,5"/>
+                            <text x="150" y="190" text-anchor="middle" font-size="20" font-weight="bold">Sphere</text>
+                        </svg>
+                    </div>
+                    
+                    <div class="question-text" style="margin-top: clamp(2rem, 4vmin, 3rem);">
+                        Think about what we learned about cylinders.<br>
+                        Is a sphere (like a ball) a cylinder?<br>
+                        Why or why not?
+                    </div>
+                    
+                    <button class="reveal-btn" onclick="revealAnswer('sphere-answer')" style="margin-top: clamp(2rem, 4vmin, 3rem);">🔍 Click to Reveal Answer</button>
+                    <div class="answer-box" id="sphere-answer">
+                        <div class="answer-text">
+                            <strong style="color: var(--red); font-size: clamp(1.375rem, 3.25vmin, 2rem);">NO, a sphere is NOT a cylinder!</strong>
+                            <br><br>
+                            <strong>Why not?</strong><br>
+                            • A cylinder has a CIRCULAR cross-section (flat circle on top and bottom)<br>
+                            • A sphere has NO flat faces at all - it's completely curved<br>
+                            • A cylinder is made by extending a circle with straight sides<br>
+                            • A sphere has no straight edges anywhere
+                            <br><br>
+                            <em>A sphere is a 3D solid, but it's NOT a cylinder or a prism!</em>
+                        </div>
+                    </div>
+                </div>
+            `
+        },
+        {
+            title: "Is a Cone a Cylinder?",
+            content: `
+                <h2>Question: Is a Cone a Cylinder?</h2>
+                
+                <div class="question-card">
+                    <div class="diagram-container">
+                        <svg class="diagram-svg" viewBox="0 0 300 250">
+                            <ellipse cx="150" cy="200" rx="70" ry="20" fill="#60A5FA" stroke="#2563EB" stroke-width="2"/>
+                            <path d="M 80 200 L 150 50 L 220 200" fill="#93C5FD" stroke="#2563EB" stroke-width="3"/>
+                            <text x="150" y="240" text-anchor="middle" font-size="20" font-weight="bold">Cone</text>
+                        </svg>
+                    </div>
+                    
+                    <div class="question-text" style="margin-top: clamp(2rem, 4vmin, 3rem);">
+                        Think about ice cream cones, traffic cones, party hats...<br>
+                        Is a cone a cylinder? How is it different?
+                    </div>
+                    
+                    <button class="reveal-btn" onclick="revealAnswer('cone-answer')" style="margin-top: clamp(2rem, 4vmin, 3rem);">🔍 Click to Reveal Answer</button>
+                    <div class="answer-box" id="cone-answer">
+                        <div class="answer-text">
+                            <strong style="color: var(--red); font-size: clamp(1.375rem, 3.25vmin, 2rem);">NO, a cone is NOT a cylinder!</strong>
+                            <br><br>
+                            <strong>How is it different?</strong><br>
+                            • A CYLINDER has the same circular cross-section all the way up (parallel sides)<br>
+                            • A CONE starts with a circle at the bottom but comes to a POINT at the top<br>
+                            • A cylinder has two circular faces (top and bottom)<br>
+                            • A cone has only ONE circular face (the bottom)
+                            <br><br>
+                            <strong>What they share:</strong><br>
+                            Both have a circular base, but only the cylinder maintains that circle throughout its height!
+                        </div>
+                    </div>
+                </div>
+            `
+        },
+        {
+            title: "Looking for Cones",
+            content: `
+                <h2>🔍 Do You See Any Cones in Our Classroom?</h2>
+                
+                <div class="activity-box">
+                    <div style="text-align: center; margin: clamp(2rem, 4vmin, 3rem) 0;">
+                        <p style="font-size: clamp(1.25rem, 2.75vmin, 2rem); font-weight: 700; color: var(--gray-800);">
+                            Look around the classroom!<br>
+                            Can you spot any cone-shaped objects?
+                        </p>
+                    </div>
+                    
+                    <div class="key-point" style="background: linear-gradient(135deg, #FEF3C7 0%, #FDE68A 100%); border-color: var(--accent);">
+                        <p style="font-size: clamp(1.125rem, 2.5vmin, 1.75rem);">
+                            <strong>Things that might be cone-shaped:</strong><br>
+                            🎉 Party hats<br>
+                            🚧 Toy traffic cones<br>
+                            🎄 Christmas tree!<br>
+                            📐 Funnel shapes<br>
+                            ✏️ Pencil sharpener shavings container<br>
+                            🍦 Ice cream cone (if we have pictures)
+                        </p>
+                    </div>
+                    
+                    <div class="key-point" style="margin-top: clamp(2rem, 4vmin, 3rem); background: var(--gradient-primary); border: none;">
+                        <p style="color: white; font-size: clamp(1.125rem, 2.5vmin, 1.75rem);">
+                            💡 Speaking of our Christmas tree...<br>
+                            Let's continue our project from yesterday!
+                        </p>
+                    </div>
+                </div>
+            `
+        },
+        {
+            title: "Christmas Tree Activity",
+            content: `
+                <h2>🎄 Continue: Christmas Tree Volume Project</h2>
+                
+                <div class="definition-box" style="background: linear-gradient(135deg, #D1FAE5 0%, #A7F3D0 100%); border-color: var(--success);">
+                    <div class="definition-term" style="color: var(--success);">Volume of Our Christmas Tree (Cone)</div>
+                    <div class="definition-text" style="color: var(--gray-800);">
+                        We started measuring yesterday - let's finish calculating!
+                        <br><br>
+                        Formula for cone: V = ⅓πr²h
+                    </div>
+                </div>
+                
+                <div class="key-point" style="margin-top: clamp(2rem, 4vmin, 3rem); background: var(--gradient-primary); border: none;">
+                    <p style="color: white; font-size: clamp(1.25rem, 2.75vmin, 2rem);">
+                        👨‍🔬 Project Leader: Minh Vu<br>
+                        Minh will share our measurements!
+                    </p>
+                </div>
+                
+                <div class="activity-box" style="margin-top: clamp(2rem, 4vmin, 3rem);">
+                    <div class="definition-text" style="text-align: left;">
+                        <strong style="color: var(--primary); font-size: clamp(1.25rem, 2.75vmin, 2rem);">📝 Our measurements:</strong><br><br>
+                        <p style="font-size: clamp(1.125rem, 2.5vmin, 1.75rem);">
+                        Height (h) = _______ cm<br>
+                        Diameter = _______ cm<br>
+                        Radius (r) = Diameter ÷ 2 = _______ cm
+                        </p>
+                        <br>
+                        <strong style="color: var(--indigo); font-size: clamp(1.25rem, 2.75vmin, 2rem);">🧮 Let's calculate together:</strong><br><br>
+                        <p style="font-size: clamp(1.125rem, 2.5vmin, 1.75rem);">
+                        V = ⅓πr²h<br>
+                        V = ⅓ × 3.14 × ___² × ___<br>
+                        V = _______ cm³
+                        </p>
+                    </div>
+                </div>
+                
+                <div class="write-down-note" style="margin-top: clamp(2rem, 4vmin, 3rem);">
+                    <p>✍️ Write down our tree's volume in your notebook!</p>
+                </div>
+            `
+        },
+        {
+            title: "Next Activity - Jeopardy",
+            content: `
+                <div class="activity-box" style="background: linear-gradient(135deg, #FEF3C7 0%, #FDE68A 100%); border-color: var(--accent);">
+                    <div class="activity-title" style="color: var(--accent-dark);">🎮 UP NEXT: CLASS JEOPARDY!</div>
+                    
+                    <div style="text-align: center; margin: clamp(3rem, 5vmin, 4rem) 0;">
+                        <p style="font-size: clamp(1.5rem, 3.5vmin, 2.5rem); font-weight: 800; color: var(--gray-800);">
+                            Time to test what you've learned!
+                        </p>
+                    </div>
+                    
+                    <div class="key-point" style="background: var(--gradient-primary); border: none; margin: clamp(2rem, 4vmin, 3rem) 0;">
+                        <p style="color: white; font-size: clamp(1.25rem, 2.75vmin, 2rem);">
+                            🏆 Categories will include:<br>
+                            • Area of 2D shapes<br>
+                            • Volume of prisms<br>
+                            • Volume of cylinders<br>
+                            • Cross-sections<br>
+                            • Real-world problems
+                        </p>
+                    </div>
+                    
+                    <div class="definition-box">
+                        <div class="definition-text">
+                            <strong style="font-size: clamp(1.25rem, 2.75vmin, 2rem); color: var(--primary);">How it works:</strong><br><br>
+                            • Teams of 3-4 students<br>
+                            • Choose a category and point value<br>
+                            • Discuss with your team<br>
+                            • First team to raise hand gets to answer<br>
+                            • Points for correct answers!
+                        </div>
+                    </div>
+                    
+                    <div class="key-point" style="margin-top: clamp(2rem, 4vmin, 3rem); background: linear-gradient(135deg, #D1FAE5 0%, #A7F3D0 100%); border-color: var(--success);">
+                        <p style="color: var(--success); font-size: clamp(1.125rem, 2.5vmin, 1.75rem);">
+                            💪 Get ready to show what you know!
+                        </p>
+                    </div>
+                </div>
+            `
+        },
+        {
+            title: "Important Reminders",
+            content: `
+                <div class="homework-banner">📢 IMPORTANT REMINDERS!</div>
+                
+                <div class="question-card" style="border-color: var(--accent); background: linear-gradient(135deg, #FEF3C7 0%, #FDE68A 100%);">
+                    <div class="question-text" style="text-align: left; color: var(--gray-900);">
+                        <strong style="font-size: clamp(1.5rem, 3.5vmin, 2.5rem); color: var(--accent-dark);">📝 Weekend Homework:</strong>
+                        <br><br>
+                        You have TWO homework quizzes posted for the weekend:
+                        <br><br>
+                        <span style="font-size: clamp(1.125rem, 2.5vmin, 1.75rem);">
+                        ✅ Quiz 1: Area of 2D Shapes<br>
+                        ✅ Quiz 2: Volume of 3D Shapes
+                        </span>
+                        <br><br>
+                        <strong style="color: var(--red);">DUE: Monday morning!</strong>
+                    </div>
+                </div>
+                
+                <div class="question-card" style="border-color: var(--red); background: linear-gradient(135deg, #FEE2E2 0%, #FECACA 100%); margin-top: clamp(2rem, 4vmin, 3rem);">
+                    <div class="question-text" style="text-align: left; color: var(--gray-900);">
+                        <strong style="font-size: clamp(1.5rem, 3.5vmin, 2.5rem); color: var(--red);">⚠️ PROGRESSION REVIEW ASSESSMENTS:</strong>
+                        <br><br>
+                        <span style="font-size: clamp(1.25rem, 2.75vmin, 2rem);">
+                        📅 Thursday (next week)<br>
+                        📅 Friday (next week)<br>
+                        📅 Monday (following week)
+                        </span>
+                        <br><br>
+                        These assessments will cover everything we've learned in Unit 8.3!
+                    </div>
+                </div>
+                
+                <div class="key-point" style="margin-top: clamp(2rem, 4vmin, 3rem); background: var(--gradient-primary); border: none;">
+                    <p style="color: white; font-size: clamp(1.25rem, 2.75vmin, 2rem);">
+                        💡 Study this weekend! Review your notes on area and volume.
+                    </p>
+                </div>
+            `
+        },
+        {
+            title: "Summary",
+            content: `
+                <h2>📚 What We Learned Today</h2>
+                
+                <div class="definition-box" style="margin-bottom: clamp(2rem, 4vmin, 3rem);">
+                    <div class="definition-term">Today's Key Concepts</div>
+                </div>
+                
+                <div class="key-point" style="background: linear-gradient(135deg, #DBEAFE 0%, #BFDBFE 100%); border-color: var(--primary);">
+                    <p>1️⃣ <strong>Cylinder</strong> = Circle extended into 3D with height</p>
+                </div>
+                
+                <div class="key-point" style="background: linear-gradient(135deg, #E0E7FF 0%, #C7D2FE 100%); border-color: var(--indigo);">
+                    <p>2️⃣ <strong>Prism</strong> = Any polygon extended into 3D with height</p>
+                </div>
+                
+                <div class="key-point" style="background: linear-gradient(135deg, #FCE7F3 0%, #FBCFE8 100%); border-color: var(--pink);">
+                    <p>3️⃣ <strong>Cross-section</strong> = The 2D face when you cut through a 3D shape</p>
+                </div>
+                
+                <div class="key-point" style="background: linear-gradient(135deg, #D1FAE5 0%, #A7F3D0 100%); border-color: var(--success);">
+                    <p>4️⃣ <strong>Volume Formula</strong> = Area of cross-section × Height</p>
+                </div>
+                
+                <div class="key-point" style="background: linear-gradient(135deg, #FEF3C7 0%, #FDE68A 100%); border-color: var(--accent);">
+                    <p>5️⃣ A <strong>sphere</strong> is NOT a cylinder and a <strong>cone</strong> is NOT a cylinder!</p>
+                </div>
+                
+                <div class="objective-box" style="margin-top: clamp(3rem, 5vmin, 4rem);">
+                    <div class="box-title">🎉 Excellent Work, Year 8!</div>
+                    <div class="box-content">
+                        You measured real objects, calculated volumes, and explored our Christmas tree!<br>
+                        Now get ready for Jeopardy!
+                    </div>
+                </div>
+            `
+        }
+    ];
+
+    let currentSlide = 0;
+
+    function updateSlide() {
+        const slideContent = document.getElementById('slide-content');
+        slideContent.innerHTML = slides[currentSlide].content;
+        slideContent.className = 'slide fade-in';
+        
+        const progress = ((currentSlide + 1) / slides.length) * 100;
+        document.getElementById('progress-fill').style.width = `${progress}%`;
+        document.getElementById('current-slide').textContent = `Slide ${currentSlide + 1}`;
+        document.getElementById('total-slides').textContent = `of ${slides.length}`;
+        
+        document.getElementById('prev-btn').disabled = currentSlide === 0;
+        document.getElementById('next-btn').disabled = currentSlide === slides.length - 1;
+    }
+
+    function changeSlide(direction) {
+        const newSlide = currentSlide + direction;
+        if (newSlide >= 0 && newSlide < slides.length) {
+            currentSlide = newSlide;
+            updateSlide();
+        }
+    }
+
+    function revealAnswer(answerId) {
+        const answerBox = document.getElementById(answerId);
+        if (answerBox) {
+            answerBox.classList.add('show');
+        }
+    }
+
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'ArrowLeft') changeSlide(-1);
+        if (e.key === 'ArrowRight') changeSlide(1);
+    });
+
+    updateSlide();
+</script>
+
+</body>
+</html>
